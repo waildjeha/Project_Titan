@@ -26,7 +26,7 @@ Follow these steps to run the simulation:
 * Use the following command to clone the repository:
 
     ```bash
-    git clone [https://github.com/waildjeha/Project_1_2](https://github.com/waildjeha/Project_Titan)
+    git clone https://github.com/waildjeha/Project_Titan
     ```
 
 **3. Navigate to the Cloned Folder:**
