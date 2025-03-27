@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -72,10 +73,6 @@ public class ODESolverGUI extends Application{
         initialConditionMap = new LinkedHashMap<>();
         variableEquations = new ArrayList<>();
 
-        // Arrange everything in a VBox.
-        root = new VBox(10, equationInput, parseButton, solverSelection, dynamicInputsGrid, runButton);
-        root.setPadding(new Insets(15));
-
         // Set up X and Y Axes for the chart
         xAxis = new NumberAxis();
         xAxis.setLabel("Time");
@@ -88,17 +85,24 @@ public class ODESolverGUI extends Application{
         resultChart.setTitle("ODE Simulation Results");
 
         // Set chart size and appearance
-        resultChart.setPrefHeight(300);
-        
-        // Add chart to the root layout
-        root.getChildren().add(resultChart);
+        resultChart.setMinHeight(400);
 
         // Set up the button actions
         parseButton.setOnAction(e -> generateInputFields()); // Method generateInputFields is called when the button is clicked.
         runButton.setOnAction(e -> runSimulation());    // Method runSimulation is called when the button is clicked.
-    
+        
+        // Create a VBox for all the content together.
+        root = new VBox(10, equationInput, parseButton, solverSelection, dynamicInputsGrid, runButton, resultChart);
+        root.setPadding(new Insets(15));
+        
+        // Create a scrollPane to scroll over the content.
+        ScrollPane scrollPane = new ScrollPane(root);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(false);
+        scrollPane.setPannable(true);
+
         // Create the scene and show the window.
-        Scene scene = new Scene(root, 600, 500);
+        Scene scene = new Scene(scrollPane, 600, 500);
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -135,7 +139,7 @@ public class ODESolverGUI extends Application{
     }
 
     private List<String[]> extractVariablesAndEquations(String[] equations){
-        // Create a list to store arrays with for every array an variable name and a right hand side of an equation.
+        // Create a list to store arrays with for every array a variable name and a right hand side of an equation.
         List<String[]> varEquations = new ArrayList<>();
 
         // Loop through the equations entered by the user.
@@ -155,37 +159,12 @@ public class ODESolverGUI extends Application{
         }
         return varEquations;
     }
-    /*
-    private List<String> extractVariables(String[] equations) {
-        // Create a list for the variable names.
-        List<String> variables = new ArrayList<>();
-    
-        for (String eq : equations) {
-            eq = eq.trim(); // Transform the equation into a string without spaces.
-            if (eq.startsWith("d") && eq.contains("/dt")) {
-                // Extract variable between "d" and "/dt"
-                int start = 1; // Skip the "d"
-                int end = eq.indexOf("/dt");
-                if (end > start) {
-                    String varName = eq.substring(start, end).trim();
-                    if (!variables.contains(varName)) {
-                        variables.add(varName); // Only add a variable if it does not already exist in the list.
-                    }
-                }
-            }
-        }
-    
-        return variables;
-    }*/
 
     private void runSimulation(){
         try{
             // Retrieve step size and duration entered by the user.
             double stepSize = Double.parseDouble(stepSizeField.getText());
             double duration = Double.parseDouble(durationField.getText());
-
-            // Compute total number of steps required.
-            int steps = (int) (duration / stepSize);
 
             // Create an array to store the system's state variables.
             double[] initialState = new double[variableEquations.size()];
@@ -200,14 +179,25 @@ public class ODESolverGUI extends Application{
                 initialState[i] = Double.parseDouble(initialConditionMap.get(varName).getText());
             }
 
+            System.out.println("Variable Mapping:");
+            for (int i = 0; i < variableEquations.size(); i++) {
+                System.out.println("Variable: " + variableEquations.get(i)[0] + 
+                                " -> Initial State: " + initialState[i]);
+            }
+
             // Create derivatives funtion.
             OdeFunction derivatives = (time, state) -> {
                 ODEFunctionEvaluator evaluator = new ODEFunctionEvaluator();
                 double[] derivativesArray = new double[state.length];
+                System.out.println("Time: " + time);  // Debugging print
                 for (int i = 0; i < state.length; i++) {
                     try {
                         String rhs = variableEquations.get(i)[1];
                         derivativesArray[i] = evaluator.evaluate(rhs, state, variableNames);
+                        // Debugging print to check if the derivative is computed correctly
+                        System.out.println("Variable: " + variableEquations.get(i)[0] + 
+                        ", Equation: " + rhs + 
+                        ", Evaluated Derivative: " + derivativesArray[i]);
                     } catch (Exception e) {
                         showAlert("Error evaluating equation: " + e.getMessage());
                         return null;
@@ -265,6 +255,12 @@ public class ODESolverGUI extends Application{
     
             // Add the series to the chart
             resultChart.getData().add(series);
+
+            // Remove symbols (dots)
+            resultChart.setCreateSymbols(false);
+
+            // Make the line thinner
+            series.getNode().lookup(".chart-series-line").setStyle("-fx-stroke-width: 1px;");
         }
     }
 
