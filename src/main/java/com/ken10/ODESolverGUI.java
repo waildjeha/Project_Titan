@@ -42,6 +42,12 @@ public class ODESolverGUI extends Application{
         // Set window title
         primaryStage.setTitle("ODE Solver");
 
+        // Create a label and explanation for the equation input field.
+        Label equationLabel = new Label("Welcome to the dynamic GUI to create simulations from systems of ODE's.\n" + 
+        "Please enter a system of ODE's of your choice in the textfield below.\n" +
+        "Please enter one equation per line and write the equations in the form dx/dt = ...\n" + 
+        "When you want to write for example 2y, please write this as 2*y.");
+
         // Create textarea for equations
         equationInput = new TextArea();
         equationInput.setPromptText("Enter ODEs (one per line)");
@@ -50,6 +56,9 @@ public class ODESolverGUI extends Application{
         // Create buttons.
         parseButton = new Button("Generate input fields for initial conditions");
         runButton = new Button("Run Simulation");
+
+        // Create a label for the solver selection.
+        Label solverToSelect = new Label("Choose which solver you want to use for solving the system of ODE's:");
 
         // Create Combobox for selecting the appropriate solver.
         solverSelection = new ComboBox<>();
@@ -107,7 +116,7 @@ public class ODESolverGUI extends Application{
         runButton.setOnAction(e -> runSimulation());    // Method runSimulation is called when the button is clicked.
         
         // Create a VBox for all the content together.
-        root = new VBox(10, equationInput, parseButton, solverSelection, dynamicInputsGrid, runButton, resultChart, resultTable);
+        root = new VBox(10, equationLabel, equationInput, parseButton, solverToSelect, solverSelection, dynamicInputsGrid, runButton, resultChart, resultTable);
         root.setPadding(new Insets(15));
         
         // Create a scrollPane to scroll over the content.
