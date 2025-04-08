@@ -1,33 +1,31 @@
-package com.ken10;
+package com.ken10.phase2;
 
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
-public abstract class ODESolver {
-    protected OdeFunction derivativeFunction;
-    protected double[] state;
+public abstract class Solver implements ODE_Function {
+    protected ArrayList<Body> planetarySystem;
+//    protected ArrayList<Body> planetaryDerivatives;
     protected double time;
     protected double endTime;
     protected double stepSize;
-    protected List<TimeState> history;
+    protected List<Solver.TimeState> history;
 
     /**
      * Initialize the ODE solver
      *
-     * @param derivativeFunction Function that calculates derivatives: dx/dt =
+     * //@param derivativeFunction Function that calculates derivatives: dx/dt =
      *                           f(x,t)
-     * @param initialState       Initial state vector (up to 10 dimensions): dx/dt,
+     * //@param initialState       Initial state vector (up to 10 dimensions): dx/dt,
      *                           dy/dt, dz/dt .......
      * @param startTime          Initial time
      * @param endTime            End time for simulation
      * @param stepSize           Time step size
      */
-    public ODESolver(OdeFunction derivativeFunction, double[] initialState,
-            double startTime, double endTime, double stepSize) {
-        this.derivativeFunction = derivativeFunction;
-        this.state = Arrays.copyOf(initialState, initialState.length);
+    public Solver(ArrayList<Body> planetarySystem, double startTime, double endTime, double stepSize) {
         this.time = startTime;
+        this.planetarySystem = planetarySystem;
+        //this.planetaryDerivatives = planetarySystem.planetaryDerivatives;
         this.endTime = endTime;
         this.stepSize = stepSize;
         this.history = new ArrayList<>();
@@ -43,32 +41,34 @@ public abstract class ODESolver {
 
     /**
      * Run the simulation until endTime
-     * 
-     * @return History of states over time
      */
-    public List<TimeState> solve() {
+    public void solve() {
         while (time < endTime) {
             step();
             recordState();
         }
-        return history;
     }
 
     /**
      * Record current state to history
      */
     protected void recordState() {
-        history.add(new TimeState(time, Arrays.copyOf(state, state.length)));
+        printState();
+        System.out.println();
+        history.add(new Solver.TimeState(time, new ArrayList<>(planetarySystem)));
     }
 
+    void printState(){
+        for (Body b : planetarySystem) {System.out.println(b.toString());}
+    }
     /**
      * Inner class to store time and state together
      */
     public static class TimeState {
         public final double time;
-        public final double[] state;
+        public final ArrayList<Body> state;
 
-        public TimeState(double time, double[] state) {
+        public TimeState(double time, ArrayList<Body> state) {
             this.time = time;
             this.state = state;
         }
