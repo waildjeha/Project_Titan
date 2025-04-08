@@ -13,7 +13,7 @@ public class EulerSolver extends ODESolver {
 
         // Update each dimension of state
         for (int i = 0; i < state.length; i++) {
-            state[i] = state[i] + stepSize * derivatives[i]; // the index i refered to the different componenets of our
+            state[i] = state[i] + stepSize * derivatives[i]; // the index i referred to the different components of our
                                                              // state vector
         }
 
