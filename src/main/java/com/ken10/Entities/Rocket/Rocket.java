@@ -1,4 +1,5 @@
-package com.ken10.Entities;
+package com.ken10.Entities.Rocket;
+import com.ken10.Entities.CelestialBodies;
 import com.ken10.Other.Vector;
 
 public class Rocket extends CelestialBodies {
@@ -16,7 +17,7 @@ public class Rocket extends CelestialBodies {
     }
 
     @Override
-    public void update(double time) {
+    public void update(Vector acceleration, double time) {
         position = position.add(velocity.multiply(time));
     }
 }
