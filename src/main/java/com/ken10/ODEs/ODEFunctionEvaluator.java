@@ -1,21 +1,26 @@
+/*
 package com.ken10.ODEs;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import java.util.List;
 
+*/
 /**
  * Evaluates mathematical expressions for ODEs using exp4j.
- */
+ *//*
+
 public class ODEFunctionEvaluator {
-    /**
+    */
+/**
      * Evaluates the given mathematical expression dynamically.
      * 
      * @param equation      The right-hand side of the ODE.
      * @param variables     The current values of state variables.
      * @param variableNames The names of the state variables.
      * @return The computed derivative value.
-     */
+     *//*
+
     public double evaluate(String equation, double[] variables, List<String> variableNames) {
         // Check if the variable names and values match.
         if (variableNames.size() != variables.length) {
@@ -49,3 +54,4 @@ public class ODEFunctionEvaluator {
         }
     }
 }
+*/

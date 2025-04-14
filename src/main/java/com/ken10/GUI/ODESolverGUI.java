@@ -1,3 +1,4 @@
+/*
 package com.ken10.GUI;
 
 import com.ken10.NumericalSolvers.EulerSolver;
@@ -35,13 +36,15 @@ public class ODESolverGUI extends Application{
     private NumberAxis xAxis, yAxis; // Axes for the chart
     private TableView<String[]> resultTable; // Table for displaying the numerical results of the calculations at the end time.
 
-    /**
+    */
+/**
      * The main entry point for the JavaFX application.
      * This method is automatically called when the application is launched.
      * 
      * @param primaryStage The primary stage (window) for this application, provided by JavaFX.
      *                     It serves as the main container for the application's Scene.
-    */
+    *//*
+
     @Override
     public void start(Stage primaryStage){
         // Set window title
@@ -136,7 +139,8 @@ public class ODESolverGUI extends Application{
         primaryStage.show();
     }
 
-    /**
+    */
+/**
      * Dynamically generates input fields for the initial conditions of the variables,
      * based on the equations entered by the user. This method clears any previously
      * generated input fields, then splits the input equations, extracts variables and 
@@ -147,7 +151,8 @@ public class ODESolverGUI extends Application{
      * The generated input fields are added to a GridPane layout, with labels for each variable 
      * and text fields to input the initial conditions. The step size and simulation duration 
      * fields are added after the variable fields.
-    */
+    *//*
+
     private void generateInputFields(){
         // Clear previous input fields before generating new input fields.
         dynamicInputsGrid.getChildren().clear();
@@ -178,7 +183,8 @@ public class ODESolverGUI extends Application{
         dynamicInputsGrid.add(durationField, 1, variableEquations.size() + 1);
     }
 
-    /**
+    */
+/**
      * Extracts variables and their corresponding equations from the user-entered text.
      * The method assumes that the equations are in the form of a differential equation
      * with a variable followed by a derivative term (e.g., "dx/dt = -x").
@@ -187,7 +193,8 @@ public class ODESolverGUI extends Application{
      *
      * @param equations An array of strings, where each string represents a user-entered equation.
      * @return A list of string arrays, where each array contains a variable name and its corresponding equation.
-    */
+    *//*
+
     private List<String[]> extractVariablesAndEquations(String[] equations){
         // Create a list to store arrays with for every array a variable name and a right hand side of an equation.
         List<String[]> varEquations = new ArrayList<>();
@@ -210,7 +217,8 @@ public class ODESolverGUI extends Application{
         return varEquations;
     }
 
-    /**
+    */
+/**
     * Runs the simulation based on the user input, which includes the selected solver, 
     * initial conditions, step size, and simulation duration.
     * It initializes the state of the system using the initial conditions provided by the user, 
@@ -221,7 +229,8 @@ public class ODESolverGUI extends Application{
     * @see ODESolver  The solver used to compute the system's solution.
     * @see EulerSolver  Solver for the Euler method.
     * @see RungeKutta4Solver  Solver for the Runge-Kutta 4 method.
-    */
+    *//*
+
     private void runSimulation(){
         try{
             // Retrieve step size and duration entered by the user.
@@ -301,12 +310,14 @@ public class ODESolverGUI extends Application{
         }
     }
 
-    /**
+    */
+/**
      * Displays an error alert with the specified message.
      * The alert type is set to ERROR, and the message is shown to the user in a dialog.
      *
      * @param message The error message to be displayed in the alert.
-    */
+    *//*
+
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Input Error");
@@ -315,7 +326,8 @@ public class ODESolverGUI extends Application{
         alert.showAndWait();
     }
 
-    /**
+    */
+/**
      * Plots the results of the simulation in a line chart.
      * The results are added to the chart as series of data points for each state variable.
      * The method sets the series name as the variable name and adds time-state pairs 
@@ -324,7 +336,8 @@ public class ODESolverGUI extends Application{
      *
      * @param results A list of ODESolver.TimeState objects representing the simulation results over time.
      * @see ODESolver.TimeState  A class representing the state of the system at a particular time.
-    */
+    *//*
+
     private void plotResults(List<ODESolver.TimeState> results) {
         // Clear previous data
         resultChart.getData().clear();
@@ -352,14 +365,16 @@ public class ODESolverGUI extends Application{
         }
     }
 
-    /**
+    */
+/**
      * Updates the result table with the final state values from the simulation.
      * The method retrieves the final state from the results, and for each variable, 
      * it adds a row to the table showing the variable name and its final value.
      *
      * @param results A list of ODESolver.TimeState objects representing the simulation results over time.
      * @see ODESolver.TimeState  A class representing the state of the system at a particular time.
-    */
+    *//*
+
     private void updateResultTable(List<ODESolver.TimeState> results) {
         resultTable.getItems().clear();
         ODESolver.TimeState finalState = results.get(results.size() - 1);
@@ -377,3 +392,4 @@ public class ODESolverGUI extends Application{
     }
 }
 
+*/

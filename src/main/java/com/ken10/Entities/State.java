@@ -18,4 +18,7 @@ public class State {
     public State multiply(double c){
         return new State(this.position.multiply(c), this.velocity.multiply(c));
     }
+    public State copy(){
+        return new State(position.copy(), velocity.copy());
+    }
 }

@@ -25,7 +25,7 @@ public abstract class CelestialBodies {
 
 
     public String toString() {
-        return "CelestialBodies [name=" + name + ", position=" + position + ", velocity=";
+        return " [name=" + name + ", position=" + position + ", velocity=" + velocity + ", mass=" + mass + "]";
     }
 
 }

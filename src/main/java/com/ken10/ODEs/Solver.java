@@ -1,13 +1,14 @@
-
 package com.ken10.ODEs;
 
+import com.ken10.Entities.CelestialBodies;
 import com.ken10.Entities.Planets.PlanetModel;
+import com.ken10.Other.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Solver implements ODE_Function {
-    protected ArrayList<PlanetModel> planetarySystem;
+    protected ArrayList<CelestialBodies> planetarySystem;
     //    protected ArrayList<Body> planetaryDerivatives;
     protected double time;
     protected double endTime;
@@ -25,7 +26,7 @@ public abstract class Solver implements ODE_Function {
      * @param endTime            End time for simulation
      * @param stepSize           Time step size
      */
-    public Solver(ArrayList<PlanetModel> planetarySystem, double startTime, double endTime, double stepSize) {
+    public Solver(ArrayList<CelestialBodies> planetarySystem, double startTime, double endTime, double stepSize) {
         this.time = startTime;
         this.planetarySystem = planetarySystem;
         //this.planetaryDerivatives = planetarySystem.planetaryDerivatives;
@@ -56,22 +57,28 @@ public abstract class Solver implements ODE_Function {
      * Record current state to history
      */
     protected void recordState() {
-        printState();
-        System.out.println();
+        for (CelestialBodies body : planetarySystem) {
+            if (body instanceof PlanetModel) {
+                ((PlanetModel) body).recordHistory(time);
+            }
+        }
         history.add(new Solver.TimeState(time, new ArrayList<>(planetarySystem)));
     }
 
-    void printState(){
-        for (PlanetModel b : planetarySystem) {System.out.println(b.toString());}
+    public void printState(){
+        for (CelestialBodies b : planetarySystem) {
+            System.out.println(b.toString());
+        }
     }
+
     /**
      * Inner class to store time and state together
      */
     public static class TimeState {
         public final double time;
-        public final ArrayList<PlanetModel> state;
+        public final ArrayList<CelestialBodies> state;
 
-        public TimeState(double time, ArrayList<PlanetModel> state) {
+        public TimeState(double time, ArrayList<CelestialBodies> state) {
             this.time = time;
             this.state = state;
         }
