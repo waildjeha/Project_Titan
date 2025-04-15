@@ -4,31 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/Planets/SolarSystem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/probe/Probe.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/ODEs/GravityCalc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/App.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/CelestialBodies.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/CelestialBodies.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/GravityCalc.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/Planets/PlanetModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/Planets/PlanetModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/Rocket/Rocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/Rocket/Rocket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/RocketState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/Rocket/RocketState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/SolarSystem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/GUI/ODESolverGUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/NumericalSolvers/EulerSolver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/NumericalSolvers/LotkaVolterraSimulation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/NumericalSolvers/RK4Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/NumericalSolvers/RK4Solver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/NumericalSolvers/RungeKutta4Solver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/NumericalSolvers/Solvers4planets.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/ODEs/ODEFunctionEvaluator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/ODEs/ODESolver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/ODEs/OdeFunction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/ODEs/Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/ODEs/Solver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Other/Derivative.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Other/Derivative.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Other/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Other/Vector.java" afterDir="false" />
-    </list>
+    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -127,7 +103,7 @@
       <workItem from="1744478677510" duration="27413000" />
       <workItem from="1744638270050" duration="3735000" />
       <workItem from="1744667481681" duration="6327000" />
-      <workItem from="1744673874210" duration="9551000" />
+      <workItem from="1744673874210" duration="9975000" />
     </task>
     <task id="LOCAL-00001" summary="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors">
       <option name="closed" value="true" />
