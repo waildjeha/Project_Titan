@@ -6,6 +6,10 @@ import com.ken10.Other.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Planet case of celestial body.
+ * Contains info about time state.
+ */
 public class PlanetModel extends CelestialBodies {
     public List<StateImage> history = new ArrayList<>();
     public PlanetModel(String name, Vector position, Vector velocity, double mass) {

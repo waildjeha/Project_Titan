@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/Planets/SolarSystem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/probe/Probe.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/ODEs/GravityCalc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/CelestialBodies.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/CelestialBodies.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/GravityCalc.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/Planets/PlanetModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/Planets/PlanetModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/Rocket/Rocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/Rocket/Rocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/RocketState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/Rocket/RocketState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/SolarSystem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Entities/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/GUI/ODESolverGUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/NumericalSolvers/EulerSolver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/NumericalSolvers/LotkaVolterraSimulation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/NumericalSolvers/RK4Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/NumericalSolvers/RK4Solver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/NumericalSolvers/RungeKutta4Solver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/NumericalSolvers/Solvers4planets.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/ODEs/ODEFunctionEvaluator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/ODEs/ODESolver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/ODEs/OdeFunction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/ODEs/Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/ODEs/Solver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Other/Derivative.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Other/Derivative.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Other/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Other/Vector.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+      <option value="module" />
+    </option>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dominik" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;DillonPatterson1&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/waildjeha/Project_Titan.git&quot;,
+    &quot;accountId&quot;: &quot;f372f1d3-6f4b-4837-87db-2e66f4b7f4a8&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2v5KjrUm2PM36safK4KAjd56s18" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ExamplePlanetMovement.executor": "Run",
+    "Application.LotkaVolterraSimulation.executor": "Run",
+    "Application.PlanetInfo.executor": "Run",
+    "Application.PlanetMotionTest.executor": "Run",
+    "Application.RK4Solver.executor": "Run",
+    "Application.RocketMissionRunner.executor": "Run",
+    "Application.SolarSystemVisualizer.executor": "Run",
+    "Application.sim.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Dillon",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/dilpa/signal_project",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="" />
+      <created>1743429632972</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1743429632972</updated>
+      <workItem from="1743429634149" duration="12630000" />
+      <workItem from="1743975026598" duration="479000" />
+      <workItem from="1744103308285" duration="5180000" />
+      <workItem from="1744108964139" duration="1330000" />
+      <workItem from="1744478078022" duration="528000" />
+      <workItem from="1744478677510" duration="27413000" />
+      <workItem from="1744638270050" duration="3735000" />
+      <workItem from="1744667481681" duration="6327000" />
+      <workItem from="1744673874210" duration="9551000" />
+    </task>
+    <task id="LOCAL-00001" summary="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors">
+      <option name="closed" value="true" />
+      <created>1743431050521</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1743431050521</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors">
+      <option name="closed" value="true" />
+      <created>1743431269959</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1743431269959</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors">
+      <option name="closed" value="true" />
+      <created>1743431494909</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1743431494909</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors">
+      <option name="closed" value="true" />
+      <created>1743431874746</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1743431874746</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors">
+      <option name="closed" value="true" />
+      <created>1743432133893</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1743432133893</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors">
+      <option name="closed" value="true" />
+      <created>1743432247650</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1743432247650</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors">
+      <option name="closed" value="true" />
+      <created>1744551413839</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1744551413839</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors" />
+  </component>
+</project>

@@ -1,7 +1,9 @@
 package com.ken10.Other;
-//Class to represent position and velocity as vectors in the 3d plain for Entities class.
-//Includes operations on vectors for changing.
 
+/**
+ * Object for Vectors and the properties.
+ * Probably most used class.
+ */
 public class Vector {
     private double x;
     private double y;
@@ -47,6 +49,10 @@ public class Vector {
 
     public Vector copy() {
         return new Vector(this.x, this.y, this.z);
+    }
+    public Vector normalize() {
+        double mag = magnitude();
+        return (mag == 0) ? new Vector(0, 0, 0) : multiply(1.0 / mag);
     }
 
     public String toString() {

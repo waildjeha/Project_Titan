@@ -1,0 +1,225 @@
+Index: src/main/java/com/ken10/NumericalSolvers/LotkaVolterraForPlanets.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ken10.NumericalSolvers;\r\nimport com.ken10.Other.Vector;\r\nimport com.ken10.Entities.Planets;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\nclass LotkaVolterraForPlanets {\r\n    static final double G = 6.6743e-20;\r\n\r\n    public static Vector computeAcceleration(List<Planets> planets, int planetIndex) {\r\n        Vector acceleration = new Vector(0.0, 0.0, 0.0);\r\n        Planets currentPlanet = planets.get(planetIndex);\r\n\r\n        for (int i = 0; i < planets.size(); i++) {\r\n            if (i == planetIndex) continue;\r\n\r\n            Planets nextPlanet = planets.get(i);\r\n            Vector v = currentPlanet.getPosition().subtract(nextPlanet.getPosition());\r\n            double distanceSquared = v.magnitude() * v.magnitude();\r\n            double distance = Math.sqrt(distanceSquared);\r\n\r\n            if (distance == 0) continue;\r\n\r\n            double forceMagnitude = -G * currentPlanet.getMass() * nextPlanet.getMass() / (distance * distance * distance);\r\n            acceleration = acceleration.add(v.multiply(forceMagnitude));\r\n        }\r\n\r\n        return acceleration;\r\n    }\r\n\r\n    public static List<Vector[]> computeDerivatives(List<Planets> planets) {\r\n        List<Vector[]> derivatives = new ArrayList<>();\r\n\r\n        for (int i = 0; i < planets.size(); i++) {\r\n            Vector velocity = planets.get(i).getVelocity();\r\n            Vector acceleration = computeAcceleration(planets, i);\r\n            derivatives.add(new Vector[]{velocity, acceleration});\r\n        }\r\n\r\n        return derivatives;\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/src/main/java/com/ken10/NumericalSolvers/LotkaVolterraForPlanets.java b/src/main/java/com/ken10/NumericalSolvers/LotkaVolterraForPlanets.java
+--- a/src/main/java/com/ken10/NumericalSolvers/LotkaVolterraForPlanets.java	(revision b10688b5c1244bbf122735018de4f072f57dd7cb)
++++ b/src/main/java/com/ken10/NumericalSolvers/LotkaVolterraForPlanets.java	(date 1743438048558)
+@@ -5,6 +5,8 @@
+ import java.util.List;
+ 
+ class LotkaVolterraForPlanets {
++    //Exact same as before just uses Vectors instead
++
+     static final double G = 6.6743e-20;
+ 
+     public static Vector computeAcceleration(List<Planets> planets, int planetIndex) {
+Index: src/main/java/com/ken10/Entities/SolarSystem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ken10.Entities;\r\nimport com.ken10.Other.Vector;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class SolarSystem {\r\n    public static List<Planets> CreatePlanets() {\r\n        ArrayList<Planets> planets = new ArrayList<>();\r\n\r\n        planets.add(new Planets(\"Sun\",new Vector(0,0,0),new Vector(0,0,0),1.99e30));\r\n        planets.add(new Planets(\"Mercury\",new Vector(-1.47e8,-2.97e7,2.75e4),new Vector(5.31e00,-2.93e1,6.69e-4),3.30e23 ));\r\n        planets.add(new Planets(\"Venus\",new Vector(0,0,0),new Vector(), 0));\r\n        planets.add(new Planets(\"Earth\",new Vector(0,0,0),new Vector(), 0));\r\n        planets.add(new Planets(\"Moon\",new Vector(0,0,0),new Vector(),0));\r\n        planets.add(new Planets(\"Mars\",new Vector(0,0,0),new Vector(), 0));\r\n        planets.add(new Planets(\"Jupiter\",new Vector(0,0,0),new Vector(), 0));\r\n        planets.add(new Planets(\"Saturn\",new Vector(0,0,0),new Vector(), 0));\r\n        planets.add(new Planets(\"Titan\",new Vector(0,0,0),new Vector(),0));\r\n        planets.add(new Planets(\"Uranus\",new Vector(0,0,0),new Vector(), 0));\r\n        planets.add(new Planets(\"Neptune\",new Vector(0,0,0),new Vector(), 0));\r\n\r\n        return planets;\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/src/main/java/com/ken10/Entities/SolarSystem.java b/src/main/java/com/ken10/Entities/SolarSystem.java
+--- a/src/main/java/com/ken10/Entities/SolarSystem.java	(revision b10688b5c1244bbf122735018de4f072f57dd7cb)
++++ b/src/main/java/com/ken10/Entities/SolarSystem.java	(date 1743439174502)
+@@ -9,15 +9,16 @@
+ 
+         planets.add(new Planets("Sun",new Vector(0,0,0),new Vector(0,0,0),1.99e30));
+         planets.add(new Planets("Mercury",new Vector(-1.47e8,-2.97e7,2.75e4),new Vector(5.31e00,-2.93e1,6.69e-4),3.30e23 ));
+-        planets.add(new Planets("Venus",new Vector(0,0,0),new Vector(), 0));
+-        planets.add(new Planets("Earth",new Vector(0,0,0),new Vector(), 0));
+-        planets.add(new Planets("Moon",new Vector(0,0,0),new Vector(),0));
+-        planets.add(new Planets("Mars",new Vector(0,0,0),new Vector(), 0));
+-        planets.add(new Planets("Jupiter",new Vector(0,0,0),new Vector(), 0));
+-        planets.add(new Planets("Saturn",new Vector(0,0,0),new Vector(), 0));
+-        planets.add(new Planets("Titan",new Vector(0,0,0),new Vector(),0));
+-        planets.add(new Planets("Uranus",new Vector(0,0,0),new Vector(), 0));
+-        planets.add(new Planets("Neptune",new Vector(0,0,0),new Vector(), 0));
++
++        planets.add(new Planets("Venus",new Vector(-1.04e8,-3.19e7,5.55e6),new Vector(9.89e00,-3.37e1, -1.03e00), 4.87e24));
++        planets.add(new Planets("Earth",new Vector(-1.47e8,-2.97e7,2.75e4),new Vector(5.31e00, -2.93e1, 6.69e-4), 5.97e24));
++        planets.add(new Planets("Moon",new Vector(-1.47e8,-2.95e7,5.29e4),new Vector(4.53e00, -2.86e1, 6.73e-2),7.35e22));
++        planets.add(new Planets("Mars",new Vector(-2.15e8,1.27e8,7.94e6),new Vector(-1.15e1, -1.87e1, -1.11e-1), 6.42e23));
++        planets.add(new Planets("Jupiter",new Vector(5.54e7,7.62e8,-4.40e6),new Vector(-1.32e1, 1.29e1, 5.22e-2), 1.90e27));
++        planets.add(new Planets("Saturn",new Vector(1.42e9,-1.91e8,-5.33e7),new Vector(7.48e-1, 9.55e00, -1.96e-1), 5.68e26));
++        planets.add(new Planets("Titan",new Vector(1.42e9,-1.92e8,-5.28e7),new Vector(5.95e00, 7.68e00, 2.54e-1),1.35e23));
++        planets.add(new Planets("Uranus",new Vector(1.62e9,2.43e9,-1.19e7),new Vector(-5.72e00, 3.45e00, 8.70e-2), 8.68e25));
++        planets.add(new Planets("Neptune",new Vector(4.47e9,-5.31e7,-1.02e8),new Vector(2.87e-2, 5.47e00, -1.13e-1), 1.02e26));
+ 
+         return planets;
+     }
+Index: src/main/java/com/ken10/Entities/Rocket.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ken10.Entities;\r\nimport com.ken10.Other.Vector;\r\n\r\npublic class Rocket extends CelestialBodies {\r\n    private RocketState state;\r\n\r\n    public Rocket(Vector position, Vector velocity, double mass) {\r\n        super(position, velocity, mass);\r\n        this.state = new GroundState();\r\n    }\r\n    public void setState(RocketState state) {\r\n        this.state = state;\r\n    }\r\n    public void updateState() {\r\n        state.handle(this);\r\n    }\r\n\r\n    @Override\r\n    public void update(double time) {\r\n        position = position.add(velocity.multiply(time));\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/src/main/java/com/ken10/Entities/Rocket.java b/src/main/java/com/ken10/Entities/Rocket.java
+--- a/src/main/java/com/ken10/Entities/Rocket.java	(revision b10688b5c1244bbf122735018de4f072f57dd7cb)
++++ b/src/main/java/com/ken10/Entities/Rocket.java	(date 1743435112048)
+@@ -4,8 +4,8 @@
+ public class Rocket extends CelestialBodies {
+     private RocketState state;
+ 
+-    public Rocket(Vector position, Vector velocity, double mass) {
+-        super(position, velocity, mass);
++    public Rocket(String name,Vector position, Vector velocity, double mass) {
++        super(name,position, velocity, mass);
+         this.state = new GroundState();
+     }
+     public void setState(RocketState state) {
+@@ -16,7 +16,6 @@
+     }
+ 
+     @Override
+-    public void update(double time) {
+-        position = position.add(velocity.multiply(time));
++    public void update(Vector acceleration, double dt){
+     }
+ }
+Index: src/main/java/com/ken10/Entities/Planets.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ken10.Entities;\r\nimport com.ken10.Other.Vector;\r\n\r\npublic class Planets extends CelestialBodies {\r\n    private String planetName;\r\n\r\n    public Planets(String planetName, Vector position,Vector velocity, double mass) {\r\n        super(position,velocity,mass);\r\n        this.planetName = planetName;\r\n    }\r\n    public String getPlanetName() {\r\n        return planetName;\r\n    }\r\n    public double getMass() {return mass;}\r\n    public Vector getPosition() {return position;}\r\n    public Vector getVelocity() {return velocity;}\r\n    @Override\r\n    public void update(double time) {\r\n    }\r\n    public String toString(){\r\n        return planetName + position + velocity + mass;\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/src/main/java/com/ken10/Entities/Planets.java b/src/main/java/com/ken10/Entities/Planets.java
+--- a/src/main/java/com/ken10/Entities/Planets.java	(revision b10688b5c1244bbf122735018de4f072f57dd7cb)
++++ b/src/main/java/com/ken10/Entities/Planets.java	(date 1743435502848)
+@@ -2,22 +2,16 @@
+ import com.ken10.Other.Vector;
+ 
+ public class Planets extends CelestialBodies {
+-    private String planetName;
+-
+-    public Planets(String planetName, Vector position,Vector velocity, double mass) {
+-        super(position,velocity,mass);
+-        this.planetName = planetName;
++    public Planets(String name, Vector position,Vector velocity, double mass) {
++        super(name,position,velocity,mass);
+     }
+-    public String getPlanetName() {
+-        return planetName;
++    public void update(Vector acceleration, double dt) {
++        velocity = velocity.add(acceleration.multiply(dt));
++        position = position.add(acceleration.multiply(dt));
++
+     }
+-    public double getMass() {return mass;}
+-    public Vector getPosition() {return position;}
+-    public Vector getVelocity() {return velocity;}
+     @Override
+-    public void update(double time) {
+-    }
+     public String toString(){
+-        return planetName + position + velocity + mass;
++        return name + position + velocity + mass;
+     }
+ }
+Index: src/main/java/com/ken10/Entities/CelestialBodies.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ken10.Entities;\r\nimport com.ken10.Other.Vector;\r\n/*Uses the Vector class to hold blueprints for creating Planets and the rocket.*/\r\n\r\npublic abstract class CelestialBodies {\r\n    protected Vector position;\r\n    protected Vector velocity;\r\n    protected double mass;\r\n\r\n    public CelestialBodies(Vector position, Vector velocity, double mass) {\r\n        this.position = position;\r\n        this.velocity = velocity;\r\n        this.mass = mass;\r\n    }\r\n    public abstract void update(double time);\r\n\r\n}\r\n
+===================================================================
+diff --git a/src/main/java/com/ken10/Entities/CelestialBodies.java b/src/main/java/com/ken10/Entities/CelestialBodies.java
+--- a/src/main/java/com/ken10/Entities/CelestialBodies.java	(revision b10688b5c1244bbf122735018de4f072f57dd7cb)
++++ b/src/main/java/com/ken10/Entities/CelestialBodies.java	(date 1743434324883)
+@@ -3,15 +3,24 @@
+ /*Uses the Vector class to hold blueprints for creating Planets and the rocket.*/
+ 
+ public abstract class CelestialBodies {
++    protected String name;
+     protected Vector position;
+     protected Vector velocity;
+     protected double mass;
+ 
+-    public CelestialBodies(Vector position, Vector velocity, double mass) {
++    public CelestialBodies(String name,Vector position, Vector velocity, double mass) {
++        this.name = name;
+         this.position = position;
+         this.velocity = velocity;
+         this.mass = mass;
+     }
+-    public abstract void update(double time);
++    public abstract void update(Vector acceleration,double dt);
++
++    public String getPlanetName() {
++        return name;
++    }
++    public double getMass() {return mass;}
++    public Vector getPosition() {return position;}
++    public Vector getVelocity() {return velocity;}
+ 
+ }
+Index: src/main/java/com/ken10/Other/Vector.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ken10.Other;\r\n//Class to represent position and velocity as vectors in the 3d plain for Entities class.\r\n//Includes operations on vectors for changing.\r\n\r\npublic class Vector {\r\n    private double x;\r\n    private double y;\r\n    private double z;\r\n\r\n    public Vector(double x, double y, double z) {\r\n        this.x = x;\r\n        this.y = y;\r\n        this.z = z;\r\n    }\r\n    public Vector add(Vector v) {\r\n        return new Vector(this.x + v.x, this.y + v.y, this.z + v.z);\r\n    }\r\n    public Vector subtract(Vector v) {\r\n        return new Vector(this.x - v.x, this.y - v.y, this.z - v.z);\r\n    }\r\n    public Vector multiply(double c) {\r\n        return new Vector(this.x * c, this.y * c, this.z * c);\r\n    }\r\n    public double magnitude() {\r\n        return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);\r\n    }\r\n    public String toString() {\r\n        return \"(\" + x + \", \" + y + \", \" + z + \")\";\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/src/main/java/com/ken10/Other/Vector.java b/src/main/java/com/ken10/Other/Vector.java
+--- a/src/main/java/com/ken10/Other/Vector.java	(revision b10688b5c1244bbf122735018de4f072f57dd7cb)
++++ b/src/main/java/com/ken10/Other/Vector.java	(date 1743440997439)
+@@ -24,6 +24,10 @@
+     public double magnitude() {
+         return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+     }
++    public Vector normalize() {
++        double mag = magnitude();
++        return new Vector(this.x / mag, this.y / mag, this.z / mag);
++    }
+     public String toString() {
+         return "(" + x + ", " + y + ", " + z + ")";
+     }
+Index: src/main/java/com/ken10/NumericalSolvers/RK4ForPlanets.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ken10.NumericalSolvers;\r\n\r\nimport java.util.List;\r\nimport java.util.ArrayList;\r\nimport com.ken10.Entities.Planets;\r\nimport com.ken10.Other.Vector;\r\n\r\npublic class RK4ForPlanets {\r\n    double stepSize;\r\n    double time;\r\n    double startTime;\r\n    double endTime;\r\n    List<Planets> planets;\r\n\r\n    public RK4ForPlanets(double stepSize, double time, double startTime, double endTime, List<Planets> planets) {\r\n        this.stepSize = stepSize;\r\n        this.time = time;\r\n        this.startTime = startTime;\r\n        this.endTime = endTime;\r\n        this.planets = planets;\r\n    }\r\n\r\n    public void step() {\r\n        double h = stepSize;\r\n\r\n        // First stage\r\n        List<Vector[]> k1 = LotkaVolterraForPlanets.computeDerivatives(planets);\r\n\r\n        // Second stage\r\n        List<Planets> y2 = updateState(planets, k1, h / 2);\r\n        List<Vector[]> k2 = LotkaVolterraForPlanets.computeDerivatives(y2);\r\n\r\n        // Third stage\r\n        List<Planets> y3 = updateState(y2, k2, h / 2);\r\n        List<Vector[]> k3 = LotkaVolterraForPlanets.computeDerivatives(y3);\r\n\r\n        // Fourth stage\r\n        List<Planets> y4 = updateState(y3, k3, h);\r\n        List<Vector[]> k4 = LotkaVolterraForPlanets.computeDerivatives(y4);\r\n\r\n        // Update state using RK4 formula\r\n        for (int i = 0; i < planets.size(); i++) {\r\n            Planets p = planets.get(i);\r\n\r\n            Vector newVelocity = p.getVelocity().add(\r\n                    k1.get(i)[1].multiply(h / 6)\r\n                            .add(k2.get(i)[1].multiply(h / 3))\r\n                            .add(k3.get(i)[1].multiply(h / 3))\r\n                            .add(k4.get(i)[1].multiply(h / 6))\r\n            );\r\n\r\n            Vector newPosition = p.getPosition().add(\r\n                    k1.get(i)[0].multiply(h / 6)\r\n                            .add(k2.get(i)[0].multiply(h / 3))\r\n                            .add(k3.get(i)[0].multiply(h / 3))\r\n                            .add(k4.get(i)[0].multiply(h / 6))\r\n            );\r\n\r\n            planets.set(i, new Planets(p.getPlanetName(), newPosition, newVelocity, p.getMass()));\r\n        }\r\n\r\n        time += stepSize;\r\n    }\r\n\r\n    private List<Planets> updateState(List<Planets> original, List<Vector[]> k, double dt) {\r\n        List<Planets> newState = new ArrayList<>();\r\n        for (int i = 0; i < original.size(); i++) {\r\n            Planets p = original.get(i);\r\n            Vector newPosition = p.getPosition().add(k.get(i)[0].multiply(dt));\r\n            Vector newVelocity = p.getVelocity().add(k.get(i)[1].multiply(dt));\r\n\r\n            newState.add(new Planets(p.getPlanetName(), newPosition, newVelocity, p.getMass()));\r\n        }\r\n        return newState;\r\n    }\r\n}\r\n\r\n\r\n
+===================================================================
+diff --git a/src/main/java/com/ken10/NumericalSolvers/RK4ForPlanets.java b/src/main/java/com/ken10/NumericalSolvers/RK4ForPlanets.java
+--- a/src/main/java/com/ken10/NumericalSolvers/RK4ForPlanets.java	(revision b10688b5c1244bbf122735018de4f072f57dd7cb)
++++ b/src/main/java/com/ken10/NumericalSolvers/RK4ForPlanets.java	(date 1743438048550)
+@@ -6,15 +6,16 @@
+ import com.ken10.Other.Vector;
+ 
+ public class RK4ForPlanets {
++    //same as LotkaVolterra just changed for vectors and a list of planets
++    //also got rid of time cus we have a start and finish while stepsize can show a time at that moment.
++
+     double stepSize;
+-    double time;
+     double startTime;
+     double endTime;
+     List<Planets> planets;
+ 
+-    public RK4ForPlanets(double stepSize, double time, double startTime, double endTime, List<Planets> planets) {
++    public RK4ForPlanets(double stepSize, double startTime, double endTime, List<Planets> planets) {
+         this.stepSize = stepSize;
+-        this.time = time;
+         this.startTime = startTime;
+         this.endTime = endTime;
+         this.planets = planets;
+@@ -38,7 +39,6 @@
+         List<Planets> y4 = updateState(y3, k3, h);
+         List<Vector[]> k4 = LotkaVolterraForPlanets.computeDerivatives(y4);
+ 
+-        // Update state using RK4 formula
+         for (int i = 0; i < planets.size(); i++) {
+             Planets p = planets.get(i);
+ 
+@@ -58,8 +58,6 @@
+ 
+             planets.set(i, new Planets(p.getPlanetName(), newPosition, newVelocity, p.getMass()));
+         }
+-
+-        time += stepSize;
+     }
+ 
+     private List<Planets> updateState(List<Planets> original, List<Vector[]> k, double dt) {
+@@ -74,5 +72,3 @@
+         return newState;
+     }
+ }
+-
+-
+diff --git a/Project_Titan/pom.xml b/pom.xml
+rename from Project_Titan/pom.xml
+rename to pom.xml

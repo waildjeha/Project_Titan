@@ -2,11 +2,14 @@ package com.ken10.ODEs;
 
 import com.ken10.Entities.CelestialBodies;
 import com.ken10.Entities.Planets.PlanetModel;
-import com.ken10.Other.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ODE solver for uses of both Euler and RK4.
+ * Computes planetary motion and different timestamps.
+ */
 public abstract class Solver implements ODE_Function {
     protected ArrayList<CelestialBodies> planetarySystem;
     //    protected ArrayList<Body> planetaryDerivatives;
@@ -58,9 +61,7 @@ public abstract class Solver implements ODE_Function {
      */
     protected void recordState() {
         for (CelestialBodies body : planetarySystem) {
-            if (body instanceof PlanetModel) {
-                ((PlanetModel) body).recordHistory(time);
-            }
+            body.recordHistory(time);
         }
         history.add(new Solver.TimeState(time, new ArrayList<>(planetarySystem)));
     }
@@ -75,12 +76,12 @@ public abstract class Solver implements ODE_Function {
      * Inner class to store time and state together
      */
     public static class TimeState {
-        public final double time;
-        public final ArrayList<CelestialBodies> state;
+        public final double TIME;
+        public final ArrayList<CelestialBodies> STATE;
 
         public TimeState(double time, ArrayList<CelestialBodies> state) {
-            this.time = time;
-            this.state = state;
+            this.TIME = time;
+            this.STATE = state;
         }
     }
 }

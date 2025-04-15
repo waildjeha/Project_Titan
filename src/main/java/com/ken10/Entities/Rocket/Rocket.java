@@ -2,12 +2,16 @@ package com.ken10.Entities.Rocket;
 import com.ken10.Entities.CelestialBodies;
 import com.ken10.Other.Vector;
 
+/**
+ * Uses properties of celestial body.
+ * isn't the exact same as a planet so had to create a new object.
+ * Rk4 can still model tho.
+ */
 public class Rocket extends CelestialBodies {
-    private static final double TitanRadius = 2575.0; // km
     private RocketState state;
     private boolean hasLanded = false;
-    private double closestApproachToTitan = Double.MAX_VALUE;
-    private double timeOfClosestApproach = 0;
+    private double planetRadius;
+    private double fuel;
 
     public Rocket(String name, Vector position, Vector velocity, double mass) {
         super(name, position, velocity, mass);
@@ -32,26 +36,14 @@ public class Rocket extends CelestialBodies {
         return hasLanded;
     }
 
-    public void checkLanding(Vector titanPosition) {
-        double distance = position.subtract(titanPosition).magnitude();
-        if (distance <= TitanRadius) {
+    public void checkLanding(Vector planetPosition) {
+        double distance = position.subtract(planetPosition).magnitude();
+        if (distance <= planetRadius) {
             hasLanded = true;
             setState(new GroundState()); // Change state to landed
         }
-        if (distance < closestApproachToTitan) {
-            closestApproachToTitan = distance;
-        }
+
     }
 
-    public double getClosestApproachToTitan() {
-        return closestApproachToTitan;
-    }
-
-    public double getTimeOfClosestApproach() {
-        return timeOfClosestApproach;
-    }
-
-    public void setTimeOfClosestApproach(double time) {
-        timeOfClosestApproach = time;
-    }
+    public double getFuel(){return fuel;}
 }

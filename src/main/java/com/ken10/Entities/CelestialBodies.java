@@ -1,6 +1,9 @@
 package com.ken10.Entities;
 import com.ken10.Other.Vector;
-/*Uses the Vector class to hold blueprints for creating Planets and the rocket.*/
+/**
+ * Uses the Vector class to hold blueprints for creating Planets and the rocket.
+ * Mostly self-explanatory.
+ */
 
 public abstract class CelestialBodies {
     protected String name;
@@ -21,8 +24,8 @@ public abstract class CelestialBodies {
     public double getMass() {return mass;}
     public void setPosition(Vector position) {this.position = position;}
     public void setVelocity(Vector velocity) {this.velocity = velocity;}
-    public void setMass(double mass) {this.mass = mass;}
 
+    public void recordHistory(double time) {}
 
     public String toString() {
         return " [name=" + name + ", position=" + position + ", velocity=" + velocity + ", mass=" + mass + "]";

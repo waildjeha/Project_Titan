@@ -1,16 +1,44 @@
 package com.ken10.NumericalSolvers;
-
-import com.ken10.Entities.CelestialBodies;
+import com.ken10.Entities.*;
 import com.ken10.Entities.Planets.PlanetModel;
+import com.ken10.Entities.Planets.SolarSystem;
+import com.ken10.Entities.probe.Probe;
+import com.ken10.Entities.Rocket.Rocket;
+import com.ken10.ODEs.GravityCalc;
 import com.ken10.ODEs.Solver;
 import java.util.ArrayList;
-import com.ken10.Entities.GravityCalc;
 import com.ken10.Other.Vector;
 
+/**
+ * Uses Rk4 method to model planetary motion.
+ * extends solver which holds the step method.
+ * Works very accurately, actually.
+ */
 public class RK4Solver extends Solver {
-
+    /**
+     * Initializes a RK4 solver.
+     *
+     * @param planetarySystem planets and rocket in space.
+     * @param startTime initial time
+     * @param endTime Finish time, probably will be a year.
+     * @param stepSize stepsize -_-
+     */
     public RK4Solver(ArrayList<CelestialBodies> planetarySystem, double startTime, double endTime, double stepSize) {
         super(planetarySystem, startTime, endTime, stepSize);
+    }
+
+    private void printState(double time) {
+        System.out.println("\nTime: " + time);
+        System.out.println("----------------------------------------");
+        for (CelestialBodies body : planetarySystem) {
+            Vector pos = body.getPosition();
+            Vector vel = body.getVelocity();
+            System.out.printf("%s:\n", body.getName());
+            System.out.printf("  Position: (%.2f, %.2f, %.2f)\n", pos.getX(), pos.getY(), pos.getZ());
+            System.out.printf("  Velocity: (%.2f, %.2f, %.2f)\n", vel.getX(), vel.getY(), vel.getZ());
+            System.out.printf("  Distance from origin: %.2f\n", pos.magnitude());
+            System.out.println("----------------------------------------");
+        }
     }
 
     /**
@@ -19,83 +47,110 @@ public class RK4Solver extends Solver {
     @Override
     public void step() {
         // Calculate the derivatives at the current time step using GravityCalc
-        ArrayList<PlanetModel> k1 = GravityCalc.computeDerivatives(time, convertToPlanetModels(planetarySystem));
+        double h = stepSize;
+        double t = time;
+        double t2 = t + h/2;
+        double t4 = t + h;
+        ArrayList<CelestialBodies> y1 = planetarySystem;
+        int n = y1.size();
+        ArrayList<CelestialBodies> k1 = GravityCalc.computeDerivatives(time, y1);
 
-        // Compute k2: Estimate the state at t + stepSize / 2
-        ArrayList<CelestialBodies> k2 = new ArrayList<>();
-        for (int i = 0; i < planetarySystem.size(); i++) {
-            CelestialBodies body = planetarySystem.get(i);
-            Vector newPosition = body.getPosition().add(k1.get(i).getVelocity().multiply(stepSize / 2));
-            Vector newVelocity = body.getVelocity().add(k1.get(i).getVelocity().multiply(stepSize / 2));
-            CelestialBodies newBody = createNewBody(body, newPosition, newVelocity);
-            k2.add(newBody);
-        }
-        ArrayList<PlanetModel> k2Derivatives = GravityCalc.computeDerivatives(time + stepSize / 2, convertToPlanetModels(k2));
+        // Compute y2: Estimate the state at t + stepSize / 2
+        ArrayList<CelestialBodies> y2 = new ArrayList<>();
+        for (int i = 0; i < n ; i++) {
+            CelestialBodies original = y1.get(i);
+            CelestialBodies k1Body = k1.get(i);
 
-        // Compute k3: Estimate the state at t + stepSize / 2 (using k2)
-        ArrayList<CelestialBodies> k3 = new ArrayList<>();
-        for (int i = 0; i < planetarySystem.size(); i++) {
-            CelestialBodies body = planetarySystem.get(i);
-            Vector newPosition = body.getPosition().add(k2Derivatives.get(i).getVelocity().multiply(stepSize / 2));
-            Vector newVelocity = body.getVelocity().add(k2Derivatives.get(i).getVelocity().multiply(stepSize / 2));
-            CelestialBodies newBody = createNewBody(body, newPosition, newVelocity);
-            k3.add(newBody);
-        }
-        ArrayList<PlanetModel> k3Derivatives = GravityCalc.computeDerivatives(time + stepSize / 2, convertToPlanetModels(k3));
+            Vector newPosition = original.getPosition().add(k1Body.getPosition().multiply(h / 2));
+            Vector newVelocity = original.getVelocity().add(k1Body.getVelocity().multiply(h / 2));
 
-        // Compute k4: Estimate the state at t + stepSize (using k3)
-        ArrayList<CelestialBodies> k4 = new ArrayList<>();
-        for (int i = 0; i < planetarySystem.size(); i++) {
-            CelestialBodies body = planetarySystem.get(i);
-            Vector newPosition = body.getPosition().add(k3Derivatives.get(i).getVelocity().multiply(stepSize));
-            Vector newVelocity = body.getVelocity().add(k3Derivatives.get(i).getVelocity().multiply(stepSize));
-            CelestialBodies newBody = createNewBody(body, newPosition, newVelocity);
-            k4.add(newBody);
+            CelestialBodies newBody = createNewBody(original, newPosition, newVelocity);
+            y2.add(newBody);
         }
-        ArrayList<PlanetModel> k4Derivatives = GravityCalc.computeDerivatives(time + stepSize, convertToPlanetModels(k4));
+        ArrayList<CelestialBodies> k2 = GravityCalc.computeDerivatives(t2, y2);
+
+        // Compute y3: Estimate the state at t + stepSize / 2 (using y2)
+        ArrayList<CelestialBodies> y3 = new ArrayList<>();
+        for (int i = 0; i < n ; i++) {
+            CelestialBodies original = y2.get(i);
+            CelestialBodies k2Body = k2.get(i);
+
+            Vector newPosition = original.getPosition().add(k2Body.getPosition().multiply(h / 2));
+            Vector newVelocity = original.getVelocity().add(k2Body.getVelocity().multiply(h / 2));
+
+            CelestialBodies newBody = createNewBody(original, newPosition, newVelocity);
+            y3.add(newBody);
+        }
+        ArrayList<CelestialBodies> k3 = GravityCalc.computeDerivatives(t2, y3);
+
+
+        // Compute y4: Estimate the state at t + stepSize (using y3)
+        ArrayList<CelestialBodies> y4 = new ArrayList<>();
+        for (int i = 0; i < n ; i++) {
+            CelestialBodies original = y3.get(i);
+            CelestialBodies k3Body = k3.get(i);
+
+            Vector newPosition = original.getPosition().add(k3Body.getPosition().multiply(h));
+            Vector newVelocity = original.getVelocity().add(k3Body.getVelocity().multiply(h));
+
+            CelestialBodies newBody = createNewBody(original, newPosition, newVelocity);
+            y4.add(newBody);
+        }
+        ArrayList<CelestialBodies> k4 = GravityCalc.computeDerivatives(t4, y4);
+
 
         // Update the planetary system's state using the RK4 formula
-        for (int i = 0; i < planetarySystem.size(); i++) {
-            CelestialBodies body = planetarySystem.get(i);
+        for (int i = 0; i < n ; i++) {
+           CelestialBodies body = y1.get(i);
+           CelestialBodies k1Body = k1.get(i);
+           CelestialBodies k2Body = k2.get(i);
+           CelestialBodies k3Body = k3.get(i);
+           CelestialBodies k4Body = k4.get(i);
 
-            // Update position using velocity derivatives
-            Vector positionUpdate = k1.get(i).getVelocity().add(k2Derivatives.get(i).getVelocity().multiply(2))
-                    .add(k3Derivatives.get(i).getVelocity().multiply(2))
-                    .add(k4Derivatives.get(i).getVelocity()).multiply(stepSize / 6);
-
-            // Update velocity using acceleration derivatives
-            Vector velocityUpdate = k1.get(i).getVelocity().add(k2Derivatives.get(i).getVelocity().multiply(2))
-                    .add(k3Derivatives.get(i).getVelocity().multiply(2))
-                    .add(k4Derivatives.get(i).getVelocity()).multiply(stepSize / 6);
-
+            Vector positionUpdate = k1Body.getPosition()
+                    .add(k2Body.getPosition().multiply(2))
+                    .add(k3Body.getPosition().multiply(2))
+                    .add(k4Body.getPosition())
+                    .multiply(h / 6);
             body.setPosition(body.getPosition().add(positionUpdate));
+
+            Vector velocityUpdate = k1Body.getVelocity()
+                    .add(k2Body.getVelocity().multiply(2))
+                    .add(k3Body.getVelocity().multiply(2))
+                    .add(k4Body.getVelocity())
+                    .multiply(h / 6);
             body.setVelocity(body.getVelocity().add(velocityUpdate));
         }
 
-        // Increment time by step size
         time += stepSize;
+        printState(time);
         recordState();
     }
 
-    private ArrayList<PlanetModel> convertToPlanetModels(ArrayList<CelestialBodies> bodies) {
-        ArrayList<PlanetModel> planetModels = new ArrayList<>();
-        for (CelestialBodies body : bodies) {
-            if (body instanceof PlanetModel) {
-                planetModels.add((PlanetModel) body);
-            } else {
-                // Create a temporary PlanetModel for the rocket
-                planetModels.add(new PlanetModel(body.getName(), body.getPosition(), body.getVelocity(), body.getMass()));
-            }
-        }
-        return planetModels;
-    }
-
+    /**
+     * Creates a temporary celestial body for cases of planet or rocket.
+     *
+     * @param original
+     * @param position
+     * @param velocity
+     * @return a new planet or rocket instance.
+     */
     private CelestialBodies createNewBody(CelestialBodies original, Vector position, Vector velocity) {
         if (original instanceof PlanetModel) {
             return new PlanetModel(original.getName(), position, velocity, original.getMass());
-        } else {
+        } else if (original instanceof Rocket){
             // For non-PlanetModel bodies (like Rocket), create a new instance of the same type
-            return new PlanetModel(original.getName(), position, velocity, original.getMass());
+            return new Rocket(original.getName(), position, velocity, original.getMass());
+        }else {
+            return new Probe(original.getName(), position, velocity, original.getMass());
         }
+    }
+
+    public static void main(String[] args) {
+        ArrayList<CelestialBodies> planetarySystem = SolarSystem.CreatePlanets();
+        RK4Solver rk4 = new RK4Solver(planetarySystem, 0, 1, 0.01);
+        rk4.solve();
+
+//        rk4.solve();
     }
 }

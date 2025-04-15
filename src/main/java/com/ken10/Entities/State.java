@@ -3,6 +3,10 @@ package com.ken10.Entities;
 import com.ken10.Other.Derivative;
 import com.ken10.Other.Vector;
 
+/**
+ * Not sure if this class is needed.
+ */
+
 public class State {
     public Vector position;
     public Vector velocity;
