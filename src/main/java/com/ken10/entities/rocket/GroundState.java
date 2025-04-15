@@ -1,4 +1,4 @@
-package com.ken10.Entities.Rocket;
+package com.ken10.entities.rocket;
 
 public class GroundState implements RocketState {
     @Override

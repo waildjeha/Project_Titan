@@ -1,5 +1,5 @@
-package com.ken10.Entities.Rocket;
-import com.ken10.Entities.CelestialBodies;
+package com.ken10.entities.rocket;
+import com.ken10.entities.CelestialBodies;
 import com.ken10.Other.Vector;
 
 /**
@@ -26,12 +26,6 @@ public class Rocket extends CelestialBodies {
         state.handle(this);
     }
 
-    @Override
-    public void update(Vector acceleration, double dt) {
-        velocity = velocity.add(acceleration.multiply(dt));
-        position = position.add(velocity.multiply(dt));
-    }
-
     public boolean hasLanded() {
         return hasLanded;
     }
@@ -42,7 +36,6 @@ public class Rocket extends CelestialBodies {
             hasLanded = true;
             setState(new GroundState()); // Change state to landed
         }
-
     }
 
     public double getFuel(){return fuel;}

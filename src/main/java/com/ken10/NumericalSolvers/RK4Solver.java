@@ -1,9 +1,9 @@
 package com.ken10.NumericalSolvers;
-import com.ken10.Entities.*;
-import com.ken10.Entities.Planets.PlanetModel;
-import com.ken10.Entities.Planets.SolarSystem;
-import com.ken10.Entities.probe.Probe;
-import com.ken10.Entities.Rocket.Rocket;
+import com.ken10.entities.*;
+import com.ken10.entities.planet.PlanetModel;
+import com.ken10.entities.SolarSystem;
+import com.ken10.entities.probe.Probe;
+import com.ken10.entities.rocket.Rocket;
 import com.ken10.ODEs.GravityCalc;
 import com.ken10.ODEs.Solver;
 import java.util.ArrayList;
@@ -139,7 +139,6 @@ public class RK4Solver extends Solver {
         if (original instanceof PlanetModel) {
             return new PlanetModel(original.getName(), position, velocity, original.getMass());
         } else if (original instanceof Rocket){
-            // For non-PlanetModel bodies (like Rocket), create a new instance of the same type
             return new Rocket(original.getName(), position, velocity, original.getMass());
         }else {
             return new Probe(original.getName(), position, velocity, original.getMass());

@@ -1,7 +1,6 @@
 package com.ken10.ODEs;
 
-import com.ken10.Entities.CelestialBodies;
-import com.ken10.Entities.Planets.PlanetModel;
+import com.ken10.entities.CelestialBodies;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,9 +59,6 @@ public abstract class Solver implements ODE_Function {
      * Record current state to history
      */
     protected void recordState() {
-        for (CelestialBodies body : planetarySystem) {
-            body.recordHistory(time);
-        }
         history.add(new Solver.TimeState(time, new ArrayList<>(planetarySystem)));
     }
 

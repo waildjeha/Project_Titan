@@ -1,8 +1,8 @@
 package com.ken10.ODEs;
 
-import com.ken10.Entities.CelestialBodies;
-import com.ken10.Entities.Planets.PlanetModel;
-import com.ken10.Entities.Rocket.Rocket;
+import com.ken10.entities.CelestialBodies;
+import com.ken10.entities.planet.PlanetModel;
+import com.ken10.entities.rocket.Rocket;
 import com.ken10.Other.*;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class GravityCalc {
 
             if (distance == 0) continue;
 
-            double forceMagnitude = (g * currentBody.getMass() * otherBody.getMass())/ Math.pow(distance, 3);
+            double forceMagnitude = (g * currentBody.getMass() * otherBody.getMass())/ Math.pow(distance, 2);
             Vector unitDirection = differenceVector.multiply(1.0/distance);
             Vector forceVector = unitDirection.multiply(forceMagnitude);
             Vector bodyAcceleration = forceVector.multiply(1.0/currentBody.getMass());
@@ -60,13 +60,12 @@ public class GravityCalc {
         for (int i = 0; i < bodies.size(); i++) {
             CelestialBodies original = bodies.get(i);
 
-            // 1) Derivative of position = velocity (as Vector)
+            // ds/dt = current velocity
             Vector positionDerivative = original.getVelocity();
 
-            // 2) Derivative of velocity = computed acceleration (as Vector)
             Vector acceleration = computeAcceleration(bodies, i);
 
-            // 3) Create a new Body for the derivatives
+            //Create a new Body for the derivatives
             CelestialBodies derivativeBody;
             if (original instanceof PlanetModel) {
                 derivativeBody = new PlanetModel(original.getName(), positionDerivative, acceleration, original.getMass());

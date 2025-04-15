@@ -1,8 +1,8 @@
-package com.ken10.Entities.Planets;
+package com.ken10.entities;
+import com.ken10.entities.planet.PlanetModel;
 import com.ken10.Other.Vector;
-import com.ken10.Entities.CelestialBodies;
+
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * no pluto :(
