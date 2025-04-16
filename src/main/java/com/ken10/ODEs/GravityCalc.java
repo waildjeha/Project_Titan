@@ -17,7 +17,7 @@ public class GravityCalc {
     /**
      * Calculates acceleration Vectors of each celestial body in space.
      * Uses newtons laws of universal gravity.
-     *
+     * Uses Vector operations to form the equation as it's not possible normally. lines 34-42.
      *
      * @param bodies planets and rocket.
      * @param bodyIndex position of celestial body in list.
@@ -36,7 +36,7 @@ public class GravityCalc {
 
             if (distance == 0) continue;
 
-            double forceMagnitude = (g * currentBody.getMass() * otherBody.getMass())/ Math.pow(distance, 2);
+            double forceMagnitude = (-g * currentBody.getMass() * otherBody.getMass())/ Math.pow(distance, 2);
             Vector unitDirection = differenceVector.multiply(1.0/distance);
             Vector forceVector = unitDirection.multiply(forceMagnitude);
             Vector bodyAcceleration = forceVector.multiply(1.0/currentBody.getMass());
@@ -49,6 +49,8 @@ public class GravityCalc {
 
     /**
      * Calculates derivatives at certain times to model planet movement.
+     * Creates new bodies for instances of body objects to hold derivatives.
+     * sun remains at the origin.
      *
      * @param time time -_-
      * @param bodies planets and rocket.
@@ -76,7 +78,7 @@ public class GravityCalc {
             derivatives.add(derivativeBody);
         }
 
-        // If the Sun is stationary, we use zeroed-out derivatives
+        // If the Sun is stationary, use zeroed-out derivatives
         CelestialBodies sunDerivative = new PlanetModel("Sun", new Vector(0, 0, 0), new Vector(0, 0, 0), bodies.get(0).getMass());
         derivatives.set(0, sunDerivative);
 

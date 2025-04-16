@@ -12,7 +12,7 @@ import com.ken10.Other.Vector;
 /**
  * Uses Rk4 method to model planetary motion.
  * extends solver which holds the step method.
- * Works very accurately, actually.
+ * Works very accurately.
  */
 public class RK4Solver extends Solver {
     /**
@@ -28,7 +28,7 @@ public class RK4Solver extends Solver {
     }
 
     private void printState(double time) {
-        System.out.println("\nTime: " + time);
+        System.out.println("\nTime: " + time/2628000);
         System.out.println("----------------------------------------");
         for (CelestialBodies body : planetarySystem) {
             Vector pos = body.getPosition();
@@ -145,9 +145,14 @@ public class RK4Solver extends Solver {
         }
     }
 
+    /**
+     * temp main for testing.
+     * @param args
+     */
     public static void main(String[] args) {
         ArrayList<CelestialBodies> planetarySystem = SolarSystem.CreatePlanets();
-        RK4Solver rk4 = new RK4Solver(planetarySystem, 0, 1, 0.01);
+        // for each month
+        RK4Solver rk4 = new RK4Solver(planetarySystem, 0, 31557600, 2628000);
         rk4.solve();
 
 //        rk4.solve();
