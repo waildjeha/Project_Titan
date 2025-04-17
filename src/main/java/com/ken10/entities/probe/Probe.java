@@ -129,11 +129,16 @@ public class Probe extends CelestialBodies {
     }
 
 
+    /**
+     * Applies thrust to the probe in a specific direction.
+     * @param direction Direction vector (will be normalized).
+     * @param magnitude Magnitude of the thrust force (N).
+     * @param duration Duration of thrust (s).
+     */
 
     public void applyThrust(Vector direction, double magnitude, double duration) {
         if (!isActive || fuelLevel <= 0)
             return;
-
 //        it needs to be normalized so it does to represent length, but the direction
         direction = direction.normalize();
 
@@ -143,8 +148,8 @@ public class Probe extends CelestialBodies {
         setVelocity(getVelocity().add(acceleration.multiply(duration)));
 
         double fuelBurned = magnitude * duration * 0.05;
+
 //        discuss what should be our constant
-//        every unit of force, over 1 second, burns 5% of a unit of fuel.
 //        how many kg per NÂ·s
         fuelLevel = Math.max(0, fuelLevel - fuelBurned);
     }
