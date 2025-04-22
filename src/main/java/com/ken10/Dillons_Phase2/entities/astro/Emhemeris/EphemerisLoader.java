@@ -1,16 +1,13 @@
 package com.ken10.Dillons_Phase2.entities.astro.Emhemeris;
 
 import com.ken10.Dillons_Phase2.entities.NumericalSolvers.RK4Solver;
-import com.ken10.Dillons_Phase2.entities.ODEs.Solver;
 import com.ken10.Dillons_Phase2.entities.Other.Vector;
 import com.ken10.Dillons_Phase2.entities.planet.BodyID;
 import com.ken10.Dillons_Phase2.entities.planet.CelestialBodies;
 import com.ken10.Dillons_Phase2.entities.planet.SolarSystem;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
+
 
 //To run this code(load all the states in a specified time frame) you create an instance of
 //EphemerisLoader and then call EphemerisLoader.getPlanetStates()
@@ -61,8 +58,12 @@ public final ArrayList<CelestialBodies> initialState;
 
     public static void main(String[] args) {
         LocalDateTime startTime = LocalDateTime.of(2025, 4, 1, 0, 0);
-        var ephemeris = new EphemerisLoader(6);
+        var ephemeris = new EphemerisLoader(SolarSystem.CreatePlanets(), startTime, startTime.plusMonths(1), 1);
         ephemeris.solve();
-        ephemeris.history.get(startTime);
+        ArrayList<CelestialBodies> startState = ephemeris.history.get(startTime);
+        if(startState == null) System.out.println("No history found");
+        for (CelestialBodies c : startState) {
+            c.printBody();
+        }
     }
 }

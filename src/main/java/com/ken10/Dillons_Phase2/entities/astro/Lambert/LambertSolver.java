@@ -1,10 +1,7 @@
 package com.ken10.Dillons_Phase2.entities.astro.Lambert;
 
-import com.ken10.Dillons_Phase2.entities.ODEs.GravityCalc;
 import com.ken10.Dillons_Phase2.entities.Other.Vector;
-
 import java.time.LocalDateTime;
-
 import static com.ken10.Dillons_Phase2.entities.astro.Lambert.LambertEquations.*;
 
 public class LambertSolver {
@@ -30,7 +27,7 @@ public class LambertSolver {
      */
     public LambertResult solve(Vector r1, Vector r2,
                                LocalDateTime dTime, double mu,
-                               boolean  prograde){
+                               boolean prograde){
         double deltaTime = dTime.getSecond();
         double r1distance = r1.magnitude();
         double r2distance = r2.magnitude();

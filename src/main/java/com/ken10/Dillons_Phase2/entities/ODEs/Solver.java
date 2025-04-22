@@ -71,14 +71,20 @@ public abstract class Solver implements ODE_Function {
     /**
      * Record current state to history
      */
-    protected void recordState() {
-        LocalDateTime t = time;
-        ArrayList<CelestialBodies> bodies = new ArrayList<>(planetarySystem);
-        history.put(t, bodies);
+    protected void recordState(){
+        ArrayList<CelestialBodies> snapshot = new ArrayList<>();
+        for(CelestialBodies b : planetarySystem){
+            snapshot.add( b.deepCopy() );      // <‑‑ deep copy each body
+        }
+        history.put(time, snapshot);
     }
 
 
-    public void printState(LocalDateTime time) {
-//    history.get(time).forEach(CelestialBodies::printBody);
+    public void printState() {
+        System.out.println("Time : " + time.toString());
+        for (CelestialBodies c : planetarySystem) {
+            c.printBody();
+        }
+
     }
 }

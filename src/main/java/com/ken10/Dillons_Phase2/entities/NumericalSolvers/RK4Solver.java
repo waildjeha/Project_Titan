@@ -113,7 +113,7 @@ public class RK4Solver extends Solver {
         }
 
         time = time.plusHours(stepSizeHours);
-        printState(time);
+        printState();
         recordState();
     }
 

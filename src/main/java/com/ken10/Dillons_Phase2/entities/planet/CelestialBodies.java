@@ -1,5 +1,8 @@
 package com.ken10.Dillons_Phase2.entities.planet;
 import com.ken10.Dillons_Phase2.entities.Other.Vector;
+import com.ken10.Dillons_Phase2.entities.probe.Probe;
+import com.ken10.Dillons_Phase2.entities.rocket.Rocket;
+
 /**
  * Uses the Vector class to hold blueprints for creating Planets and the rocket.
  * Mostly self-explanatory.
@@ -37,4 +40,16 @@ public abstract class CelestialBodies {
         System.out.printf("  Distance from origin: %.2f\n", pos.magnitude());
         System.out.println("----------------------------------------");
     }
+
+    public CelestialBodies deepCopy(){
+        return (this instanceof PlanetModel)
+                ? new PlanetModel(getName(), getPosition().copy(),
+                getVelocity().copy(), getMass())
+                : (this instanceof Rocket)
+                ? new Rocket(getName(), getPosition().copy(),
+                getVelocity().copy(), getMass())
+                : new Probe(getName(), getPosition().copy(),
+                getVelocity().copy());
+    }
+
 }
