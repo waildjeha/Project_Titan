@@ -79,6 +79,6 @@ public abstract class Solver implements ODE_Function {
 
 
     public void printState(LocalDateTime time) {
-    history.get(time).forEach(CelestialBodies::printBody);
+//    history.get(time).forEach(CelestialBodies::printBody);
     }
 }

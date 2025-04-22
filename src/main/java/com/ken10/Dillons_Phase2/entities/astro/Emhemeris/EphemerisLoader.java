@@ -60,7 +60,9 @@ public final ArrayList<CelestialBodies> initialState;
 
 
     public static void main(String[] args) {
+        LocalDateTime startTime = LocalDateTime.of(2025, 4, 1, 0, 0);
         var ephemeris = new EphemerisLoader(6);
-
+        ephemeris.solve();
+        ephemeris.history.get(startTime);
     }
 }
