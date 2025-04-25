@@ -61,12 +61,11 @@ public final ArrayList<CelestialBodies> initialState;
         //We need to find the velocity of the planets in the current state
     }
 
-    //TODO we can choose our solver here
 
 
     public static void main(String[] args) {
         LocalDateTime startTime = LocalDateTime.of(2025, 4, 1, 0, 0);
-        var ephemeris = new EphemerisLoader(SolarSystem.CreatePlanets(), startTime, startTime.plusMonths(1), 1);
+        var ephemeris = new EphemerisLoader(SolarSystem.CreatePlanets(), startTime, startTime.plusMonths(12), 1);
         ephemeris.solve();
         ArrayList<CelestialBodies> startState = ephemeris.history.get(startTime);
         if(startState == null) System.out.println("No history found");

@@ -80,7 +80,7 @@ public abstract class Solver implements ODE_Function {
     }
 
 
-    public void printState() {
+    public void printState(ArrayList<CelestialBodies> planetarySystem) {
         System.out.println("Time : " + time.toString());
         for (CelestialBodies c : planetarySystem) {
             c.printBody();

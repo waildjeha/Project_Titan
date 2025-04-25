@@ -27,9 +27,7 @@ public class Main {
                 System.out.printf("No record for %s%n", t);
                 continue;                     // or break;
             }
-            earth = state.get(BodyID.EARTH.index()).getPosition();
-            titan = state.get(BodyID.TITAN.index()).getPosition();
-            System.out.println( Vector.getDistance(earth, titan) / 1.496e8 );
+            eph.printState(state);
         }
     }
 }

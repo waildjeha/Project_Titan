@@ -23,8 +23,8 @@ public final class TitanInterceptSearch {
 
     /* ───────────────────── user knobs ────────────────────────────── */
     private static final LocalDateTime T0        = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
-    private static final int           FLT_DAYS  = 312;
-    private static final double        V_LAUNCH  = 60.0;     // km s-1
+    private static final int           FLT_DAYS  = 400;
+    private static final double        V_LAUNCH  = 60.0;     // km s^-1
     private static final int           TAPESTEP_H= 2;        // 6-h planet tape
     private static final int           PROBSTEP_H= 1;        // 1-h probe step
     private static final int           RANDOM_IN_CONE = 20000;
@@ -38,11 +38,11 @@ public final class TitanInterceptSearch {
     private final Random rng = new Random(123);
 
     private TitanInterceptSearch() {
-        eph   = new EphemerisLoader(SolarSystem.CreatePlanets(), T0, T0.plusYears(1), TAPESTEP_H);
+        eph   = new EphemerisLoader(SolarSystem.CreatePlanets(), T0, T0.plusMonths(14), TAPESTEP_H);
         eph.solve();// planet-only run
         double AU = 1.496e8;
-        System.out.printf("Titan–Earth @T₀ : %.3f AU%n",
-                Vector.getDistance(eph.initialState.get(BodyID.TITAN.index()).getPosition(),
+        System.out.printf("SATURN–Earth @T₀ : %.3f AU%n",
+                Vector.getDistance(eph.initialState.get(BodyID.SATURN.index()).getPosition(),
                         eph.initialState.get(BodyID.EARTH.index()).getPosition())/AU
         );
         tape  = eph.history;
@@ -76,9 +76,9 @@ public final class TitanInterceptSearch {
         Vector rP = solver.history.get(t1).stream()
                 .filter(b -> b.getName().equals("probe"))
                 .findFirst().orElseThrow().getPosition();
-        CelestialBodies titan = tape.get(t1).get(BodyID.TITAN.index());
+        CelestialBodies saturn = tape.get(t1).get(BodyID.SATURN.index()); //TODO change to Titan from Saturn in the end
         //System.out.println("Confirmation: " + titan.getName());
-        Vector rT = titan.getPosition();
+        Vector rT = saturn.getPosition();
 
         return Vector.getDistance(rP, rT);
     }
