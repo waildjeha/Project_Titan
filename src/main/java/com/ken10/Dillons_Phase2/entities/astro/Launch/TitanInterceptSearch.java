@@ -13,7 +13,7 @@ import java.util.*;
  * Pure-JDK search for a 60 km/s heliocentric velocity that minimises
  * miss-distance to Titan after a 312-day flight.
  *
- *    – biased random sampling cone  (±30°) around Earth-prograde
+ *    – biased random sampling cone  (±60°) around Earth-prograde
  *    – simple hill-climb refinement
  *    – no external libraries
  *
