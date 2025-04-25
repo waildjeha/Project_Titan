@@ -37,11 +37,10 @@ public class RK4Solver extends Solver {
     @Override
     public void step() {
         // Calculate the derivatives at the current time step using GravityCalc
-        double h = stepSizeHours;
-        h *= 3600;
+        int h = stepSizeHours*3600;
         LocalDateTime t = time;
-        LocalDateTime t2 = t.plusSeconds((int)h/2);
-        LocalDateTime t4 = t.plusSeconds((int)h);
+        LocalDateTime t2 = t.plusSeconds(h/2);
+        LocalDateTime t4 = t.plusSeconds(h);
         ArrayList<CelestialBodies> y1 = planetarySystem;
         int n = y1.size();
         ArrayList<CelestialBodies> k1 = GravityCalc.computeDerivatives(time, y1);
@@ -89,7 +88,7 @@ public class RK4Solver extends Solver {
         }
         ArrayList<CelestialBodies> k4 = GravityCalc.computeDerivatives(t4, y4);
 
-
+        var newState = new ArrayList<CelestialBodies>();
         // Update the planetary system's state using the RK4 formula
         for (int i = 0; i < n ; i++) {
            CelestialBodies body = y1.get(i);
@@ -110,11 +109,14 @@ public class RK4Solver extends Solver {
                     .add(k4Body.getVelocity())
                     .multiply(h / 6);
             body.setVelocity(body.getVelocity().add(velocityUpdate));
+
         }
 
+
         time = time.plusHours(stepSizeHours);
-        printState();
+        //printState();
         recordState();
+
     }
 
 

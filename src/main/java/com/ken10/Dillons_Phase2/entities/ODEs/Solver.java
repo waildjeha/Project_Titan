@@ -19,7 +19,7 @@ public abstract class Solver implements ODE_Function {
     protected LocalDateTime time;
     protected LocalDateTime endTime;
     protected int stepSizeHours;
-    protected final Hashtable<LocalDateTime, ArrayList<CelestialBodies>> history;
+    public final Hashtable<LocalDateTime, ArrayList<CelestialBodies>> history;
 
     /**
      * Initialize the ODE solver

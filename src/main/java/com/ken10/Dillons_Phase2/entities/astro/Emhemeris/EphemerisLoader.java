@@ -7,6 +7,7 @@ import com.ken10.Dillons_Phase2.entities.planet.CelestialBodies;
 import com.ken10.Dillons_Phase2.entities.planet.SolarSystem;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 
 //To run this code(load all the states in a specified time frame) you create an instance of
@@ -22,7 +23,7 @@ public final ArrayList<CelestialBodies> initialState;
     //I fell like we need to create an interface where we declare startTime, endTime, stepSize
     //to make sure our solvers work on the same settings
     public EphemerisLoader(ArrayList<CelestialBodies> planetarySystem, LocalDateTime startTime, LocalDateTime endTime, int stepSizeHours) {
-        super(planetarySystem, startTime, endTime, stepSizeHours );
+        super(deepCopyList(planetarySystem), startTime, endTime, stepSizeHours );
         this.initialState = planetarySystem;
 
     }
@@ -31,7 +32,14 @@ public final ArrayList<CelestialBodies> initialState;
                 LocalDateTime.of(2025, 4, 1, 0, 0),
                 LocalDateTime.of(2026, 3, 31, 23, 59),
                 stepSizeHours);
-        this.initialState = this.planetarySystem;
+        this.initialState = SolarSystem.CreatePlanets();
+    }
+
+    private static ArrayList<CelestialBodies> deepCopyList(
+            List<CelestialBodies> src) {
+        ArrayList<CelestialBodies> copy = new ArrayList<>(src.size());
+        for (CelestialBodies b : src) copy.add(b.deepCopy());
+        return copy;
     }
 
 

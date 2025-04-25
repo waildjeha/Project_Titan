@@ -37,7 +37,7 @@ public class GravityCalc {
 
             if (distance == 0) continue;
 
-            double forceMagnitude = (-g * currentBody.getMass() * otherBody.getMass())/ Math.pow(distance, 2);
+            double forceMagnitude = -(g * currentBody.getMass() * otherBody.getMass())/ Math.pow(distance, 2);
             Vector unitDirection = differenceVector.multiply(1.0/distance);
             Vector forceVector = unitDirection.multiply(forceMagnitude);
             Vector bodyAcceleration = forceVector.multiply(1.0/currentBody.getMass());
