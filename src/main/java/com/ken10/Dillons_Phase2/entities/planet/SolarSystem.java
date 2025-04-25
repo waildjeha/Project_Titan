@@ -44,8 +44,8 @@ public class SolarSystem {
         Vector distance = earthPos.subtract(moonPos);
         double dist = distance.magnitude();
         System.out.println(dist);
-        for(var b : CreatePlanets()){
-            b.printBody();
-        }
+//        for(var b : CreatePlanets()){
+//            b.printBody();
+//        }
     }
 }
