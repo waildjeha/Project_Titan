@@ -1,17 +1,28 @@
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\entities\CelestialBodies.java
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\entities\planet\PlanetModel.java
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\entities\probe\Probe.java
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\entities\probe\ProbeMission.java
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\entities\probe\ProbeMissionSim.java
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\entities\rocket\GroundState.java
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\entities\rocket\OrbitState.java
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\entities\rocket\Rocket.java
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\entities\rocket\RocketState.java
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\entities\SolarSystem.java
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\NumericalSolvers\RK4Solver.java
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\ODEs\GravityCalc.java
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\ODEs\ODE_Function.java
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\ODEs\Solver.java
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\Other\Derivative.java
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\Other\Vector.java
-C:\Users\dilpa\OneDrive\Java Projects\Project_Titan\src\main\java\com\ken10\visualization\RK4Visualizer.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/Main.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/NumericalSolvers/RK4Solver.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/ODEs/GravityCalc.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/ODEs/ODE_Function.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/ODEs/Solver.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/Other/Derivative.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/Other/Vector.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Emhemeris/EphemerisLoader.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Emhemeris/EphemerisProvider.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Lambert/LambertEquations.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Lambert/LambertResult.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Lambert/LambertSolver.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Lambert/LaunchStateBuilder.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Launch/LaunchWindowScanner.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Launch/TitanInterceptSearch.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/planet/BodyID.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/planet/CelestialBodies.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/planet/Earth.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/planet/PlanetModel.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/planet/SolarSystem.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/planet/Titan.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/probe/Probe.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/probe/ProbeMission.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/probe/ThrustPlan.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/rocket/GroundState.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/rocket/OrbitState.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/rocket/Rocket.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Dillons_Phase2/entities/rocket/RocketState.java
