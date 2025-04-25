@@ -1,13 +1,11 @@
 package com.ken10.Dillons_Phase2.entities.ODEs;
 
-import com.ken10.Dillons_Phase2.entities.Other.Vector;
 import com.ken10.Dillons_Phase2.entities.planet.CelestialBodies;
 import com.ken10.Dillons_Phase2.entities.planet.SolarSystem;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 
 /**
  * ODE solver for uses of both Euler and RK4.
@@ -18,7 +16,7 @@ public abstract class Solver implements ODE_Function {
     //    protected ArrayList<Body> planetaryDerivatives;
     protected LocalDateTime time;
     protected LocalDateTime endTime;
-    protected int stepSizeHours;
+    protected int stepSizeMins;
     public final Hashtable<LocalDateTime, ArrayList<CelestialBodies>> history;
 
     /**
@@ -31,21 +29,21 @@ public abstract class Solver implements ODE_Function {
      *
      * @param startTime     Initial time
      * @param endTime       End time for simulation
-     * @param stepSizeHours Time step size
+     * @param stepSizeMins Time step size
      */
-    public Solver(ArrayList<CelestialBodies> planetarySystem, LocalDateTime startTime, LocalDateTime endTime, int stepSizeHours) {
+    public Solver(ArrayList<CelestialBodies> planetarySystem, LocalDateTime startTime, LocalDateTime endTime, int stepSizeMins) {
         this.time = startTime;
         this.planetarySystem = planetarySystem;
         //this.planetaryDerivatives = planetarySystem.planetaryDerivatives;
         this.endTime = endTime;
-        this.stepSizeHours = stepSizeHours;
+        this.stepSizeMins = stepSizeMins;
         this.history = new Hashtable<>();
         recordState();
     }
-    public Solver(int stepSizeHours) {
+    public Solver(int stepSizeMins) {
         this.time = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
         this.endTime = LocalDateTime.of(2026, 3, 31, 23, 59, 59);
-        this.stepSizeHours = stepSizeHours;
+        this.stepSizeMins = stepSizeMins;
         this.planetarySystem = SolarSystem.CreatePlanets();
         this.history = new Hashtable<>();
         recordState();

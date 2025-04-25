@@ -1,8 +1,6 @@
 package com.ken10.Dillons_Phase2.entities.NumericalSolvers;
-import com.ken10.Dillons_Phase2.entities.astro.Emhemeris.EphemerisLoader;
 import com.ken10.Dillons_Phase2.entities.planet.CelestialBodies;
 import com.ken10.Dillons_Phase2.entities.planet.PlanetModel;
-import com.ken10.Dillons_Phase2.entities.planet.SolarSystem;
 import com.ken10.Dillons_Phase2.entities.probe.Probe;
 import com.ken10.Dillons_Phase2.entities.rocket.Rocket;
 import com.ken10.Dillons_Phase2.entities.ODEs.GravityCalc;
@@ -24,10 +22,10 @@ public class RK4Solver extends Solver {
      * @param planetarySystem planets and rocket in space.
      * @param startTime initial time
      * @param endTime Finish time, probably will be a year.
-     * @param stepSizeHours stepsize -_-
+     * @param stepSizeMins stepsize -_-
      */
-    public RK4Solver(ArrayList<CelestialBodies> planetarySystem, LocalDateTime startTime, LocalDateTime endTime, int stepSizeHours) {
-        super(planetarySystem, startTime, endTime, stepSizeHours);
+    public RK4Solver(ArrayList<CelestialBodies> planetarySystem, LocalDateTime startTime, LocalDateTime endTime, int stepSizeMins) {
+        super(planetarySystem, startTime, endTime, stepSizeMins);
     }
 
 
@@ -37,7 +35,7 @@ public class RK4Solver extends Solver {
     @Override
     public void step() {
         // Calculate the derivatives at the current time step using GravityCalc
-        int h = stepSizeHours*3600;
+        int h = stepSizeMins *60;
         LocalDateTime t = time;
         LocalDateTime t2 = t.plusSeconds(h/2);
         LocalDateTime t4 = t.plusSeconds(h);
@@ -113,7 +111,7 @@ public class RK4Solver extends Solver {
         }
 
 
-        time = time.plusHours(stepSizeHours);
+        time = time.plusMinutes(stepSizeMins);
         //printState();
         recordState();
 

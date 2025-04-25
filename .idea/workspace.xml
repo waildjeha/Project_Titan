@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="Lambert runnable">
+    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="Gravity for the moons to be corrected. They need a separate smaller step size in mins, not hours. TitanInterceptSearch added. Just chatGPT code, apparently using hill algortim as well">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/NumericalSolvers/RK4Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/NumericalSolvers/RK4Solver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/ODEs/Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/ODEs/Solver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Emhemeris/EphemerisLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Emhemeris/EphemerisLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Launch/TitanInterceptSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Launch/TitanInterceptSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/EulerSolver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/ODEFunctionEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/ODEFunctionEvaluator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/ODESolverGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/ODESolverGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/NumericalSolvers/RK4Solver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/NumericalSolvers/RK4Solver.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/ODEs/Solver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/ODEs/Solver.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/astro/Emhemeris/EphemerisLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/astro/Emhemeris/EphemerisLoader.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/astro/Launch/TitanInterceptSearch.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/astro/Launch/TitanInterceptSearch.class" afterDir="false" />
@@ -58,6 +57,9 @@
     &quot;accountId&quot;: &quot;f372f1d3-6f4b-4837-87db-2e66f4b7f4a8&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -285,7 +287,23 @@
       <option name="project" value="LOCAL" />
       <updated>1745573199283</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Gravity for the moons to be corrected. They need a separate smaller step size in mins, not hours. TitanInterceptSearch added. Just chatGPT code, apparently using hill algortim as well">
+      <option name="closed" value="true" />
+      <created>1745585487790</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1745585487790</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Gravity for the moons to be corrected. They need a separate smaller step size in mins, not hours. TitanInterceptSearch added. Just chatGPT code, apparently using hill algortim as well">
+      <option name="closed" value="true" />
+      <created>1745589575600</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1745589575600</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,6 +325,7 @@
     <MESSAGE value="LocalDateTime instead of seconds;&#10;Hashtable for storing the solarSystem state at different times instead of the nested class;&#10;Lambert method for calculating the most optimal path to Titan - halfway implemented;&#10;Enum class to store the indexes of the classes;" />
     <MESSAGE value="Hashtable works!" />
     <MESSAGE value="Lambert runnable" />
-    <option name="LAST_COMMIT_MESSAGE" value="Lambert runnable" />
+    <MESSAGE value="Gravity for the moons to be corrected. They need a separate smaller step size in mins, not hours. TitanInterceptSearch added. Just chatGPT code, apparently using hill algortim as well" />
+    <option name="LAST_COMMIT_MESSAGE" value="Gravity for the moons to be corrected. They need a separate smaller step size in mins, not hours. TitanInterceptSearch added. Just chatGPT code, apparently using hill algortim as well" />
   </component>
 </project>

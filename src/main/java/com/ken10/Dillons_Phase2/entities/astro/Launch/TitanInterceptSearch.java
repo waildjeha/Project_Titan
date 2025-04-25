@@ -25,11 +25,12 @@ public final class TitanInterceptSearch {
     private static final LocalDateTime T0        = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
     private static final int           FLT_DAYS  = 400;
     private static final double        V_LAUNCH  = 60.0;     // km s^-1
-    private static final int           TAPESTEP_H= 2;        // 6-h planet tape
-    private static final int           PROBSTEP_H= 1;        // 1-h probe step
-    private static final int           RANDOM_IN_CONE = 20000;
+    private static final int           TAPESTEP_MINS= 5;        // 6-h planet tape
+    private static final int           PROBSTEP_MINS = 15;        // 1-h probe step
+    private static final int           RANDOM_IN_CONE = 2000;
     private static final int           RANDOM_GLOBAL  =  800;
-    private static final int           HILL_PASSES    = 4;   // refinement depth
+    private static final int           HILL_PASSES    = 4;   //
+    // refinement depth5
     /* increase RANDOM_IN_CONE to 10_000+ for better accuracy          */
 
     /* ───────────────────── infrastructure ─────────────────────────── */
@@ -38,11 +39,11 @@ public final class TitanInterceptSearch {
     private final Random rng = new Random(123);
 
     private TitanInterceptSearch() {
-        eph   = new EphemerisLoader(SolarSystem.CreatePlanets(), T0, T0.plusMonths(14), TAPESTEP_H);
+        eph   = new EphemerisLoader(SolarSystem.CreatePlanets(), T0, T0.plusMonths(14), TAPESTEP_MINS);
         eph.solve();// planet-only run
         double AU = 1.496e8;
-        System.out.printf("SATURN–Earth @T₀ : %.3f AU%n",
-                Vector.getDistance(eph.initialState.get(BodyID.SATURN.index()).getPosition(),
+        System.out.printf("TITAN–Earth @T₀ : %.3f AU%n",
+                Vector.getDistance(eph.initialState.get(BodyID.TITAN.index()).getPosition(),
                         eph.initialState.get(BodyID.EARTH.index()).getPosition())/AU
         );
         tape  = eph.history;
@@ -69,16 +70,16 @@ public final class TitanInterceptSearch {
         state0.add(probe);
 
         RK4Solver solver = new RK4Solver(
-                state0, T0, T0.plusDays(FLT_DAYS), PROBSTEP_H);
+                state0, T0, T0.plusDays(FLT_DAYS), PROBSTEP_MINS);
         solver.solve();
 
         LocalDateTime t1 = T0.plusDays(FLT_DAYS);
         Vector rP = solver.history.get(t1).stream()
                 .filter(b -> b.getName().equals("probe"))
                 .findFirst().orElseThrow().getPosition();
-        CelestialBodies saturn = tape.get(t1).get(BodyID.SATURN.index()); //TODO change to Titan from Saturn in the end
+        CelestialBodies titan = tape.get(t1).get(BodyID.TITAN.index());
         //System.out.println("Confirmation: " + titan.getName());
-        Vector rT = saturn.getPosition();
+        Vector rT = titan.getPosition();
 
         return Vector.getDistance(rP, rT);
     }
@@ -116,10 +117,12 @@ public final class TitanInterceptSearch {
         /* seed: straight prograde */
         double thetaBest = Math.asin(prograde.getZ());
         double phiBest   = Math.atan2(prograde.getY(), prograde.getX());
-        double missBest  = miss(thetaBest, phiBest);
+        double missBest = miss(thetaBest, phiBest);
+
+
         System.out.printf("seed miss %.0f km%n", missBest);
 
-        /* 1 ─ random shots inside ±30° cone */
+        /* 1 ─ random shots inside ±60° cone */
         double cone = Math.toRadians(60);
         for (int i = 1; i <= RANDOM_IN_CONE; i++) {
             Vector u = randomInCone(prograde, cone);

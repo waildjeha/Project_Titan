@@ -27,7 +27,10 @@ public class Main {
                 System.out.printf("No record for %s%n", t);
                 continue;                     // or break;
             }
-            eph.printState(state);
+            earth = state.get(BodyID.EARTH.index()).getPosition();
+            titan = state.get(BodyID.TITAN.index()).getPosition();
+//            eph.printState(state);
+            System.out.println(getDistance(earth, titan)/1.496e8);
         }
     }
 }
