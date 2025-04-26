@@ -62,6 +62,10 @@ public abstract class Solver implements ODE_Function {
         history.add(new Solver.TimeState(time, new ArrayList<>(planetarySystem)));
     }
 
+    public double getCurrentTime() {
+        return time;
+    }
+
     public void printState(){
         for (CelestialBodies b : planetarySystem) {
             System.out.println(b.toString());
