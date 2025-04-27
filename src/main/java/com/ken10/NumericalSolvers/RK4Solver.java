@@ -101,7 +101,8 @@ public class RK4Solver extends Solver {
 
         // Update the planetary system's state using the RK4 formula
         for (int i = 0; i < n ; i++) {
-           CelestialBodies body = y1.get(i);
+            CelestialBodies body = y1.get(i);
+            if (body.getName().equalsIgnoreCase("sun")) continue;
            CelestialBodies k1Body = k1.get(i);
            CelestialBodies k2Body = k2.get(i);
            CelestialBodies k3Body = k3.get(i);
@@ -123,7 +124,7 @@ public class RK4Solver extends Solver {
         }
 
         time += stepSize;
-        printState(time);
+//        printState(time);
         recordState();
     }
 

@@ -5,11 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="Basic ProbeMission object with some methods.">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/ProbeMission/Miss.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ken10/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ken10/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/NumericalSolvers/RK4Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/NumericalSolvers/RK4Solver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/ProbeMission/TitanProbeMission.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/ProbeMission/TitanProbeMission.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/entities/probe/FuelOptimizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/entities/probe/FuelOptimizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/entities/probe/Probe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/entities/probe/Probe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/entities/probe/ProbeMission.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/entities/probe/ProbeMission.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Entities/probe/Probe.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ken10/Entities/probe/Probe.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/NumericalSolvers/RK4Solver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ken10/NumericalSolvers/RK4Solver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/ODEs/Solver$TimeState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ken10/ODEs/Solver$TimeState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/ODEs/Solver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ken10/ODEs/Solver.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +39,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dominik" />
+        <entry key="$PROJECT_DIR$" value="Dillon" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -44,12 +50,12 @@
     &quot;assignee&quot;: &quot;DillonPatterson1&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/waildjeha/Project_Titan.git&quot;,
-    &quot;accountId&quot;: &quot;f372f1d3-6f4b-4837-87db-2e66f4b7f4a8&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/waildjeha/Project_Titan.git",
+    "accountId": "e0303f60-4922-4c4c-9b32-09d2fd14f23b"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -63,6 +69,7 @@
   "keyToString": {
     "Application.ExamplePlanetMovement.executor": "Run",
     "Application.LotkaVolterraSimulation.executor": "Run",
+    "Application.Miss.executor": "Run",
     "Application.PlanetInfo.executor": "Run",
     "Application.PlanetMotionTest.executor": "Run",
     "Application.ProbeMissionSim.executor": "Run",
@@ -75,7 +82,7 @@
     "JUnit.AppTest.testTwoBodiesAcceleration.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Dillon",
+    "git-widget-placeholder": "Ali-Iva",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/dilpa/signal_project",
     "node.js.detected.package.eslint": "true",
@@ -91,24 +98,78 @@
   }
 }]]></component>
   <component name="RunManager">
-    <configuration name="AppTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EphemerisLoader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Dillons_Phase2.entities.astro.Emhemeris.EphemerisLoader" />
       <module name="titan" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ken10.*" />
+          <option name="PATTERN" value="com.ken10.Dillons_Phase2.entities.astro.Emhemeris.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.ken10" />
-      <option name="MAIN_CLASS_NAME" value="com.ken10.AppTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LaunchStateBuilder" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Dillons_Phase2.entities.astro.Lambert.LaunchStateBuilder" />
+      <module name="titan" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ken10.Dillons_Phase2.entities.astro.Lambert.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Dillons_Phase2.entities.Main" />
+      <module name="titan" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ken10.Dillons_Phase2.entities.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TitanInterceptSearch" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Dillons_Phase2.entities.astro.Launch.TitanInterceptSearch" />
+      <module name="titan" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ken10.Dillons_Phase2.entities.astro.Launch.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TitanInterceptSearchSimple" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Dillons_Phase2.search.TitanInterceptSearchSimple" />
+      <module name="titan" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ken10.Dillons_Phase2.search.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.AppTest" />
+        <item itemvalue="Application.TitanInterceptSearchSimple" />
+        <item itemvalue="Application.TitanInterceptSearch" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.LaunchStateBuilder" />
+        <item itemvalue="Application.EphemerisLoader" />
       </list>
     </recent_temporary>
   </component>
@@ -235,16 +296,5 @@
     <MESSAGE value="updated calculateInterceptPoint to work with rk4." />
     <MESSAGE value="Basic ProbeMission object with some methods." />
     <option name="LAST_COMMIT_MESSAGE" value="Basic ProbeMission object with some methods." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/ken10/AppTest.java</url>
-          <line>53</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

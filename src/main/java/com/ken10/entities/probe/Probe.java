@@ -6,11 +6,14 @@ import com.ken10.Other.Vector;
 import com.ken10.entities.SolarSystem;
 import java.util.ArrayList;
 
+import static com.ken10.ODEs.GravityCalc.computeDerivatives;
+
 /**
  * Class for Probe mission.
  * implements multiple useful methods for titan mission.
  */
 public class Probe extends CelestialBodies {
+    public static final double g = 6.6743e-20;
     private double fuelLevel;
     private boolean isActive;
     private double distanceToTarget;
@@ -78,7 +81,7 @@ public class Probe extends CelestialBodies {
         Vector interceptPoint = null;
         Vector targetPosition;
         Vector probePosition;
-
+        solarSystem.add(probe);
         RK4Solver solver = new RK4Solver(solarSystem,startTime,endTime,stepSize);
 
         double minDistance = Double.MAX_VALUE;
@@ -117,15 +120,15 @@ public class Probe extends CelestialBodies {
      * @param radius radius of that planet.
      * @return a probe containing starting pos & vel relative to the planet with mass 50000kg
      */
-    public Probe setStartingProbe(CelestialBodies launchPlanet, double radius) {
+    public Probe setStartingProbe(CelestialBodies launchPlanet, double radius, Vector initialVelocity) {
         Vector earthPos = launchPlanet.getPosition();
         Vector earthVel = launchPlanet.getVelocity();
 
-        Vector startPos = earthPos.add(new Vector(radius,0,0));
 
 
-        return new Probe(getName(),startPos, earthVel,50000);
+        Vector startPos = earthPos.add(new Vector(radius, 0, 0));
 
+        return new Probe(getName(), startPos, initialVelocity, 50000);
     }
 
 
@@ -152,5 +155,48 @@ public class Probe extends CelestialBodies {
 //        discuss what should be our constant
 //        how many kg per NÂ·s
         fuelLevel = Math.max(0, fuelLevel - fuelBurned);
+    }
+
+
+    public void simulateProbePath(Probe probe, CelestialBodies target, RK4Solver solver, double startTime, double endTime, double stepSize) {
+        double currentTime = startTime;
+
+        while (currentTime < endTime) {
+            solver.step(); // move everything including probe!
+
+            Vector probePosition = probe.getPosition();
+            double distanceToTitan = probePosition.subtract(target.getPosition()).magnitude();
+
+            System.out.println("Distance to Titan: " + distanceToTitan + " km");
+
+            if (distanceToTitan <= 2575) { // Titan radius
+                System.out.println("🎯 Probe has reached Titan at time: " + (currentTime/86400) + " days");
+                break;
+            }
+
+            currentTime += stepSize;
+        }
+    }
+
+
+    public Vector calculateGravitationalAcceleration(CelestialBodies sourceBody) {
+        Vector distanceVector = sourceBody.getPosition().subtract(this.getPosition());
+        double distance = distanceVector.magnitude();
+        double forceMagnitude = (g * this.getMass() * sourceBody.getMass()) / Math.pow(distance, 2);
+        return distanceVector.normalize().multiply(-forceMagnitude / this.getMass());
+    }
+
+    public double simulateMissDistance(Probe probe, CelestialBodies target, RK4Solver solver, double startTime, double endTime, double stepSize) {
+        double minDistance = Double.MAX_VALUE;
+        double currentTime = startTime;
+        while (currentTime < endTime) {
+            solver.step();
+            double distanceToTarget = probe.getPosition().subtract(target.getPosition()).magnitude();
+            if (distanceToTarget < minDistance) {
+                minDistance = distanceToTarget;
+            }
+            currentTime += stepSize;
+        }
+        return minDistance;
     }
 }

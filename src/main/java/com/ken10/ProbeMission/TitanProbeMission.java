@@ -64,6 +64,6 @@ public class TitanProbeMission {
         }
         
         // Set up optimized probe and add to planetary system
-        Probe missionProbe = probe.setStartingProbe(earth, earthRadius);
+//        Probe missionProbe = probe.setStartingProbe(earth, earthRadius,ve);
     }
 }

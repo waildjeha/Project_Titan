@@ -1,7 +1,11 @@
 package com.ken10.entities.probe;
 
+import com.ken10.NumericalSolvers.RK4Solver;
 import com.ken10.Other.Vector;
 import com.ken10.entities.CelestialBodies;
+import com.ken10.entities.SolarSystem;
+
+import java.util.ArrayList;
 
 public class ProbeMission {
     private final double MAX_MISSION_TIME = 1.0;
@@ -26,6 +30,7 @@ public class ProbeMission {
         else{probe.launch();
         }
     }
+
 
     public void updateMission(double stepSize) {
         if (missionComplete) return;

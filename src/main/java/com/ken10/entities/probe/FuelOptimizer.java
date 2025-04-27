@@ -69,7 +69,7 @@ public class FuelOptimizer {
 
     private static double evaluateMission(Probe probeTemplate, CelestialBodies earth, CelestialBodies target, 
                                         double radius, Vector velocity, double ALPHA, double BETA) {
-        Probe probe = probeTemplate.setStartingProbe(earth, radius);
+        Probe probe = probeTemplate.setStartingProbe(earth, radius,velocity);
         probe.setVelocity(velocity);
         probe.setTargetBody(target);
 
