@@ -4,18 +4,81 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="Gravity for the moons to be corrected. They need a separate smaller step size in mins, not hours. TitanInterceptSearch added. Just chatGPT code, apparently using hill algortim as well">
+    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="Newest code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/NumericalSolvers/RK4Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/NumericalSolvers/RK4Solver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/ODEs/Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/ODEs/Solver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Emhemeris/EphemerisLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Emhemeris/EphemerisLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Launch/TitanInterceptSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Launch/TitanInterceptSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/NumericalSolvers/RK4Solver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/NumericalSolvers/RK4Solver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/ODEs/Solver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/ODEs/Solver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/astro/Emhemeris/EphemerisLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/astro/Emhemeris/EphemerisLoader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/astro/Launch/TitanInterceptSearch.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/astro/Launch/TitanInterceptSearch.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase1/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/NumericalSolvers/RK4Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/RK4Solver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/ODEs/GravityCalc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/GravityCalc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/ODEs/ODE_Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/ODE_Function.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/ODEs/Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/Solver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/Other/Derivative.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/Other/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Vector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Emhemeris/EphemerisLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/EphemerisLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Emhemeris/EphemerisProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/EphemerisProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/astro/Launch/TitanInterceptSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/TitanInterceptSearch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/planet/BodyID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/BodyID.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/planet/CelestialBodies.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/CelestialBodies.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/planet/Earth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Earth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/planet/PlanetModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/PlanetModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/planet/SolarSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/SolarSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/planet/Titan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Titan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/probe/Probe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/probe/ProbeMission.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/probe/ProbeMission.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/probe/ThrustPlan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/probe/ThrustPlan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/rocket/GroundState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/rocket/OrbitState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/rocket/Rocket.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Dillons_Phase2/entities/rocket/RocketState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/EulerSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase1/EulerSolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/LotkaVolterraSimulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase1/LotkaVolterraSimulation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/ODEFunctionEvaluator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/ODESolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase1/ODESolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/ODESolverGUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/OdeFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase1/OdeFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/RungeKutta4Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase1/RungeKutta4Solver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/phase2/Body.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/phase2/InitialDataset.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/phase2/LotkaVolterraForPlanets.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/phase2/ODE_Function.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/phase2/PlanetarySystem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/phase2/RK4ForPlanets.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/phase2/Solver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ken10/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ken10/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Project_Titan-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/NumericalSolvers/RK4Solver.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/ODEs/GravityCalc.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/ODEs/ODE_Function.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/ODEs/Solver.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/Other/Derivative.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/Other/Vector.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/astro/Emhemeris/EphemerisLoader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/astro/Emhemeris/EphemerisProvider.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/astro/Launch/TitanInterceptSearch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/planet/BodyID.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/planet/CelestialBodies.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/planet/Earth.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/planet/PlanetModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/planet/SolarSystem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/planet/Titan.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/probe/Probe.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/probe/ProbeMission.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/probe/ThrustPlan.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/rocket/GroundState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/rocket/OrbitState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/rocket/Rocket.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/entities/rocket/RocketState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ken10/Dillons_Phase2/search/TitanInterceptSearch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.ken10.AppTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.ken10.AppTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/ken10/AppTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,12 +114,12 @@
     &quot;assignee&quot;: &quot;DillonPatterson1&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/waildjeha/Project_Titan.git&quot;,
-    &quot;accountId&quot;: &quot;f372f1d3-6f4b-4837-87db-2e66f4b7f4a8&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/waildjeha/Project_Titan.git",
+    "accountId": "1f049f82-fffe-4dcd-9229-d183d900cab8"
   }
-}</component>
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -87,6 +150,8 @@
     "Application.TitanInterceptSearchSimple.executor": "Run",
     "Application.TransferTime.executor": "Run",
     "Application.com.ken10.Dillons_Phase2.entities.NumericalSolvers.RK4Solver.executor": "Run",
+    "Application.com.ken10.Phase2.Main.executor": "Run",
+    "Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader.executor": "Run",
     "Application.sim.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -98,33 +163,20 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.TitanInterceptSearch">
+  <component name="RunManager" selected="Application.com.ken10.Phase2.Main">
     <configuration name="EphemerisLoader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ken10.Dillons_Phase2.entities.astro.Emhemeris.EphemerisLoader" />
       <module name="titan" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ken10.Dillons_Phase2.entities.astro.Emhemeris.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LaunchStateBuilder" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.ken10.Dillons_Phase2.entities.astro.Lambert.LaunchStateBuilder" />
-      <module name="titan" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.ken10.Dillons_Phase2.entities.astro.Lambert.*" />
+          <option name="PATTERN" value="com.ken10.Phase2.StatesCalculations.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -146,11 +198,11 @@
       </method>
     </configuration>
     <configuration name="TitanInterceptSearch" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.ken10.Dillons_Phase2.entities.astro.Launch.TitanInterceptSearch" />
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.StatesCalculations.TitanInterceptSearch" />
       <module name="titan" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ken10.Dillons_Phase2.entities.astro.Launch.*" />
+          <option name="PATTERN" value="com.ken10.Phase2.StatesCalculations.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -158,12 +210,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TitanInterceptSearchSimple" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.ken10.Dillons_Phase2.search.TitanInterceptSearchSimple" />
+    <configuration name="com.ken10.Phase2.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.Main" />
       <module name="titan" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ken10.Dillons_Phase2.search.*" />
+          <option name="PATTERN" value="com.ken10.Phase2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.ken10.Phase2.StatesCalculations.EphemerisLoader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.StatesCalculations.EphemerisLoader" />
+      <module name="titan" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ken10.Phase2.StatesCalculations.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -173,11 +238,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.com.ken10.Phase2.Main" />
+        <item itemvalue="Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader" />
         <item itemvalue="Application.TitanInterceptSearch" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.EphemerisLoader" />
-        <item itemvalue="Application.TitanInterceptSearchSimple" />
-        <item itemvalue="Application.LaunchStateBuilder" />
       </list>
     </recent_temporary>
   </component>
@@ -206,6 +271,7 @@
       <workItem from="1744638270050" duration="3735000" />
       <workItem from="1744667481681" duration="6327000" />
       <workItem from="1744673874210" duration="20947000" />
+      <workItem from="1745936195922" duration="5822000" />
     </task>
     <task id="LOCAL-00001" summary="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors">
       <option name="closed" value="true" />
@@ -303,7 +369,23 @@
       <option name="project" value="LOCAL" />
       <updated>1745589575600</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Gravity for the moons to be corrected. They need a separate smaller step size in mins, not hours. TitanInterceptSearch added. Just chatGPT code, apparently using hill algortim as well">
+      <option name="closed" value="true" />
+      <created>1745592391855</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1745592391855</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Newest code">
+      <option name="closed" value="true" />
+      <created>1745592448156</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1745592448157</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -326,6 +408,7 @@
     <MESSAGE value="Hashtable works!" />
     <MESSAGE value="Lambert runnable" />
     <MESSAGE value="Gravity for the moons to be corrected. They need a separate smaller step size in mins, not hours. TitanInterceptSearch added. Just chatGPT code, apparently using hill algortim as well" />
-    <option name="LAST_COMMIT_MESSAGE" value="Gravity for the moons to be corrected. They need a separate smaller step size in mins, not hours. TitanInterceptSearch added. Just chatGPT code, apparently using hill algortim as well" />
+    <MESSAGE value="Newest code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Newest code" />
   </component>
 </project>
