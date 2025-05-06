@@ -24,7 +24,10 @@ public abstract class CelestialBodies {
     public Vector getVelocity() {return velocity;}
     public double getMass() {return mass;}
     public void setMass(double mass) {this.mass = mass;}
-    public void setPosition(Vector position) {this.position = position;}
+    public void setPosition(Vector position) {
+        this.position = position;
+        this.distFromOrigin = position.magnitude();
+    }
     public void setVelocity(Vector velocity) {this.velocity = velocity;}
     public double getDistFromOrigin() {return distFromOrigin;}
 
