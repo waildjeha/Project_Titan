@@ -1,6 +1,12 @@
 package com.ken10.Phase2.SolarSystemModel;
 
+import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
 
 /**
  * no pluto :(
@@ -130,11 +136,38 @@ public class SolarSystem {
     }
 
     public static void main(String[] args) {
-        ArrayList<CelestialBodies> state = CreatePlanets();
-        Vector earthPos = state.get(3).getPosition();
-        Vector moonPos = state.get(4).getPosition();
-        Vector distance = earthPos.subtract(moonPos);
-        double dist = distance.magnitude();
-        System.out.println(dist);
+        EphemerisLoader eph = new EphemerisLoader(2);
+        eph.solve();
+        LocalDateTime t0 = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
+        List<CelestialBodies> initialState = eph.history.get(t0);
+        List<CelestialBodies> finalState = eph.history.get(t0.plusDays(70));
+        Vector earthPos = initialState.get(BodyID.EARTH.index()).getPosition();
+        Vector titanPos = finalState.get(BodyID.TITAN.index()).getPosition();
+        Vector pointedToTitan = earthPos.subtract(titanPos);
+        pointedToTitan = pointedToTitan.normalize();
+        double earthRadius = 6370;
+        Vector initialPosProbe = earthPos.add(pointedToTitan.multiply(earthRadius));
+        initialPosProbe.setZ(earthPos.getZ());
+        System.out.println("Distance between Probe and Earth(should be around 6370km): " + getDistance(initialPosProbe, earthPos));
+        List<CelestialBodies> initialWithProbe = initialState;
+        Vector probeStartVel = new Vector(6.67, 33.440869, 0.083851);
+        CelestialBodies probe = new Probe("probe", initialPosProbe, probeStartVel);
+        initialWithProbe.add(probe);
+        EphemerisLoader eph2 = new EphemerisLoader((ArrayList<CelestialBodies>)initialWithProbe, t0, t0.plusYears(1), 2);
+        eph2.solve();
+        double closestDistance = Double.MAX_VALUE;
+        for(int i = 50; i<100; i++){
+            Vector spaceship = eph2.history.get(t0.plusDays(i)).get(BodyID.SPACESHIP.index()).getPosition();
+            Vector earth = eph2.history.get(t0.plusDays(i)).get(BodyID.TITAN.index()).getPosition();
+            closestDistance = closestDistance(spaceship, earth, closestDistance);
+
+        }
+
+
+
+    }
+    public static double closestDistance(Vector pos1, Vector pos2, double minDistance) {
+        System.out.println("Distance between Titan and SPACESHIP: " + getDistance(pos1,pos2));
+        return Math.min(minDistance, getDistance(pos1, pos2));
     }
 }
