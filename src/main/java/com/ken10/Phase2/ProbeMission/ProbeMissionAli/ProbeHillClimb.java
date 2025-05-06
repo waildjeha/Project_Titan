@@ -13,11 +13,11 @@ public class ProbeHillClimb {
     private static final double PROBE_MASS = 50000; 
     private static final int STEP_SIZE_MINUTES = 5; 
     private static final double INITIAL_STEP = 1.0; 
-    private static final double MIN_STEP = 0.0001; // precision
+    private static final double MIN_STEP = 0.000001; // precision
 
     private static final double LANDING_THRESHOLD_KM = 2575.0; // Titan's radius 
 
-    private static final Vector INITIAL_VECTOR = new Vector(6.67, 33.30, 0.09);
+    private static final Vector INITIAL_VECTOR = new Vector(6.670000, 33.440869, 0.083851);
 
     public void runHillClimb() {
         Vector earthPosition = getEarthPositionAtLaunch();
