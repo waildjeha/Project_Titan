@@ -1,7 +1,9 @@
 package com.ken10.Phase2.SolarSystemModel;
 
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
 
@@ -14,18 +16,27 @@ public class Probe extends CelestialBodies {
     private boolean isActive = false;
     private double distanceToTarget;
     public static final double MASS = 50000;
-//    private Vector position;
-//    private Vector velocity;
+    private Hashtable<LocalDateTime, Probe> probeHistory = new Hashtable<>();
+    private final Vector initialPosition;
+    private final Vector initialVelocity;
+    private static final LocalDateTime startTime = LocalDateTime.of(2025,4,1,0,0,0);
 
 
     public Probe(String name, Vector position, Vector velocity) {
         super(name, position, velocity, MASS);
-//        this.position = position;
-//        this.velocity = velocity;
+        this.initialPosition = position;
+        this.initialVelocity = velocity;
+        probeHistory.put(startTime, this);
     }
 
     private void getDistanceToTarget(ArrayList<CelestialBodies> state) {
         distanceToTarget = getDistance(position, state.get(BodyID.TITAN.index()).getPosition());
+    }
+    public Vector getInitialPosition() {
+        return initialPosition;
+    }
+    public Vector getInitialVelocity() {
+        return initialVelocity;
     }
 //    public Vector getPosition() {
 //        return position;
