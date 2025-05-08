@@ -146,17 +146,19 @@ public class SolarSystem {
         Vector pointedToTitan = earthPos.subtract(titanPos);
         pointedToTitan = pointedToTitan.normalize();
         double earthRadius = 6370;
-        Vector initialPosProbe = earthPos.add(pointedToTitan.multiply(earthRadius));
+        Vector initialPosProbe = earthPos.add(new Vector(6370, 0, 0));
         initialPosProbe.setZ(earthPos.getZ());
         System.out.println("Distance between Probe and Earth(should be around 6370km): " + getDistance(initialPosProbe, earthPos));
         List<CelestialBodies> initialWithProbe = initialState;
-        Vector probeStartVel = new Vector(6.67, 33.440869, 0.083851);
+        Vector probeStartVel = new Vector(6.67, 33.440869, 0.084263);
         CelestialBodies probe = new Probe("probe", initialPosProbe, probeStartVel);
         initialWithProbe.add(probe);
+
+
         EphemerisLoader eph2 = new EphemerisLoader((ArrayList<CelestialBodies>)initialWithProbe, t0, t0.plusYears(1), 2);
         eph2.solve();
         double closestDistance = Double.MAX_VALUE;
-        for(int i = 50; i<100; i++){
+        for(int i = 50; i<360; i++){
             Vector spaceship = eph2.history.get(t0.plusDays(i)).get(BodyID.SPACESHIP.index()).getPosition();
             Vector earth = eph2.history.get(t0.plusDays(i)).get(BodyID.TITAN.index()).getPosition();
             closestDistance = closestDistance(spaceship, earth, closestDistance);

@@ -23,7 +23,9 @@ public class GravityCalc {
      */
     public static Vector computeAcceleration(List<CelestialBodies> bodies, int bodyIndex) {
         Vector acceleration = new Vector(0.0, 0.0, 0.0);
-        CelestialBodies currentBody = bodies.get(bodyIndex);
+
+            CelestialBodies currentBody = bodies.get(bodyIndex);
+
 
         for (int i = 0; i < bodies.size(); i++) {
             if (i == bodyIndex) continue;

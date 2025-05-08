@@ -36,6 +36,7 @@ public final ArrayList<CelestialBodies> initialState;
         this.initialState = SolarSystem.CreatePlanets();
     }
 
+    
     private static ArrayList<CelestialBodies> deepCopyList(
             List<CelestialBodies> src) {
         ArrayList<CelestialBodies> copy = new ArrayList<>(src.size());
