@@ -53,15 +53,19 @@ public class SimpleApproach {
     List<Vector> startingPos = new EarthPositions(positionStepSize).getPositions();
 
         for(Vector v : startingPos) {
+//            System.out.println(v.toString());
             for(double x = 0 ; x <= 60 ; x=x+0.01) {
+//                System.out.println(x);
                 for(double y = 0 ; y <= 60 ; y=y+0.01) {
-                    if(Math.sqrt(x*x+y*y) < V_MAX) {break;}
+//                    System.out.println(y);
+                    if(Math.sqrt(x*x+y*y) > V_MAX) {break;}
                         for(double z = 0 ; z <= 60 ; z=z+0.01) {
-                            if(Math.sqrt(x*x+y*y+z*z) < V_MAX) {break;}
+                            if(Math.sqrt(x*x+y*y+z*z) > V_MAX) {break;}
                             Probe probe = new Probe("dominik", v, new Vector(x,y,z));
                             RK4Probe rk4Probe = new RK4Probe(probe,historyPlanets, 2);
+                            rk4Probe.solve();
                             double closestDistanceTmp = rk4Probe.getClosestDistance();
-                            Probe initialProbeTmp = rk4Probe.getInitialProbe();
+                            Probe initialProbeTmp = rk4Probe.historyProbe.get(LocalDateTime.of(2025, 4, 1, 0, 0, 0));
                             LocalDateTime closestDistTime = rk4Probe.getClosestDistTime();
                             if(closestDistanceTmp<closestDistance) {
                                 closestDistance = closestDistanceTmp;

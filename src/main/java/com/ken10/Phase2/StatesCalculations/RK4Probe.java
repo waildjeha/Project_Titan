@@ -27,6 +27,7 @@ public class RK4Probe {
         this.time = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
         this.stepSizeMin = stepSizeMin;
         this.closestDistTime = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
+        this.historyProbe = new Hashtable<>();
     }
     public double getClosestDistance() {
         return closestDistance;
