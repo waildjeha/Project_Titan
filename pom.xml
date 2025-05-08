@@ -67,7 +67,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>com.ken10.Phase2.GUI.ClaudeGUI</mainClass>
+                    <mainClass>com.ken10.Phase2.GUI.SolarSystemGUI</mainClass>
                     <options>
                         <option>--add-modules</option>
                         <option>javafx.controls,javafx.fxml,javafx.graphics,javafx.media</option>
@@ -79,7 +79,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <mainClass>com.ken10.Phase2.GUI.ClaudeGUI</mainClass>
+                    <mainClass>com.ken10.Phase2.GUI.SolarSystemGUI</mainClass>
                     <arguments>
                         <argument>--module-path</argument>
                         <argument>${project.build.directory}/modules</argument>
