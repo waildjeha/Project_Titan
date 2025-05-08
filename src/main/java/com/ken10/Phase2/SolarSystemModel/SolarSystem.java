@@ -146,7 +146,7 @@ public class SolarSystem {
         Vector pointedToTitan = earthPos.subtract(titanPos);
         pointedToTitan = pointedToTitan.normalize();
         double earthRadius = 6370;
-        Vector initialPosProbe = earthPos.add(new Vector(6370, 0, 0));
+        Vector initialPosProbe = earthPos.add(new Vector(pointedToTitan.getX()*6370, 0, 0));
         initialPosProbe.setZ(earthPos.getZ());
         System.out.println("Distance between Probe and Earth(should be around 6370km): " + getDistance(initialPosProbe, earthPos));
         List<CelestialBodies> initialWithProbe = initialState;
