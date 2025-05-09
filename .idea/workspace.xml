@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="Modifying the class for SimpleApproach search">
+    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="SimpleApproach search working">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/ProbeMission/ProbeMissionDominik/EarthPositions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/ProbeMission/ProbeMissionDominik/EarthPositions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/ProbeMission/ProbeMissionDominik/SimpleApproach.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/ProbeMission/ProbeMissionDominik/SimpleApproach.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/RK4Probe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/RK4Probe.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +65,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.EarthPositions.executor": "Run",
     "Application.EphemerisLoader.executor": "Run",
     "Application.ExamplePlanetMovement.executor": "Run",
     "Application.LaunchStateBuilder.executor": "Run",
@@ -106,6 +111,19 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.SimpleApproach">
+    <configuration name="EarthPositions" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.ProbeMission.ProbeMissionDominik.EarthPositions" />
+      <module name="titan" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ken10.Phase2.ProbeMission.ProbeMissionDominik.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RK4Probe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.StatesCalculations.RK4Probe" />
       <module name="titan" />
@@ -158,26 +176,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="com.ken10.Phase2.StatesCalculations.EphemerisLoader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.StatesCalculations.EphemerisLoader" />
-      <module name="titan" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.ken10.Phase2.StatesCalculations.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.SimpleApproach" />
         <item itemvalue="Application.RK4Probe" />
+        <item itemvalue="Application.EarthPositions" />
         <item itemvalue="Application.SolarSystem" />
         <item itemvalue="Application.com.ken10.Main" />
-        <item itemvalue="Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader" />
       </list>
     </recent_temporary>
   </component>
@@ -368,7 +373,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746724892702</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="SimpleApproach search working">
+      <option name="closed" value="true" />
+      <created>1746725531944</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1746725531944</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -399,6 +412,7 @@
     <MESSAGE value="New history for probe class added" />
     <MESSAGE value="Brutal Force Approach Added" />
     <MESSAGE value="Modifying the class for SimpleApproach search" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modifying the class for SimpleApproach search" />
+    <MESSAGE value="SimpleApproach search working" />
+    <option name="LAST_COMMIT_MESSAGE" value="SimpleApproach search working" />
   </component>
 </project>

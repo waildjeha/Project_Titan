@@ -30,6 +30,7 @@ public class EarthPositions {
     double cosEps = Math.cos(TILT_RAD);
     double sinEps = Math.sin(TILT_RAD);
     Vector position = SolarSystem.CreatePlanets().get(BodyID.EARTH.index()).getPosition();
+    System.out.println(position.toString());
     List<Vector> positions = new ArrayList<>();
     for(double degree = 0; degree < 360; degree += stepDegree) {
 
@@ -39,11 +40,23 @@ public class EarthPositions {
         double sinT = Math.sin(theta);
 
         double x = position.getX() + R_EARTH * cosT;
+//        System.out.println(x + "<- x-coordinate");
         double y = position.getY() + R_EARTH * sinT * cosEps;
+//        System.out.println(y + "<- y-coordinate");
         double z = position.getZ() + R_EARTH * sinT * sinEps;
+//        System.out.println(z + "<- z-coordinate");
         positions.add(new Vector(x, y, z));
     }
     this.positions = positions;
+    }
+
+    public static void main(String[] args) {
+        EarthPositions earthPositions = new EarthPositions(1);
+        List<Vector> positions = earthPositions.getPositions();
+        for(int i = 0; i < 20; i++) {
+            System.out.println(positions.get(i).toString());
+
+        }
     }
 
 }

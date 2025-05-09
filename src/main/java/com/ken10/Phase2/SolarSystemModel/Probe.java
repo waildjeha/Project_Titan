@@ -38,7 +38,14 @@ public class Probe extends CelestialBodies {
     public Vector getInitialVelocity() {
         return initialVelocity;
     }
-//    public Vector getPosition() {
+
+    public Hashtable<LocalDateTime, Probe> getProbeHistory() {
+        return probeHistory;
+    }
+    public void putProbeHistory(LocalDateTime time, Probe probe) {
+        probeHistory.put(time, probe);
+    }
+    //    public Vector getPosition() {
 //        return position;
 //    }
 //    public void setPosition(Vector position) {
