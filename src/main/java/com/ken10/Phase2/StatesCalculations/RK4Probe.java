@@ -48,7 +48,7 @@ public class RK4Probe {
             historyProbe.put(time,probe);
             closestDistance = getDistance(probe.getPosition(), historyPlanets.get(time).get(BodyID.TITAN.index()).getPosition());
         while (time.isBefore(endTime)) {
-            List<CelestialBodies> currentState = historyPlanets.get(time);
+            List<CelestialBodies> currentState = new ArrayList<>(historyPlanets.get(time));
 //            System.out.println(currentState.get(BodyID.EARTH.index()).getPosition().toString());
             currentState.add(probe);
             Vector newPosition = probe.getPosition().add(probe.getVelocity().multiply(stepSizeMin * 60));

@@ -1,6 +1,5 @@
 package com.ken10.Phase2.ProbeMission.ProbeMissionDominik;
 
-import com.ken10.Phase2.SolarSystemModel.BodyID;
 import com.ken10.Phase2.SolarSystemModel.CelestialBodies;
 import com.ken10.Phase2.SolarSystemModel.Probe;
 import com.ken10.Phase2.SolarSystemModel.Vector;
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
 
 public class SimpleApproach {
     //// History always preloaded
@@ -53,11 +51,11 @@ public class SimpleApproach {
     List<Vector> startingPos = new EarthPositions(positionStepSize).getPositions();
 
         for(Vector v : startingPos) {
-            for(double Vx = 0 ; Vx <= 60 ; Vx=Vx+1) {
-                for(double Vy = 0 ; Vy <= 60 ; Vy=Vy+1) {
-                    if(Math.sqrt(Vx*Vx+Vy*Vy) > V_MAX) {break;}
-                        for(double Vz = 0 ; Vz <= 60 ; Vz=Vz+1) {
-                            if(Math.sqrt(Vx*Vx+Vy*Vy+Vz*Vz) > V_MAX) {break;}
+            for(double Vx = -60 ; Vx <= 60 ; Vx=Vx+1) {
+                for(double Vy = -60 ; Vy <= 60 ; Vy=Vy+1) {
+                    if(Math.sqrt(Vx*Vx+Vy*Vy) > V_MAX) {continue;}
+                        for(double Vz = -60 ; Vz <= 60 ; Vz=Vz+1) {
+                            if(Math.sqrt(Vx*Vx+Vy*Vy+Vz*Vz) > V_MAX) {continue;}
                             Probe probe = new Probe("dominik", v, new Vector(Vx,Vy,Vz));
                             RK4Probe rk4Probe = new RK4Probe(probe,historyPlanets, 2);
                             rk4Probe.solve();
