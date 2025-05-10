@@ -138,7 +138,7 @@ public class SolarSystem {
     public static void main(String[] args) {
         EphemerisLoader eph = new EphemerisLoader(2);
         eph.solve();
-        LocalDateTime t0 = LocalDateTime.of(2025,4,1,1,0,0);
+        LocalDateTime t0 = LocalDateTime.of(2025,4,1,0,0,0);
         LocalDateTime t1 = t0.plusMonths(3);
         double minDistance = Double.MAX_VALUE;
         LocalDateTime timeClosest = t0;

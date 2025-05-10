@@ -45,6 +45,10 @@ public class Probe extends CelestialBodies {
     public void putProbeHistory(LocalDateTime time, Probe probe) {
         probeHistory.put(time, probe);
     }
+
+    public Probe copy(){
+        return new Probe(getName(), getPosition().copy(), getVelocity().copy());
+    }
     //    public Vector getPosition() {
 //        return position;
 //    }

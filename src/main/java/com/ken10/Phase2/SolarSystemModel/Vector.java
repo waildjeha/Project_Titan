@@ -39,6 +39,8 @@ public class Vector {
         return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
     }
 
+    public Vector divide(double val) {return new Vector(this.x / val, this.y / val, this.z / val);}
+
     public static double getDistance(Vector v1, Vector v2) {
         Vector newVector = new Vector(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
         return newVector.magnitude();

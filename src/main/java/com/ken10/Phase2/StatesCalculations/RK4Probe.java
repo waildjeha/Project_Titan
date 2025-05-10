@@ -45,32 +45,70 @@ public class RK4Probe {
     }
 
     public void solve() {
+
+            LocalDateTime t0 = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
             historyProbe.put(time,probe);
             closestDistance = getDistance(probe.getPosition(), historyPlanets.get(time).get(BodyID.TITAN.index()).getPosition());
+            double noChangeLoopBreak = closestDistance;
+
         while (time.isBefore(endTime)) {
-            List<CelestialBodies> currentState = new ArrayList<>(historyPlanets.get(time));
-//            System.out.println(currentState.get(BodyID.EARTH.index()).getPosition().toString());
-            currentState.add(probe);
-            Vector newPosition = probe.getPosition().add(probe.getVelocity().multiply(stepSizeMin * 60));
-//            System.out.println(newPosition.toString());
-            Vector newVelocity = probe.getVelocity().add(computeAcceleration(currentState, BodyID.SPACESHIP.index()).multiply(stepSizeMin * 60));
-//            System.out.println(newVelocity.toString());
-            Probe newProbeState = new Probe("probe", newPosition, newVelocity);
+            if((time.isAfter((t0.plusMinutes(180))) && noChangeLoopBreak==closestDistance)) {historyProbe.clear();break;}
+            Probe newProbeState = rk4Helper();
             time = time.plusMinutes(stepSizeMin);
             probe = newProbeState;
             Vector currentTitanPosition = historyPlanets.get(time).get(BodyID.TITAN.index()).getPosition();
             double distToTitan = getDistance(currentTitanPosition, probe.getPosition());
-            if(distToTitan<closestDistance) {
+                if(distToTitan<closestDistance) {
                 closestDistTime = time;
                 closestDistance = distToTitan;
-            };
+                }
             historyProbe.put(time,probe);
-            //record(time, probe);
         }
     }
+    private Probe rk4Helper() {
+        int stepMinutes = stepSizeMin;
+        // we need to make the step size of the probe
+        // in such a way the state of the planets can calculate the acceleration
+        // of the probe at each RK4 time step.
+        // -> stepRK4Probe must be 2*n*stepSizeRK4Planets
 
-    private void record(LocalDateTime time, Probe probe) {
-        probe.putProbeHistory(time,probe);
+        //1st step RK4
+        Probe y1 = probe.copy();
+        ArrayList<CelestialBodies> state = new ArrayList<>(historyPlanets.get(time));
+        state.add(y1);
+        Vector k1Velocity = y1.getVelocity().multiply(stepSizeMin*60);
+        Vector k1Acceleration = computeAcceleration(state, BodyID.SPACESHIP.index()).multiply(stepSizeMin*60);
+
+        //2nd step RK4
+        Probe y2 = new Probe("dominik",y1.getPosition().add(k1Velocity.multiply(0.5)),y1.getVelocity().add(k1Acceleration).multiply(0.5));
+        state.clear();
+        state = new ArrayList<>(historyPlanets.get(time.plusMinutes(stepMinutes/2)));
+        state.add(y2);
+        Vector k2Velocity = y2.getVelocity().multiply(stepSizeMin*60);
+        Vector k2Acceleration = computeAcceleration(state, BodyID.SPACESHIP.index()).multiply(stepSizeMin*60);
+
+        //3rd step RK4
+        Probe y3 = new Probe("dominik", y1.getPosition().add(k2Velocity.multiply(0.5)), y1.getVelocity().add(k2Acceleration.multiply(0.5)));
+        state.removeLast();
+        state.add(y3);
+        Vector k3Velocity = y3.getVelocity().multiply(stepSizeMin*60);
+        Vector k3Acceleration = computeAcceleration(state, BodyID.SPACESHIP.index()).multiply(stepMinutes*60);
+
+        //4th step RK4
+        Probe y4 = new Probe("dominik", y1.getPosition().add(k3Velocity), y1.getVelocity().add(k3Acceleration));
+        state.clear();
+        state = new ArrayList<>(historyPlanets.get(time.plusMinutes(stepMinutes)));
+        state.add(y4);
+        Vector k4Velocity = y4.getVelocity().multiply(stepSizeMin*60);
+        Vector k4Acceleration = computeAcceleration(state, BodyID.SPACESHIP.index()).multiply(stepMinutes*60);
+
+        Vector kVelocity = k1Velocity.add(k2Velocity.multiply(2)).add(k3Velocity.multiply(2)).add(k4Velocity);
+        Vector kAcceleration = k1Acceleration.add(k2Acceleration.multiply(2)).add(k3Acceleration.multiply(2)).add(k4Acceleration);
+
+        kVelocity = kVelocity.divide(6);
+        kAcceleration = kAcceleration.divide(6);
+
+        return new Probe(probe.getName(), y1.getPosition().add(kVelocity), y1.getVelocity().add(kAcceleration));
     }
 
     public static void main(String[] args) {
@@ -78,11 +116,12 @@ public class RK4Probe {
         Probe probe = new Probe("probe", new Vector(-1.4665178859104577E8, -2.8949304626334388E7, 2241.9186033698497), new Vector(20, 0, 0));
         EphemerisLoader eph = new EphemerisLoader(2);
         eph.solve();
-        RK4Probe dataProbe = new RK4Probe(probe, eph.history, 2);
+        RK4Probe dataProbe = new RK4Probe(probe, eph.history, 4);
         dataProbe.solve();
         System.out.println(dataProbe.getClosestDistance());
         System.out.println(dataProbe.getClosestDistTime());
         System.out.println(dataProbe.getInitialProbe().getPosition());
+        System.out.println(dataProbe.getInitialProbe().getVelocity());
 
     }
 }

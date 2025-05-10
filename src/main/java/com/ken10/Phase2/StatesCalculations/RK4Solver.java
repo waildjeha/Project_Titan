@@ -30,7 +30,7 @@ public class RK4Solver extends Solver {
     @Override
     public void step() {
         // Calculate the derivatives at the current time step using GravityCalc
-        int h = stepSizeMins *60;
+        int h = stepSizeMins * 60;
         LocalDateTime t = time;
         LocalDateTime t2 = t.plusSeconds(h/2);
         LocalDateTime t4 = t.plusSeconds(h);

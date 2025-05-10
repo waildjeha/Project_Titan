@@ -7,6 +7,8 @@ import com.ken10.Phase2.SolarSystemModel.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
+
 public class EarthPositions {
     private static final double R_EARTH = 6_370;
     private static final double TILT_RAD = Math.toRadians(23.44);
@@ -51,12 +53,11 @@ public class EarthPositions {
     }
 
     public static void main(String[] args) {
-        EarthPositions earthPositions = new EarthPositions(1);
-        List<Vector> positions = earthPositions.getPositions();
-        for(int i = 0; i < 20; i++) {
-            System.out.println(positions.get(i).toString());
+Vector position = new Vector(-1.4665809771040002E8, -2.8948457794751514E7, 2475.989626902912);
+Vector earthPosition = SolarSystem.CreatePlanets().get(BodyID.EARTH.index()).getPosition();
+System.out.println(getDistance(position, earthPosition));
 
-        }
+
     }
 
 }
