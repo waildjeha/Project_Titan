@@ -52,10 +52,12 @@ public class RK4Probe {
             double noChangeLoopBreak = closestDistance;
 
         while (time.isBefore(endTime)) {
-            if((time.isAfter((t0.plusMinutes(180))) && noChangeLoopBreak==closestDistance)) {historyProbe.clear();break;}
-            Probe newProbeState = rk4Helper();
+            if((time.isAfter((t0.plusMinutes(180))) && noChangeLoopBreak==closestDistance))
+                {historyProbe.clear();break;}
+            if(time.isBefore(t0.plusMinutes(8))&&getDistance(probe.getPosition(),historyPlanets.get(time).get(BodyID.EARTH.index()).getPosition())<6000)
+            {System.out.println("Probe gets inside the Earth");break;}
+            probe = rk4Helper();
             time = time.plusMinutes(stepSizeMin);
-            probe = newProbeState;
             Vector currentTitanPosition = historyPlanets.get(time).get(BodyID.TITAN.index()).getPosition();
             double distToTitan = getDistance(currentTitanPosition, probe.getPosition());
                 if(distToTitan<closestDistance) {

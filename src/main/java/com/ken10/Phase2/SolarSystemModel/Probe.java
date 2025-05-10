@@ -1,9 +1,12 @@
 package com.ken10.Phase2.SolarSystemModel;
 
 
+import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Hashtable;
+
 
 import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
 
@@ -79,5 +82,24 @@ public class Probe extends CelestialBodies {
         return position.toString() + " " + velocity.toString();
     }
 
+    public static void main(String[] args) {
+        EphemerisLoader EPH = new EphemerisLoader(2);
+        EPH.solve();
+
+        Vector earthPosition = EPH.history.get(LocalDateTime.of(2025, 4, 1, 0, 0, 0))
+                .get(BodyID.EARTH.index()).getPosition();
+        Vector titanPosition = EPH.history.get(LocalDateTime.of(2025, 4, 1, 0, 0, 0))
+                .get(BodyID.TITAN.index()).getPosition();
+
+// Get direction vector from Earth to Titan
+        Vector earthToTitan = titanPosition.subtract(earthPosition);
+
+// Normalize and scale by Earth's radius
+        Vector surfaceOffset = earthToTitan.normalize().multiply(6370);
+
+// Get the position on Earth's surface pointing toward Titan
+        Vector pointedAtTitan = earthPosition.add(surfaceOffset).multiply(-1);
+        System.out.println(pointedAtTitan.normalize().multiply(60));
+    }
 
 }

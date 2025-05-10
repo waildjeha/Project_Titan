@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="SimpleAppraoch that doesn't grow the hashtable expotencially">
+    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="Simple search with rk4 probe">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/ProbeMission/ProbeMissionDominik/EarthPositions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/ProbeMission/ProbeMissionDominik/EarthPositions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/ProbeMission/ProbeMissionDominik/SimpleApproach.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/ProbeMission/ProbeMissionDominik/SimpleApproach.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/SolarSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/SolarSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Vector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/RK4Probe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/RK4Probe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/RK4Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/RK4Solver.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +72,7 @@
     "Application.Main.executor": "Run",
     "Application.PlanetInfo.executor": "Run",
     "Application.PlanetMotionTest.executor": "Run",
+    "Application.Probe.executor": "Run",
     "Application.ProbeMission.executor": "Run",
     "Application.RK4Probe.executor": "Run",
     "Application.RK4Solver.executor": "Run",
@@ -113,13 +110,26 @@
       <recent name="com.ken10" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SimpleApproach">
+  <component name="RunManager" selected="Application.Probe">
     <configuration name="EarthPositions" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.ProbeMission.ProbeMissionDominik.EarthPositions" />
       <module name="titan" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.ken10.Phase2.ProbeMission.ProbeMissionDominik.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Probe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.SolarSystemModel.Probe" />
+      <module name="titan" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ken10.Phase2.SolarSystemModel.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -166,26 +176,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="com.ken10.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.ken10.Main" />
-      <module name="titan" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.ken10.Phase2.ProbeMission.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Probe" />
         <item itemvalue="Application.SimpleApproach" />
         <item itemvalue="Application.RK4Probe" />
         <item itemvalue="Application.EarthPositions" />
         <item itemvalue="Application.SolarSystem" />
-        <item itemvalue="Application.com.ken10.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -400,7 +397,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746797182370</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Simple search with rk4 probe">
+      <option name="closed" value="true" />
+      <created>1746898369288</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1746898369289</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -434,6 +439,7 @@
     <MESSAGE value="SimpleApproach search working" />
     <MESSAGE value="SimpleApproach search working, for real" />
     <MESSAGE value="SimpleAppraoch that doesn't grow the hashtable expotencially" />
-    <option name="LAST_COMMIT_MESSAGE" value="SimpleAppraoch that doesn't grow the hashtable expotencially" />
+    <MESSAGE value="Simple search with rk4 probe" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simple search with rk4 probe" />
   </component>
 </project>
