@@ -18,9 +18,6 @@ public class Probe extends CelestialBodies {
         super(name, position, velocity, MASS);
         this.isActive = false;
     }
-
-    public double getDistanceToTarget() {return distanceToTarget;}
-
     /**
      * Can select the target body to visit
      * @param target any celestial body at which you want to visit.
@@ -67,9 +64,11 @@ public class Probe extends CelestialBodies {
      */
     public Vector calculateInterceptPoint(Probe probe, CelestialBodies target, double startTime, double endTime, double stepSize) {
         ArrayList<CelestialBodies> solarSystem = SolarSystem.CreatePlanets();
+        solarSystem.add(probe);
         Vector interceptPoint = null;
         Vector targetPosition;
         Vector probePosition;
+
 
        // RK4Solver solver = new RK4Solver(solarSystem,startTime,endTime,stepSize);
 
@@ -113,36 +112,10 @@ public class Probe extends CelestialBodies {
         Vector earthPos = launchPlanet.getPosition();
         Vector earthVel = launchPlanet.getVelocity();
 
-        Vector startPos = earthPos.add(new Vector(radius,0,0));
+        Vector startPos = earthPos.add(new Vector(radius, 0, 0));
 
 
-        return new Probe(getName(),startPos, earthVel);
+        return new Probe(getName(), startPos, earthVel);
 
     }
-
-
-    /**
-     * Applies thrust to the probe in a specific direction.
-     * @param direction Direction vector (will be normalized).
-     * @param magnitude Magnitude of the thrust force (N).
-     * @param duration Duration of thrust (s).
-     */
-
-//    public void applyThrust(Vector direction, double magnitude, double duration) {
-//        if (!isActive || fuelLevel <= 0)
-//            return;
-////        it needs to be normalized so it does to represent length, but the direction
-//        direction = direction.normalize();
-//
-////        use formula a = F / m
-//        Vector acceleration = direction.multiply(magnitude / getMass());
-////        set velocity needs to be implemented
-//        setVelocity(getVelocity().add(acceleration.multiply(duration)));
-//
-//        double fuelBurned = magnitude * duration * 0.05;
-//
-////        discuss what should be our constant
-////        how many kg per NÂ·s
-////        fuelLevel = Math.max(0, fuelLevel - fuelBurned);
-//    }
 }

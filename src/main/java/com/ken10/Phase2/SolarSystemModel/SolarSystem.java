@@ -1,11 +1,15 @@
 package com.ken10.Phase2.SolarSystemModel;
 
+import com.ken10.unused.Earth;
+import com.ken10.unused.Titan;
+
 import java.util.ArrayList;
 
 /**
  * no pluto :(
  */
-public class SolarSystem {
+public class
+SolarSystem {
     public static ArrayList<CelestialBodies> CreatePlanets() {
         ArrayList<CelestialBodies> bodies = new ArrayList<>();
         double sunX = -7.596727134361322E+05;
@@ -129,12 +133,12 @@ public class SolarSystem {
         return bodies;
     }
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         ArrayList<CelestialBodies> state = CreatePlanets();
         Vector earthPos = state.get(3).getPosition();
         Vector moonPos = state.get(4).getPosition();
         Vector distance = earthPos.subtract(moonPos);
         double dist = distance.magnitude();
         System.out.println(dist);
-    }
+    }*/
 }

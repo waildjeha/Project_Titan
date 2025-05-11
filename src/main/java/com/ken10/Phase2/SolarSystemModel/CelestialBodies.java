@@ -1,5 +1,8 @@
 package com.ken10.Phase2.SolarSystemModel;
 
+import com.ken10.unused.Earth;
+import com.ken10.unused.Titan;
+
 /**
  * Uses the Vector class to hold blueprints for creating Planets and the rocket.
  * Mostly self-explanatory.

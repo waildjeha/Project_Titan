@@ -1,9 +1,8 @@
-package com.ken10.Phase2.ProbeMission.ProbeMissionAli;
+package com.ken10.Phase2.velocityAlgorithms;
 
 import com.ken10.Phase2.SolarSystemModel.*;
 import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
