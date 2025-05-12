@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="Simple search with rk4 probe">
+    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="Corrected starting vector">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/ProbeMission/ProbeMissionDominik/SimpleApproach.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/ProbeMission/ProbeMissionDominik/SimpleApproach.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java" afterDir="false" />
@@ -110,7 +110,7 @@
       <recent name="com.ken10" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Probe">
+  <component name="RunManager" selected="Application.RK4Probe">
     <configuration name="EarthPositions" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.ProbeMission.ProbeMissionDominik.EarthPositions" />
       <module name="titan" />
@@ -178,9 +178,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.RK4Probe" />
         <item itemvalue="Application.Probe" />
         <item itemvalue="Application.SimpleApproach" />
-        <item itemvalue="Application.RK4Probe" />
         <item itemvalue="Application.EarthPositions" />
         <item itemvalue="Application.SolarSystem" />
       </list>
@@ -405,7 +405,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746898369289</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Corrected starting vector">
+      <option name="closed" value="true" />
+      <created>1746914256952</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1746914256952</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -440,6 +448,7 @@
     <MESSAGE value="SimpleApproach search working, for real" />
     <MESSAGE value="SimpleAppraoch that doesn't grow the hashtable expotencially" />
     <MESSAGE value="Simple search with rk4 probe" />
-    <option name="LAST_COMMIT_MESSAGE" value="Simple search with rk4 probe" />
+    <MESSAGE value="Corrected starting vector" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrected starting vector" />
   </component>
 </project>

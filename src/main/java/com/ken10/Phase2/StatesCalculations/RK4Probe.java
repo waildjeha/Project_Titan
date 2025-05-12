@@ -54,7 +54,7 @@ public class RK4Probe {
         while (time.isBefore(endTime)) {
             if((time.isAfter((t0.plusMinutes(180))) && noChangeLoopBreak==closestDistance))
                 {historyProbe.clear();break;}
-            if(time.isBefore(t0.plusMinutes(8))&&getDistance(probe.getPosition(),historyPlanets.get(time).get(BodyID.EARTH.index()).getPosition())<6000)
+            if(time.isBefore(t0.plusMinutes(8))&&getDistance(probe.getPosition(),historyPlanets.get(time).get(BodyID.EARTH.index()).getPosition())<6369)
             {System.out.println("Probe gets inside the Earth");break;}
             probe = rk4Helper();
             time = time.plusMinutes(stepSizeMin);
@@ -72,7 +72,7 @@ public class RK4Probe {
         // we need to make the step size of the probe
         // in such a way the state of the planets can calculate the acceleration
         // of the probe at each RK4 time step.
-        // -> stepRK4Probe must be 2*n*stepSizeRK4Planets
+        // -> stepRK4Probe MUST be 2*n*stepSizeRK4Planets
 
         //1st step RK4
         Probe y1 = probe.copy();
@@ -115,15 +115,17 @@ public class RK4Probe {
 
     public static void main(String[] args) {
         LocalDateTime startTime = LocalDateTime.of(2025,4,1,0,0,0);
-        Probe probe = new Probe("probe", new Vector(-1.4665178859104577E8, -2.8949304626334388E7, 2241.9186033698497), new Vector(20, 0, 0));
+        Vector earthPosition = SolarSystem.CreatePlanets().get(BodyID.EARTH.index()).getPosition();
+        Probe probe = new Probe("probe", new Vector(earthPosition.getX() + 6370, earthPosition.getY(), earthPosition.getZ()), new Vector(51.656963, -2.127366, -12.546660));
         EphemerisLoader eph = new EphemerisLoader(2);
         eph.solve();
         RK4Probe dataProbe = new RK4Probe(probe, eph.history, 4);
         dataProbe.solve();
-        System.out.println(dataProbe.getClosestDistance());
-        System.out.println(dataProbe.getClosestDistTime());
-        System.out.println(dataProbe.getInitialProbe().getPosition());
-        System.out.println(dataProbe.getInitialProbe().getVelocity());
+        System.out.println("Closest distance to Titan: " + dataProbe.getClosestDistance());
+        System.out.println("Time of the closest approach: " + dataProbe.getClosestDistTime());
+        System.out.println("Initial Position of the probe: " + dataProbe.getInitialProbe().getPosition());
+        System.out.println("Initial velocity of the probe: " + dataProbe.getInitialProbe().getVelocity());
+        System.out.println("Initial speed: " + dataProbe.getInitialProbe().getVelocity().magnitude() + " km/s");
 
     }
 }
