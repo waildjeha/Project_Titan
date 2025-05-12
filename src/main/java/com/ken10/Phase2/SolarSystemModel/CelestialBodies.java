@@ -28,6 +28,47 @@ public abstract class CelestialBodies {
     public void setVelocity(Vector velocity) {this.velocity = velocity;}
     public double getDistFromOrigin() {return distFromOrigin;}
 
+    /**
+     * Calculates the relative position vector from this body to the target body.
+     * @param target The target celestial body
+     * @return Vector pointing from this body to the target body
+     */
+    public Vector getRelativePosition(CelestialBodies target) {
+        return target.getPosition().subtract(this.position);
+    }
+
+    /**
+     * Calculates the relative velocity vector between this body and the target body.
+     * @param target The target celestial body
+     * @return Vector representing the relative velocity (target velocity - this velocity)
+     */
+    public Vector getRelativeVelocity(CelestialBodies target) {
+        return target.getVelocity().subtract(this.velocity);
+    }
+
+    /**
+     * Applies thrust to the celestial body, changing its velocity.
+     * The thrust is applied as an impulse: F = ma, where a = F/m
+     * The velocity change is calculated as: Δv = a * t
+     * 
+     * @param direction The direction of thrust (will be normalized)
+     * @param magnitude The magnitude of thrust in Newtons
+     * @param duration The duration of thrust in seconds
+     */
+    public void applyThrust(Vector direction, double magnitude, double duration) {
+        // Normalize the direction vector
+        direction = direction.normalize();
+        
+        // Calculate acceleration: a = F/m
+        Vector acceleration = direction.multiply(magnitude / this.mass);
+        
+        // Calculate velocity change: Δv = a * t
+        Vector velocityChange = acceleration.multiply(duration);
+        
+        // Update velocity
+        this.velocity = this.velocity.add(velocityChange);
+    }
+
     public void printBody(){
         Vector pos = getPosition();
         Vector vel = getVelocity();
@@ -48,5 +89,4 @@ public abstract class CelestialBodies {
         else return new Probe(getName(), getPosition().copy(),
                     getVelocity().copy());
     }
-
 }
