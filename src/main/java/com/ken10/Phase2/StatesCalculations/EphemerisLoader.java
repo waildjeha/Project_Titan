@@ -24,24 +24,25 @@ public final ArrayList<CelestialBodies> initialState;
     //I fell like we need to create an interface where we declare startTime, endTime, stepSize
     //to make sure our solvers work on the same settings
     public EphemerisLoader(ArrayList<CelestialBodies> planetarySystem, LocalDateTime startTime, LocalDateTime endTime, int stepSizeMins) {
-        super(deepCopyList(planetarySystem), startTime, endTime, stepSizeMins);
+        super(planetarySystem, startTime, endTime, stepSizeMins);
         this.initialState = planetarySystem;
 
     }
     public EphemerisLoader(int stepSizeMins) {
         super(SolarSystem.CreatePlanets(),
                 LocalDateTime.of(2025, 4, 1, 0, 0),
-                LocalDateTime.of(2026, 3, 31, 23, 59),
+                LocalDateTime.of(2026, 4, 1, 0, 0),
                 stepSizeMins);
-        this.initialState = SolarSystem.CreatePlanets();
+        this.initialState = planetarySystem;
     }
 
-    private static ArrayList<CelestialBodies> deepCopyList(
-            List<CelestialBodies> src) {
-        ArrayList<CelestialBodies> copy = new ArrayList<>(src.size());
-        for (CelestialBodies b : src) copy.add(b.deepCopy());
-        return copy;
-    }
+    
+//    private static ArrayList<CelestialBodies> deepCopyList(
+//            List<CelestialBodies> src) {
+//        ArrayList<CelestialBodies> copy = new ArrayList<>(src.size());
+//        for (CelestialBodies b : src) copy.add(b.deepCopy());
+//        return copy;
+//    }
 
 
 

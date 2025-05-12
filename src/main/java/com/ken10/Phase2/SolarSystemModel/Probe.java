@@ -13,7 +13,6 @@ public class Probe extends CelestialBodies {
     private Vector targetPosition;
     private Vector initialVelocity;
     public static final double MASS = 50000;
-    public double fuelLevel;
 
     public Probe(String name, Vector position, Vector velocity) {
         super(name, position, velocity, MASS);
@@ -119,12 +118,6 @@ public class Probe extends CelestialBodies {
 
         return new Probe(getName(),startPos, earthVel);
 
-    }
-
-    public void setFuelLevel(double initialFuel) {}
-
-    public double getFuelLevel() {
-        return fuelLevel;
     }
 
 

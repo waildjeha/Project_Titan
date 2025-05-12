@@ -1,6 +1,12 @@
 package com.ken10.Phase2.SolarSystemModel;
 
+import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
 
 /**
  * no pluto :(
@@ -130,11 +136,24 @@ public class SolarSystem {
     }
 
     public static void main(String[] args) {
-        ArrayList<CelestialBodies> state = CreatePlanets();
-        Vector earthPos = state.get(3).getPosition();
-        Vector moonPos = state.get(4).getPosition();
-        Vector distance = earthPos.subtract(moonPos);
-        double dist = distance.magnitude();
-        System.out.println(dist);
+        EphemerisLoader eph = new EphemerisLoader(2);
+        eph.solve();
+        LocalDateTime t0 = LocalDateTime.of(2025,4,1,0,0,0);
+        LocalDateTime t1 = t0.plusMonths(3);
+        double minDistance = Double.MAX_VALUE;
+        LocalDateTime timeClosest = t0;
+        for(LocalDateTime t = t0; t.isBefore(t1); t = t.plusDays(1)) {
+            Vector earth = eph.history.get(t).get(BodyID.EARTH.index()).getPosition();
+            Vector titan  = eph.history.get(t).get(BodyID.TITAN.index()).getPosition();
+            if(getDistance(earth, titan) < minDistance){
+            minDistance = getDistance(earth, titan);
+            timeClosest = t;
+        }
+            System.out.println(minDistance + " " + timeClosest);
+
+    }}
+    public static double closestDistance(Vector pos1, Vector pos2, double minDistance) {
+        System.out.println("Distance between Titan and SPACESHIP: " + getDistance(pos1,pos2));
+        return Math.min(minDistance, getDistance(pos1, pos2));
     }
 }

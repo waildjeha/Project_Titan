@@ -73,7 +73,8 @@ public abstract class Solver implements ODE_Function {
     protected void recordState(){
         ArrayList<CelestialBodies> snapshot = new ArrayList<>();
         for(CelestialBodies b : planetarySystem){
-            snapshot.add(b.deepCopy() );     // <‑‑ deep copy each body
+             // deep copy each body
+            snapshot.add(b.deepCopy());
         }
         history.put(time, snapshot);
     }

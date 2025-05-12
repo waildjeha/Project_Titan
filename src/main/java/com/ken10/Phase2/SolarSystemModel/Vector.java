@@ -19,6 +19,10 @@ public class Vector {
     public double getY() { return y; }
     public double getZ() { return z; }
 
+    public void setX(double x) { this.x = x; }
+    public void setY(double y) { this.y = y; }
+    public void setZ(double z) { this.z = z; }
+
     public Vector add(Vector v) {
         return new Vector(this.x + v.x, this.y + v.y, this.z + v.z);
     }
@@ -34,6 +38,8 @@ public class Vector {
     public double magnitude() {
         return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
     }
+
+    public Vector divide(double val) {return new Vector(this.x / val, this.y / val, this.z / val);}
 
     public static double getDistance(Vector v1, Vector v2) {
         Vector newVector = new Vector(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);

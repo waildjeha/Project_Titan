@@ -24,7 +24,7 @@ public final class TitanInterceptSearch {
 
     /* ───────────────────── user knobs ────────────────────────────── */
     private static final LocalDateTime T0        = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
-    private static final int           FLT_DAYS  = 400;
+    private static final int           FLT_DAYS  = 312;
     private static final double        V_LAUNCH  = 60.0;     // km s^-1
     private static final int           TAPESTEP_MINS= 5;        // 6-h planet tape
     private static final int           PROBSTEP_MINS = 15;        // 1-h probe step
