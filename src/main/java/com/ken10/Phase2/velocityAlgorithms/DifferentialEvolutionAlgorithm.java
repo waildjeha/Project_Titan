@@ -3,6 +3,8 @@ package com.ken10.Phase2.velocityAlgorithms;
 import com.ken10.Phase2.SolarSystemModel.*;
 import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,10 +50,13 @@ public class DifferentialEvolutionAlgorithm {
      * @return trial vector.
      */
 
-    public Vector optimizeTrajectory() {
+    public Vector optimizeTrajectory() throws IOException {
         List<Vector> population = initializePopulation();
         List<Double> distances = evaluatePopulation(population);
-        
+
+        FileWriter writer = new FileWriter("GA_results.csv");
+        writer.write("Generation,Velocity_X,Velocity_Y,Velocity_Z,Distance_km\n");
+
         Vector bestVector = null;
         double bestDistance = Double.MAX_VALUE;
 
@@ -78,10 +83,12 @@ public class DifferentialEvolutionAlgorithm {
                         bestDistance = trialDistance;
                         System.out.printf("Generation %d: New best distance = %.2f km\n", 
                             gen, bestDistance);
+                        writeCSV(gen, bestVector, bestDistance, writer);
                     }
+
                 }
             }
-        }
+        } writer.close();
 
         return bestVector;
     }
@@ -210,7 +217,11 @@ public class DifferentialEvolutionAlgorithm {
         throw new IllegalArgumentException("Body not found: " + name);
     }
 
-    public static void main(String[] args) {
+
+    private void writeCSV(int generation, Vector velocity, double distance, FileWriter writer) throws IOException {
+        writer.write(String.format("%d,%.6f,%.6f,%.6f,%.2f\n", generation, velocity.getX(), velocity.getY(), velocity.getZ(), distance));
+    }
+    public static void main(String[] args) throws IOException {
         DifferentialEvolutionAlgorithm optimizer = new DifferentialEvolutionAlgorithm();
         Vector bestVelocity = optimizer.optimizeTrajectory();
         System.out.printf("Best velocity found: (%.6f, %.6f, %.6f) km/s\n", 
