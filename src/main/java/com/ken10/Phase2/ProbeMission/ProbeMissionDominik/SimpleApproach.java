@@ -72,19 +72,20 @@ public class SimpleApproach {
         Vector earthToTitan = titanPosition.subtract(earthPosition);
 
 // Normalize and scale by Earth's radius
-        Vector surfaceOffset = earthToTitan.normalize().multiply(6370);
+        Vector surfaceOffset = earthToTitan.normalize().multiply(-6370);
 
 // Get the position on Earth's surface pointing toward Titan
-        Vector pointedAtTitan = earthPosition.add(surfaceOffset).multiply(-1);
+        Vector pointedAtTitan = earthPosition.add(surfaceOffset);
 
-        findLocalMinima(pointedAtTitan, -60, 60, -60, 60, -60, 60, 5);
+        findBestVelocityVector(pointedAtTitan, -60, 60, -60, 60, -60, 60, 5);
         System.out.println(initialProbe.toString());
     }
 
-    private void findLocalMinima(Vector position, double minVx, double maxVx,
+    private void findBestVelocityVector(Vector position, double minVx, double maxVx,
                                         double minVy, double maxVy, double minVz, double maxVz,
                                         double stepSize) {
 //        Probe goodGuess = null;
+        List<Probe> topGuesses = new ArrayList<>();
         for (double Vx = minVx; Vx <= maxVx; Vx = Vx + stepSize) {
             for (double Vy = minVy; Vy <= maxVy; Vy = Vy + stepSize) {
                 for (double Vz = minVz; Vz <= maxVz; Vz = Vz + stepSize) {
@@ -107,6 +108,9 @@ public class SimpleApproach {
                             System.out.println(closestDistanceTime);
                             System.out.println(initialProbe);
                             System.out.println(closestDistance);
+                            topGuesses.add(probe);
+                        } else if (closestDistanceTmp<(closestDistance*1.1)) {
+                            topGuesses.add(rk4Probe.getInitialProbe());
                         }
 
                     }
@@ -114,6 +118,7 @@ public class SimpleApproach {
                 }// else System.out.println("Probe goes through the inside of the Earth, or it goes in the wrong direction");
             }
         }
+
 
     }
 }
