@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="How to use code explained(Main)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/missionSimulator/BalisticMissionSimulator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/velocityAlgorithms/DifferentialEvolutionAlgorithm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/ProbeMission/ProbeMissionAli/ProbeMission.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/missionSimulator/ProbeMission.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,12 +44,12 @@
     &quot;assignee&quot;: &quot;DillonPatterson1&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/waildjeha/Project_Titan.git",
-    "accountId": "1f049f82-fffe-4dcd-9229-d183d900cab8"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/waildjeha/Project_Titan.git&quot;,
+    &quot;accountId&quot;: &quot;1f049f82-fffe-4dcd-9229-d183d900cab8&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -60,45 +62,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.EphemerisLoader.executor": "Run",
-    "Application.ExamplePlanetMovement.executor": "Run",
-    "Application.LaunchStateBuilder.executor": "Run",
-    "Application.LotkaVolterraSimulation.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.PlanetInfo.executor": "Run",
-    "Application.PlanetMotionTest.executor": "Run",
-    "Application.ProbeMission.executor": "Run",
-    "Application.RK4Solver.executor": "Run",
-    "Application.RocketMissionRunner.executor": "Run",
-    "Application.SolarSystem.executor": "Run",
-    "Application.SolarSystemVisualizer.executor": "Run",
-    "Application.TitanInterceptSearch.executor": "Run",
-    "Application.TitanInterceptSearchSimple.executor": "Run",
-    "Application.TransferTime.executor": "Run",
-    "Application.com.ken10.Dillons_Phase2.entities.NumericalSolvers.RK4Solver.executor": "Run",
-    "Application.com.ken10.Main.executor": "Run",
-    "Application.com.ken10.Phase2.Main.executor": "Run",
-    "Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader.executor": "Run",
-    "Application.sim.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "CurrentBranch",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/dilpa/signal_project",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.EphemerisLoader.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ExamplePlanetMovement.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LaunchStateBuilder.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LotkaVolterraSimulation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PlanetInfo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PlanetMotionTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ProbeMission.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RK4Solver.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RocketMissionRunner.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SolarSystem.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SolarSystemVisualizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TitanInterceptSearch.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TitanInterceptSearchSimple.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TransferTime.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.ken10.Dillons_Phase2.entities.NumericalSolvers.RK4Solver.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.ken10.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.ken10.Phase2.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader.executor&quot;: &quot;Run&quot;,
+    &quot;Application.sim.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;CurrentBranch&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/dilpa/signal_project&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.ken10" />
