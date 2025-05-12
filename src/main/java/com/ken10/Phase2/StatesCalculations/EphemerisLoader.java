@@ -1,14 +1,14 @@
 package com.ken10.Phase2.StatesCalculations;
 
 
-import com.ken10.Phase2.SolarSystemModel.BodyID;
-import com.ken10.Phase2.SolarSystemModel.CelestialBodies;
-import com.ken10.Phase2.SolarSystemModel.SolarSystem;
-import com.ken10.Phase2.SolarSystemModel.Vector;
+import com.ken10.Phase2.ODEs.RK4Solver;
+import com.ken10.Phase2.entities.BodyID;
+import com.ken10.Phase2.entities.CelestialBodies;
+import com.ken10.Phase2.entities.SolarSystem;
+import com.ken10.Phase2.newtonCalculations.Vector;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 
 //To run this code(load all the states in a specified time frame) you create an instance of

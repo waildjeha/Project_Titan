@@ -1,4 +1,4 @@
-package com.ken10.Phase2.SolarSystemModel;
+package com.ken10.Phase2.newtonCalculations;
 
 /**
  * Object for Vectors and the properties.

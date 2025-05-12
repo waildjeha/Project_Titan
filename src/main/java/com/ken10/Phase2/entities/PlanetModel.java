@@ -1,4 +1,6 @@
-package com.ken10.Phase2.SolarSystemModel;
+package com.ken10.Phase2.entities;
+
+import com.ken10.Phase2.newtonCalculations.Vector;
 
 /**
  * Planet case of celestial body.

@@ -1,8 +1,8 @@
-package com.ken10.Phase2.StatesCalculations;
+package com.ken10.Phase2.ODEs;
 
 
-import com.ken10.Phase2.SolarSystemModel.CelestialBodies;
-import com.ken10.Phase2.SolarSystemModel.SolarSystem;
+import com.ken10.Phase2.entities.CelestialBodies;
+import com.ken10.Phase2.entities.SolarSystem;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

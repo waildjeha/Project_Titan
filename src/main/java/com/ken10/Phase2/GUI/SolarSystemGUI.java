@@ -1,8 +1,9 @@
 package com.ken10.Phase2.GUI;
 
-import com.ken10.Phase2.SolarSystemModel.*;
+import com.ken10.Phase2.entities.*;
 import com.ken10.Phase2.StatesCalculations.*;
 
+import com.ken10.Phase2.newtonCalculations.Vector;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.transform.Rotate;
@@ -107,9 +108,12 @@ public class SolarSystemGUI extends Application {
 
     private void loadEphemerisData() {
         System.out.println("Loading ephemeris data...");
+
         
         // Initialize ephemeris loader with 60-minute steps (faster loading)
         EphemerisLoader eph = new EphemerisLoader(60);
+
+
         eph.solve();
         timeStates = eph.history;
         

@@ -1,6 +1,8 @@
-package com.ken10.Phase2.SolarSystemModel;
+package com.ken10.Phase2.newtonCalculations;
 
 
+
+import com.ken10.Phase2.entities.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

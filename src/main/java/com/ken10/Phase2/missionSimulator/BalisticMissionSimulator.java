@@ -1,12 +1,18 @@
 package com.ken10.Phase2.missionSimulator;
 
-import com.ken10.Phase2.SolarSystemModel.*;
+import com.ken10.Phase2.entities.*;
 import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
+import com.ken10.Phase2.newtonCalculations.Vector;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Runs a purely balistic mission to titan.
+ * uses Differential evolution to find a velocity to use.
+ * returns mission end results.
+ */
 public class BalisticMissionSimulator {
     private static final double PROBE_MASS = 50000;
     private static final int STEP_SIZE_MINUTES = 5;
@@ -68,7 +74,7 @@ public class BalisticMissionSimulator {
     }
 
     public static void main(String[] args) {
-        Vector bestVelocity = new Vector(55.941793,-2.277140,-11.512891);
+        Vector bestVelocity = new Vector(51.656963, -2.127366, -12.546660);
 
         BalisticMissionSimulator runner = new BalisticMissionSimulator();
         runner.runMission(bestVelocity);

@@ -1,14 +1,15 @@
-package com.ken10.Phase2.SolarSystemModel;
+package com.ken10.Phase2.entities;
 
 
 import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
+import com.ken10.Phase2.newtonCalculations.Vector;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
 
-import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
+import static com.ken10.Phase2.newtonCalculations.Vector.getDistance;
 
 
 /**

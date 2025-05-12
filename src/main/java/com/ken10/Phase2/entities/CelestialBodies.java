@@ -1,4 +1,6 @@
-package com.ken10.Phase2.SolarSystemModel;
+package com.ken10.Phase2.entities;
+
+import com.ken10.Phase2.newtonCalculations.Vector;
 
 /**
  * Uses the Vector class to hold blueprints for creating Planets and the rocket.
@@ -81,10 +83,6 @@ public abstract class CelestialBodies {
 
     public CelestialBodies deepCopy(){
         if(this instanceof PlanetModel) return new PlanetModel(getName(), getPosition().copy(),
-                getVelocity().copy(), getMass());
-        else if (this instanceof Earth) return new Earth(getName(), getPosition().copy(),
-                getVelocity().copy(), getMass());
-        else if (this instanceof Titan) return new Titan(getName(), getPosition().copy(),
                 getVelocity().copy(), getMass());
         else return new Probe(getName(), getPosition().copy(),
                     getVelocity().copy());

@@ -1,8 +1,8 @@
 package com.ken10.Phase2.StatesCalculations;
 
 
-import com.ken10.Phase2.SolarSystemModel.BodyID;
-import com.ken10.Phase2.SolarSystemModel.Vector;
+import com.ken10.Phase2.entities.BodyID;
+import com.ken10.Phase2.newtonCalculations.Vector;
 
 import java.time.LocalDateTime;
 

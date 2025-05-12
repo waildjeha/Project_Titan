@@ -1,7 +1,8 @@
 package com.ken10.Phase2.velocityAlgorithms;
 
-import com.ken10.Phase2.SolarSystemModel.*;
+import com.ken10.Phase2.entities.*;
 import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
+import com.ken10.Phase2.newtonCalculations.Vector;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -227,8 +228,4 @@ public class DifferentialEvolutionAlgorithm {
         System.out.printf("Best velocity found: (%.6f, %.6f, %.6f) km/s\n",
                 bestVelocity.getX(), bestVelocity.getY(), bestVelocity.getZ());
     }
-    // Best Velocity at current parameters = (55.941793, -2.277140, -11.512891)
-    // mag = 57.15956814 km/s
-    // closest distance = 4355.21 km from titan.
-    // takes a few hours at current param.
 }
