@@ -1,11 +1,11 @@
-package com.ken10.Phase2.StatesCalculations;
+package com.ken10.Phase2.ProbeMission.ProbeMissionDominik;
 
 import com.ken10.Phase2.SolarSystemModel.*;
+import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 
 import static com.ken10.Phase2.SolarSystemModel.GravityCalc.computeAcceleration;
 import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
@@ -40,6 +40,7 @@ public class RK4Probe {
     public LocalDateTime getClosestDistTime() {
         return closestDistTime;
     }
+
     public Probe getInitialProbe() {
         return launchProbe;
     }
@@ -50,10 +51,12 @@ public class RK4Probe {
             historyProbe.put(time,probe);
             closestDistance = getDistance(probe.getPosition(), historyPlanets.get(time).get(BodyID.TITAN.index()).getPosition());
             double noChangeLoopBreak = closestDistance;
+            double farAway = 1E9;
 
         while (time.isBefore(endTime)) {
-            if((time.isAfter((t0.plusMinutes(180))) && noChangeLoopBreak==closestDistance))
-                {historyProbe.clear();break;}
+            if((time.isAfter((t0.plusMinutes(180))) && closestDistance==noChangeLoopBreak) ||
+                    (time.isAfter(t0.plusDays(45)) && closestDistance>farAway))
+                {historyProbe.clear(); break;}
             if(time.isBefore(t0.plusMinutes(8))&&getDistance(probe.getPosition(),historyPlanets.get(time).get(BodyID.EARTH.index()).getPosition())<6369)
             {System.out.println("Probe gets inside the Earth");break;}
             probe = rk4Helper();

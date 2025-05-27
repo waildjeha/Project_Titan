@@ -46,6 +46,10 @@ public class Vector {
         return newVector.magnitude();
     }
 
+    public double getDistance(Vector v) {
+        return new Vector(this.x - v.x, this.y - v.y, this.z - v.z).magnitude();
+    }
+
     public Vector cross(Vector v) {
         return new Vector(
             this.y * v.z - this.z * v.y,

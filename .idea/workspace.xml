@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="Corrected starting vector">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/ProbeMission/ProbeMissionDominik/Grid.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/ProbeMission/ProbeMissionDominik/SimpleApproach.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/ProbeMission/ProbeMissionDominik/SimpleApproach.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/RK4Probe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/RK4Probe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Vector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/RK4Probe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/ProbeMission/ProbeMissionDominik/RK4Probe.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +34,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dominik" />
+        <entry key="$PROJECT_DIR$" value="Balistic-mission" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -62,55 +63,68 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.EarthPositions.executor": "Run",
-    "Application.EphemerisLoader.executor": "Run",
-    "Application.ExamplePlanetMovement.executor": "Run",
-    "Application.LaunchStateBuilder.executor": "Run",
-    "Application.LotkaVolterraSimulation.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.PlanetInfo.executor": "Run",
-    "Application.PlanetMotionTest.executor": "Run",
-    "Application.Probe.executor": "Run",
-    "Application.ProbeMission.executor": "Run",
-    "Application.RK4Probe.executor": "Run",
-    "Application.RK4Solver.executor": "Run",
-    "Application.RocketMissionRunner.executor": "Run",
-    "Application.SimpleApproach.executor": "Run",
-    "Application.SolarSystem.executor": "Run",
-    "Application.SolarSystemVisualizer.executor": "Run",
-    "Application.TitanInterceptSearch.executor": "Run",
-    "Application.TitanInterceptSearchSimple.executor": "Run",
-    "Application.TransferTime.executor": "Run",
-    "Application.com.ken10.Dillons_Phase2.entities.NumericalSolvers.RK4Solver.executor": "Run",
-    "Application.com.ken10.Main.executor": "Run",
-    "Application.com.ken10.Phase2.Main.executor": "Run",
-    "Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader.executor": "Run",
-    "Application.sim.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "CurrentBranch",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/dilpa/signal_project",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.EarthPositions.executor&quot;: &quot;Run&quot;,
+    &quot;Application.EphemerisLoader.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ExamplePlanetMovement.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LaunchStateBuilder.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LotkaVolterraSimulation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PlanetInfo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PlanetMotionTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Probe.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ProbeMission.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RK4Probe.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RK4Solver.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RocketMissionRunner.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SimpleApproach.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SolarSystem.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SolarSystemVisualizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TitanInterceptSearch.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TitanInterceptSearchSimple.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TransferTime.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.ken10.Dillons_Phase2.entities.NumericalSolvers.RK4Solver.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.ken10.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.ken10.Phase2.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader.executor&quot;: &quot;Run&quot;,
+    &quot;Application.sim.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;CurrentBranch&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/dilpa/signal_project&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.ken10" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.RK4Probe">
+  <component name="RunManager" selected="Application.SimpleApproach">
+    <configuration name="EarthPositions" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.ProbeMission.ProbeMissionDominik.EarthPositions" />
+      <module name="titan" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ken10.Phase2.ProbeMission.ProbeMissionDominik.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="EarthPositions" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.ProbeMission.ProbeMissionDominik.EarthPositions" />
       <module name="titan" />
@@ -130,6 +144,32 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.ken10.Phase2.SolarSystemModel.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Probe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.SolarSystemModel.Probe" />
+      <module name="titan" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ken10.Phase2.SolarSystemModel.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RK4Probe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.ProbeMission.ProbeMissionDominik.RK4Probe" />
+      <module name="titan" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ken10.Phase2.ProbeMission.ProbeMissionDominik.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -163,6 +203,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SimpleApproach" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.ProbeMission.ProbeMissionDominik.SimpleApproach" />
+      <module name="titan" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ken10.Phase2.ProbeMission.ProbeMissionDominik.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SolarSystem" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.SolarSystemModel.SolarSystem" />
+      <module name="titan" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ken10.Phase2.SolarSystemModel.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SolarSystem" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.SolarSystemModel.SolarSystem" />
       <module name="titan" />
@@ -178,9 +244,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SimpleApproach" />
         <item itemvalue="Application.RK4Probe" />
         <item itemvalue="Application.Probe" />
-        <item itemvalue="Application.SimpleApproach" />
         <item itemvalue="Application.EarthPositions" />
         <item itemvalue="Application.SolarSystem" />
       </list>
@@ -212,6 +278,7 @@
       <workItem from="1744667481681" duration="6327000" />
       <workItem from="1744673874210" duration="20947000" />
       <workItem from="1745936195922" duration="8365000" />
+      <workItem from="1747329082814" duration="17855000" />
     </task>
     <task id="LOCAL-00001" summary="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors">
       <option name="closed" value="true" />
