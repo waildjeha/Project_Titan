@@ -19,9 +19,9 @@ public class Probe extends CelestialBodies {
     private boolean isActive = false;
     private double distanceToTarget;
     public static final double MASS = 50000;
-    private Hashtable<LocalDateTime, Probe> probeHistory = new Hashtable<>();
     private final Vector initialPosition;
     private final Vector initialVelocity;
+//    private final double closestDistance;
     private static final LocalDateTime startTime = LocalDateTime.of(2025,4,1,0,0,0);
 
 
@@ -29,7 +29,6 @@ public class Probe extends CelestialBodies {
         super(name, position, velocity, MASS);
         this.initialPosition = position;
         this.initialVelocity = velocity;
-        probeHistory.put(startTime, this);
     }
 
     private void getDistanceToTarget(ArrayList<CelestialBodies> state) {
@@ -40,13 +39,6 @@ public class Probe extends CelestialBodies {
     }
     public Vector getInitialVelocity() {
         return initialVelocity;
-    }
-
-    public Hashtable<LocalDateTime, Probe> getProbeHistory() {
-        return probeHistory;
-    }
-    public void putProbeHistory(LocalDateTime time, Probe probe) {
-        probeHistory.put(time, probe);
     }
 
     public Probe copy(){

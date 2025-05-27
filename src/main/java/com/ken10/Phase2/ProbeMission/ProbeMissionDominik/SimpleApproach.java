@@ -5,10 +5,10 @@ import com.ken10.Phase2.SolarSystemModel.CelestialBodies;
 import com.ken10.Phase2.SolarSystemModel.Probe;
 import com.ken10.Phase2.SolarSystemModel.Vector;
 import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
-import com.ken10.Phase2.StatesCalculations.RK4Probe;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class SimpleApproach {
     /// / History always preloaded
     private static final Hashtable<LocalDateTime, ArrayList<CelestialBodies>> historyPlanets;
     /// / Step size always defined to be the same for Rk4Probe and EphemerisLoader
-    private static final int stepSizeMins = 2;
+    private static final int stepSizeMins = 12;
     /// / Deadline to finish our mission
     private static final LocalDateTime endTime = LocalDateTime.of(2026, 4, 1, 0, 0, 0);
     /// / Probe that we select to be the best fit
@@ -38,13 +38,13 @@ public class SimpleApproach {
     /// / Velocity cap, we break current loop when we exceed the given velocity
     private static final double V_MAX = 60; //km/s
     /// / we cannot get to titan in a year with velocity smaller than 50km/s
-    private static final double V_MIN = 50;
+    private static final double V_MIN = 55;
     /// / List of local minimums stored for further evaluation
-    private List<Probe> goodGuesses;
+    private final int maxGridSearchIterations = 25;
 
 
     static {
-        EphemerisLoader eph = new EphemerisLoader(stepSizeMins);
+        EphemerisLoader eph = new EphemerisLoader(2);
         eph.solve();
         historyPlanets = eph.history;
     }
@@ -72,49 +72,51 @@ public class SimpleApproach {
         Vector earthToTitan = titanPosition.subtract(earthPosition);
 
 // Normalize and scale by Earth's radius
-        Vector surfaceOffset = earthToTitan.normalize().multiply(6370);
+        Vector surfaceOffset = earthToTitan.normalize().multiply(-6370);
 
 // Get the position on Earth's surface pointing toward Titan
-        Vector pointedAtTitan = earthPosition.add(surfaceOffset).multiply(-1);
-
-        findLocalMinima(pointedAtTitan, -60, 60, -60, 60, -60, 60, 5);
-        System.out.println(initialProbe.toString());
+        Vector pointedAtTitan = earthPosition.add(surfaceOffset);
+        Grid globalGrid = new Grid();
+        findBestVelocityVector(pointedAtTitan, globalGrid, 5, 0, Double.MAX_VALUE);
+        System.out.println(initialProbe.toString() + closestDistance);
     }
 
-    private void findLocalMinima(Vector position, double minVx, double maxVx,
-                                        double minVy, double maxVy, double minVz, double maxVz,
-                                        double stepSize) {
-//        Probe goodGuess = null;
-        for (double Vx = minVx; Vx <= maxVx; Vx = Vx + stepSize) {
-            for (double Vy = minVy; Vy <= maxVy; Vy = Vy + stepSize) {
-                for (double Vz = minVz; Vz <= maxVz; Vz = Vz + stepSize) {
+
+
+    private RK4Probe findBestVelocityVector(Vector position, Grid localGrid,
+                                        double stepSize, int iterations, double lastBestDist) {
+        if(closestDistance <= 1E2) return localGrid.getRk4Probe();
+        List<Grid> bestGrids = createLocalGrids(localGrid, stepSize, position);
+        if(bestGrids.getFirst().getGridBest()>=lastBestDist) {
+            for(int i = 1 ; i < 10; i++) {
+                if(bestGrids.get(i).getGridBest()<lastBestDist) {
+                    return findBestVelocityVector(position, bestGrids.get(i), stepSize/10, ++iterations, lastBestDist);
+                }
+            }
+        }//now i want to prune the branch
+        System.out.println("Closest dist is: " + bestGrids.getFirst().getGridBest() + " after " + iterations + " iterations");
+        return findBestVelocityVector(position, bestGrids.getFirst(), stepSize/10, ++iterations, lastBestDist);
+    }
+
+
+
+    private List<Grid> createLocalGrids(Grid localGrid, double stepSize, Vector position) {
+        List<Grid> grids = new ArrayList<>();
+        for (double Vx = localGrid.getMinX(); Vx <= localGrid.getMaxX()-stepSize; Vx += stepSize) {
+            for (double Vy = localGrid.getMinY(); Vy <= localGrid.getMaxY()-stepSize; Vy += stepSize) {
+                for (double Vz = localGrid.getMinZ(); Vz <= localGrid.getMaxZ()-stepSize; Vz += stepSize) {
                     double velocity = Math.sqrt(Vx * Vx + Vy * Vy + Vz * Vz);
                     if (velocity > V_MAX || velocity < V_MIN) {
                         continue;
                     }
-                    Probe probe = new Probe("dominik", position, new Vector(Vx, Vy, Vz));
-                    RK4Probe rk4Probe = new RK4Probe(probe, historyPlanets, 4);
-                    rk4Probe.solve();
-                    if (rk4Probe.historyProbe != null) {
-                        double closestDistanceTmp = rk4Probe.getClosestDistance();
-
-                        if (closestDistanceTmp < closestDistance) {
-                            closestDistance = closestDistanceTmp;
-                            closestDistanceTime = rk4Probe.getClosestDistTime();
-                            initialProbe = rk4Probe.getInitialProbe();
-                            System.out.println("----------------------------------\n" +
-                                    "NEW BEST RESULT");
-                            System.out.println(closestDistanceTime);
-                            System.out.println(initialProbe);
-                            System.out.println(closestDistance);
-                        }
-
-                    }
-
-                }// else System.out.println("Probe goes through the inside of the Earth, or it goes in the wrong direction");
+                    Grid instanceGrid = new Grid(Vx,Vy,Vz,Vx+stepSize,Vy+stepSize,Vz+stepSize);
+                    instanceGrid.evaluate(maxGridSearchIterations, position, stepSizeMins, historyPlanets);
+                    grids.add(instanceGrid);
+                }
             }
         }
-
+        grids.sort(Comparator.comparing(Grid::getGridBest));
+        return grids;
     }
 }
 
