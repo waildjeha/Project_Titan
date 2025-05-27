@@ -5,6 +5,7 @@ import com.ken10.Phase2.StatesCalculations.*;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
@@ -25,6 +26,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Point3D;
 import javafx.stage.Stage;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -39,7 +42,7 @@ public class SolarSystemGUI extends Application {
 
     // Constants for visualization
     private static final double SCALE_FACTOR = 10e-7; // Scale down astronomical distances (adjusted)
-    private static final double DEFAULT_PLANET_SIZE = 1.5; // Default size of planets in visualization (slightly larger)
+    private static final double DEFAULT_PLANET_SIZE = 15; // Default size of planets in visualization (slightly larger)
     private static final double SUN_SIZE = 6.0; // Size of sun in visualization (slightly smaller)
     private static final int PATH_LENGTH = 1000; // Number of points to keep in orbit path
     
@@ -256,9 +259,11 @@ public class SolarSystemGUI extends Application {
             Sphere sphere = new Sphere(radius);
             
             // Set the material and color based on the body type
-            PhongMaterial material = new PhongMaterial();
-            Color color = getPlanetColor(name);
-            material.setDiffuseColor(color);
+//            PhongMaterial material = new PhongMaterial();
+//            Color color = getPlanetColor(name);
+//            material.setDiffuseColor(color);
+//            sphere.setMaterial(material);
+            PhongMaterial material = getTexturedMaterial(name);
             sphere.setMaterial(material);
             
             // Position the sphere
@@ -275,6 +280,27 @@ public class SolarSystemGUI extends Application {
             planetPaths.put(name, pathLines);
             
             System.out.println("Added: " + name + " at position " + body.getPosition());
+        }
+    }
+
+    private PhongMaterial getTexturedMaterial(String name) {
+        try {
+            String texturePath = "textures/" + name.toLowerCase() + ".jpeg";
+            URL url = getClass().getClassLoader().getResource(texturePath);
+            if (url == null) {
+                System.out.println("Resource not found: " + texturePath);
+                throw new RuntimeException("Resource missing: " + texturePath);
+            } else {
+                System.out.println("Resource found: " + url);
+            }
+            Image texture = new Image(url.toExternalForm());
+            PhongMaterial material = new PhongMaterial();
+            material.setDiffuseMap(texture);
+            return material;
+        } catch (Exception e) {
+            System.out.println("Texture not found for " + name + ", using default color.");
+            PhongMaterial fallback = new PhongMaterial(getPlanetColor(name));
+            return fallback;
         }
     }
     
