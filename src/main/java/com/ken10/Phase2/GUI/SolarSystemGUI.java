@@ -43,7 +43,7 @@ public class SolarSystemGUI extends Application {
     // Constants for visualization
     private static final double SCALE_FACTOR = 10e-7; // Scale down astronomical distances (adjusted)
     private static final double DEFAULT_PLANET_SIZE = 15; // Default size of planets in visualization (slightly larger)
-    private static final double SUN_SIZE = 6.0; // Size of sun in visualization (slightly smaller)
+    private static final double SUN_SIZE = 25.0; // Size of sun in visualization (slightly smaller)
     private static final int PATH_LENGTH = 1000; // Number of points to keep in orbit path
     
     // Pre-loaded ephemeris data
