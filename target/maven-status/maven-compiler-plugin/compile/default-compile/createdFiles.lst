@@ -22,7 +22,6 @@ com/ken10/Phase2/ProbeMission/TitanInterceptSearch.class
 com/ken10/Phase2/ProbeMission/ProbeMissionAli/ProbeMission.class
 com/ken10/Phase2/ProbeMission/ProbeMissionAli/ProbeHillClimb$Result.class
 com/ken10/Phase2/SolarSystemModel/Titan.class
-com/ken10/Phase2/StatesCalculations/RK4Probe.class
 com/ken10/Main.class
 com/ken10/Phase2/SolarSystemModel/SolarSystem.class
 com/ken10/Phase2/StatesCalculations/Solver.class

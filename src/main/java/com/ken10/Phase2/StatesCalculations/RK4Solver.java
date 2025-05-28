@@ -123,13 +123,13 @@ public class RK4Solver extends Solver {
      */
     private CelestialBodies createNewBody(CelestialBodies original, Vector position, Vector velocity) {
         if (original instanceof PlanetModel) {
-            return new PlanetModel(original.getName(), position, velocity, original.getMass());
+            return new PlanetModel(original.getName(), position, velocity, original.getMass(), original.getRelativeScalingFactor());
         }
         else if (original instanceof Earth) {
-            return new Earth(original.getName(), position, velocity, original.getMass());
+            return new Earth(original.getName(), position, velocity, original.getMass(), original.getRelativeScalingFactor());
         }
         else if (original instanceof Titan) {
-            return new Titan(original.getName(), position, velocity, original.getMass());
+            return new Titan(original.getName(), position, velocity, original.getMass(), original.getRelativeScalingFactor());
         }
         else
             return new Probe(original.getName(), position, velocity);

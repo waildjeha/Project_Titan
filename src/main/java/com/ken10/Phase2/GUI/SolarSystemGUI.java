@@ -279,7 +279,7 @@ public class SolarSystemGUI extends Application {
             pathGroup.getChildren().add(pathLines);
             planetPaths.put(name, pathLines);
             
-            System.out.println("Added: " + name + " at position " + body.getPosition());
+            System.out.println("Added: " + name + " at position " + body.getPosition() + "scaling: " + body.getRelativeScalingFactor());
         }
     }
 
@@ -323,9 +323,10 @@ public class SolarSystemGUI extends Application {
     
     private void updateCelestialBodyPosition(Sphere sphere, CelestialBodies body) {
         Vector position = body.getPosition();
-        sphere.setTranslateX(position.getX() * SCALE_FACTOR);
-        sphere.setTranslateY(position.getY() * SCALE_FACTOR);
-        sphere.setTranslateZ(position.getZ() * SCALE_FACTOR);
+        double relativeScalingFactor = body.getRelativeScalingFactor();
+        sphere.setTranslateX(position.getX() * relativeScalingFactor * SCALE_FACTOR);
+        sphere.setTranslateY(position.getY() * relativeScalingFactor * SCALE_FACTOR);
+        sphere.setTranslateZ(position.getZ() * relativeScalingFactor * SCALE_FACTOR);
     }
     
     // Simple implementation of Line3D using a thin cylinder

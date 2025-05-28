@@ -5,4 +5,7 @@ public class Titan extends CelestialBodies {
     public Titan(String name, Vector position, Vector velocity, double mass) {
         super(name, position, velocity, mass);
     }
+    public Titan(String name, Vector position, Vector velocity, double mass, double scaling) {
+        super(name, position, velocity, mass, scaling);
+    }
 }

@@ -11,6 +11,7 @@ public abstract class CelestialBodies {
     protected Vector velocity;
     protected double mass;
     protected double distFromOrigin;
+    protected double relativeScalingFactor;
 
     public CelestialBodies(String name, Vector position, Vector velocity, double mass) {
         this.name = name;
@@ -18,6 +19,15 @@ public abstract class CelestialBodies {
         this.velocity = velocity;
         this.mass = mass;
         this.distFromOrigin = position.magnitude();
+        this.relativeScalingFactor = 1.0;
+    }
+    public CelestialBodies(String name, Vector position, Vector velocity, double mass, double scaling){
+        this.name = name;
+        this.position = position;
+        this.velocity = velocity;
+        this.mass = mass;
+        this.distFromOrigin = position.magnitude();
+        this.relativeScalingFactor = scaling;
     }
     public String getName() {return name;}
     public Vector getPosition() {return position;}
@@ -27,6 +37,7 @@ public abstract class CelestialBodies {
     public void setPosition(Vector position) {this.position = position;}
     public void setVelocity(Vector velocity) {this.velocity = velocity;}
     public double getDistFromOrigin() {return distFromOrigin;}
+    public double getRelativeScalingFactor(){return this.relativeScalingFactor;}
 
     public void printBody(){
         Vector pos = getPosition();
@@ -40,11 +51,11 @@ public abstract class CelestialBodies {
 
     public CelestialBodies deepCopy(){
         if(this instanceof PlanetModel) return new PlanetModel(getName(), getPosition().copy(),
-                getVelocity().copy(), getMass());
+                getVelocity().copy(), getMass(), getRelativeScalingFactor());
         else if (this instanceof Earth) return new Earth(getName(), getPosition().copy(),
-                getVelocity().copy(), getMass());
+                getVelocity().copy(), getMass(), getRelativeScalingFactor());
         else if (this instanceof Titan) return new Titan(getName(), getPosition().copy(),
-                getVelocity().copy(), getMass());
+                getVelocity().copy(), getMass(), getRelativeScalingFactor());
         else return new Probe(getName(), getPosition().copy(),
                     getVelocity().copy());
     }

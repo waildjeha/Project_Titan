@@ -36,8 +36,9 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector( 1.39E+01, -4.03E+01, -4.57E+00)
                         .subtract(velocityAdjustment),
-                3.30E+23
+                3.30E+23, 1.0
         );
+        //Mercury.setRelativeScalingFactor(1.0);
 
         CelestialBodies Venus = new PlanetModel(
                 "venus",
@@ -45,8 +46,9 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector( 9.89E+00, -3.37E+01, -1.03E+00)
                         .subtract(velocityAdjustment),
-                4.87E+24
+                4.87E+24, 1.0
         );
+        //Venus.setRelativeScalingFactor(1.0);
 
         CelestialBodies Earth = new Earth(
                 "earth",
@@ -56,6 +58,7 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 5.97E+24
         );
+        // Earth.setRelativeScalingFactor(1.0);
 
         CelestialBodies Moon = new PlanetModel(
                 "moon",
@@ -63,8 +66,9 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(4.533176913775855E+00, -2.858677469962307E+01, 6.725183765165710E-02)
                         .subtract(velocityAdjustment),
-                7.35E+22
+                7.35E+22, 1.0
         );
+        // Moon.setRelativeScalingFactor(1.0);
 
         CelestialBodies Mars = new PlanetModel(
                 "mars",
@@ -72,8 +76,9 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(-1.15E+01, -1.87E+01, -1.11E-01)
                         .subtract(velocityAdjustment),
-                6.42E+23
+                6.42E+23, 0.85
         );
+        // Mars.setRelativeScalingFactor(0.85);
 
         CelestialBodies Jupiter = new PlanetModel(
                 "jupiter",
@@ -81,8 +86,9 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(-1.318182239145089E+01, 1.572192901176178E+00, 2.885060369130182E-01)
                         .subtract(velocityAdjustment),
-                1.90E+27
+                1.90E+27, 0.4
         );
+        // Jupiter.setRelativeScalingFactor(0.4);
 
         CelestialBodies Saturn = new PlanetModel(
                 "saturn",
@@ -90,8 +96,9 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(7.466654196823925E-01, 9.554030161946484E+00, -1.960083815552225E-01)
                         .subtract(velocityAdjustment),
-                5.68E+26
+                5.68E+26, 0.3
         );
+        // Saturn.setRelativeScalingFactor(0.3);;
 
         CelestialBodies Titan = new Titan(
                 "titan",
@@ -99,8 +106,9 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(5.951711470718787E+00, 7.676884294391810E+00, 2.538506864185868E-01)
                         .subtract(velocityAdjustment),
-                1.35E+23
+                1.35E+23, 0.3
         );
+        // Titan.setRelativeScalingFactor(0.3);
 
         CelestialBodies Uranus = new PlanetModel(
                 "uranus",
@@ -108,8 +116,9 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(-5.72E+00, 3.45E+00, 8.70E-02)
                         .subtract(velocityAdjustment),
-                8.68E+25
+                8.68E+25, 0.2
         );
+        // Uranus.setRelativeScalingFactor(0.2);
 
         CelestialBodies Neptune = new PlanetModel(
                 "neptune",
@@ -117,8 +126,9 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(2.87E-02, 5.47E+00, -1.13E-01)
                         .subtract(velocityAdjustment),
-                1.02E+26
+                1.02E+26, 0.15
         );
+        // Neptune.setRelativeScalingFactor(0.15);
 
         bodies.add(Sun);
         bodies.add(Mercury);

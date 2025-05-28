@@ -73,6 +73,7 @@ public final ArrayList<CelestialBodies> initialState;
         if(startState == null) System.out.println("No history found");
         for (CelestialBodies c : startState) {
             c.printBody();
+            System.out.println(c.getRelativeScalingFactor());
         }
     }
 }
