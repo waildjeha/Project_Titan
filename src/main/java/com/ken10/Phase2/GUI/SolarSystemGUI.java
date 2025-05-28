@@ -5,7 +5,10 @@ import com.ken10.Phase2.StatesCalculations.*;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
@@ -83,28 +86,27 @@ public class SolarSystemGUI extends Application {
     public void start(Stage primaryStage) {
         // Load ephemeris data
         loadEphemerisData();
-        
-        // Initialize the 3D scene
+
         initializeScene();
-        
-        // Create UI controls
+
         VBox controls = createControls();
-        
-        // Set up the main layout
-        root = new BorderPane();
+        VBox zoomMenu = createZoomMenu();
+
+
+
+        BorderPane root = new BorderPane();
         root.setCenter(space);
+        root.setLeft(zoomMenu);
         root.setBottom(controls);
-        
-        // Set up the main scene and stage
+
         Scene scene = new Scene(root, 1200, 800);
         primaryStage.setTitle("Solar System Visualization");
         primaryStage.setScene(scene);
         primaryStage.show();
-        
-        // Add camera controls
+
+
         setupCameraControls();
-        
-        // Start the animation
+
         startAnimation();
     }
 
@@ -133,7 +135,27 @@ public class SolarSystemGUI extends Application {
         System.out.println("End time: " + endTime);
         System.out.println("Loaded " + celestialBodies.size() + " celestial bodies");
     }
-    
+
+    private VBox createZoomMenu() {
+        Button zoomEarth = new Button("Zoom Earth");
+        zoomEarth.setOnAction(e -> zoomOnBody("earth"));
+        Button zoomSaturn = new Button("Zoom Saturn");
+
+        zoomSaturn.setOnAction(e -> zoomOnBody("saturn"));
+        Button zoomTitan = new Button("Zoom Titan");
+        zoomTitan.setOnAction(e -> zoomOnBody("titan"));
+
+        Button zoomProbe = new Button("Zoom Probe");
+        zoomProbe.setOnAction(e -> zoomOnBody("probe"));
+
+        Button resetButton = new Button("Reset View");
+        resetButton.setOnAction(e -> resetCameraView());
+
+        VBox menu = new VBox(10, zoomEarth, zoomSaturn, zoomTitan, zoomProbe, resetButton);
+        menu.setPadding(new Insets(15));
+        menu.setAlignment(Pos.TOP_LEFT);
+        return menu;
+    }
     private void initializeScene() {
         celestialGroup = new Group();
         pathGroup = new Group();
@@ -161,6 +183,39 @@ public class SolarSystemGUI extends Application {
         worldGroup.getTransforms().addAll(translate, rotateX, rotateY, scale);
     }
 
+    private void resetCameraView() {
+        rotateX.setAngle(20);
+        rotateY.setAngle(0);
+        scale.setX(1.0);
+        scale.setY(1.0);
+        scale.setZ(1.0);
+        translate.setX(600);
+        translate.setY(250);
+        translate.setZ(-200);
+
+        System.out.println("Camera reset to default view.");
+    }
+    private void zoomOnBody(String name) {
+        Sphere target = planetSpheres.get(name.toLowerCase());
+        if (target == null) {
+            System.out.println("No body named " + name + " found.");
+            return;
+        }
+//        to be edited properly
+        double x = target.getTranslateX();
+        double y = target.getTranslateY();
+        double z = target.getTranslateZ();
+
+        translate.setX(600 - x);
+        translate.setY(250 - y);
+        translate.setZ(-200 - z);
+
+        scale.setX(3.5);
+        scale.setY(3.5);
+        scale.setZ(3.5);
+
+        System.out.println("Zoomed on " + name);
+    }
     private void addCoordinateAxes() {
         double axisLength = 50;
         
