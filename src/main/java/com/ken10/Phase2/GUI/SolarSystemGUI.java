@@ -69,7 +69,7 @@ public class SolarSystemGUI extends Application {
     private Map<String, Sphere> planetSpheres = new HashMap<>();
     private Map<String, Group> planetPaths = new HashMap<>();
     private Map<String, List<Vector>> pathHistory = new HashMap<>();
-    private double simulationSpeed = 1.0;
+    private double simulationSpeed = 1000;
     
     // Camera control
     private double mousePosX, mousePosY;
@@ -112,7 +112,7 @@ public class SolarSystemGUI extends Application {
         System.out.println("Loading ephemeris data...");
         
         // Initialize ephemeris loader with 60-minute steps (faster loading)
-        EphemerisLoader eph = new EphemerisLoader(60);
+        EphemerisLoader eph = new EphemerisLoader(1);
         eph.solve();
         timeStates = eph.history;
         

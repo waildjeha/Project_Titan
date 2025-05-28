@@ -36,7 +36,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector( 1.39E+01, -4.03E+01, -4.57E+00)
                         .subtract(velocityAdjustment),
-                3.30E+23, 1.0
+                3.30E+23
         );
         //Mercury.setRelativeScalingFactor(1.0);
 
@@ -46,7 +46,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector( 9.89E+00, -3.37E+01, -1.03E+00)
                         .subtract(velocityAdjustment),
-                4.87E+24, 1.0
+                4.87E+24
         );
         //Venus.setRelativeScalingFactor(1.0);
 
@@ -66,7 +66,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(4.533176913775855E+00, -2.858677469962307E+01, 6.725183765165710E-02)
                         .subtract(velocityAdjustment),
-                7.35E+22, 1.0
+                7.35E+22
         );
         // Moon.setRelativeScalingFactor(1.0);
 
@@ -76,7 +76,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(-1.15E+01, -1.87E+01, -1.11E-01)
                         .subtract(velocityAdjustment),
-                6.42E+23, 0.85
+                6.42E+23
         );
         // Mars.setRelativeScalingFactor(0.85);
 
@@ -86,7 +86,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(-1.318182239145089E+01, 1.572192901176178E+00, 2.885060369130182E-01)
                         .subtract(velocityAdjustment),
-                1.90E+27, 0.4
+                1.90E+27
         );
         // Jupiter.setRelativeScalingFactor(0.4);
 
@@ -96,7 +96,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(7.466654196823925E-01, 9.554030161946484E+00, -1.960083815552225E-01)
                         .subtract(velocityAdjustment),
-                5.68E+26, 0.3
+                5.68E+26
         );
         // Saturn.setRelativeScalingFactor(0.3);;
 
@@ -106,7 +106,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(5.951711470718787E+00, 7.676884294391810E+00, 2.538506864185868E-01)
                         .subtract(velocityAdjustment),
-                1.35E+23, 0.3
+                1.35E+23
         );
         // Titan.setRelativeScalingFactor(0.3);
 
@@ -116,7 +116,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(-5.72E+00, 3.45E+00, 8.70E-02)
                         .subtract(velocityAdjustment),
-                8.68E+25, 0.2
+                8.68E+25
         );
         // Uranus.setRelativeScalingFactor(0.2);
 
@@ -126,9 +126,21 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(2.87E-02, 5.47E+00, -1.13E-01)
                         .subtract(velocityAdjustment),
-                1.02E+26, 0.15
+                1.02E+26
         );
         // Neptune.setRelativeScalingFactor(0.15);
+
+        // Add this after creating Earth and Moon
+        System.out.println("\n\n\n");
+        Vector earthMoonDistance = Earth.getPosition().subtract(Moon.getPosition());
+        System.out.println("Initial Earth-Moon distance: " + earthMoonDistance.magnitude() + " km");
+        System.out.println("Expected: ~384400 km");
+
+        // Check relative velocity
+        Vector relativeVelocity = Moon.getVelocity().subtract(Earth.getVelocity());
+        System.out.println("Moon's velocity relative to Earth: " + relativeVelocity.magnitude() + " km/s");
+        System.out.println("Expected: ~1.022 km/s");
+        System.out.println("\n\n\n");
 
         bodies.add(Sun);
         bodies.add(Mercury);
