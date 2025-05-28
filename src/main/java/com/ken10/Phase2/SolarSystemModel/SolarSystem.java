@@ -12,6 +12,7 @@ import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
  * no pluto :(
  */
 public class SolarSystem {
+        public static double earthSize = 10.0;
     public static ArrayList<CelestialBodies> CreatePlanets() {
         ArrayList<CelestialBodies> bodies = new ArrayList<>();
         double sunX = -7.596727134361322E+05;
@@ -27,7 +28,7 @@ public class SolarSystem {
                 "sun",
                 new Vector(0.00E+00, 0.00E+00, 0.00E+00),
                 new Vector(0.00E+00, 0.00E+00, 0.00E+00),
-                1.99E+30
+                1.99E+30, 1.0, 3*earthSize
         );
 
         CelestialBodies Mercury = new PlanetModel(
@@ -36,7 +37,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector( 1.39E+01, -4.03E+01, -4.57E+00)
                         .subtract(velocityAdjustment),
-                3.30E+23
+                3.30E+23, 1.0, 0.33*earthSize
         );
         //Mercury.setRelativeScalingFactor(1.0);
 
@@ -46,7 +47,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector( 9.89E+00, -3.37E+01, -1.03E+00)
                         .subtract(velocityAdjustment),
-                4.87E+24
+                4.87E+24, 1.0, earthSize
         );
         //Venus.setRelativeScalingFactor(1.0);
 
@@ -56,7 +57,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(5.306839723370035E+00, -2.934993232297309E+01, 6.693785809943620E-04)
                         .subtract(velocityAdjustment),
-                5.97E+24
+                5.97E+24, 1.0, earthSize
         );
         // Earth.setRelativeScalingFactor(1.0);
 
@@ -66,7 +67,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(4.533176913775855E+00, -2.858677469962307E+01, 6.725183765165710E-02)
                         .subtract(velocityAdjustment),
-                7.35E+22
+                7.35E+22, 1.0, 0.25*earthSize
         );
         // Moon.setRelativeScalingFactor(1.0);
 
@@ -76,7 +77,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(-1.15E+01, -1.87E+01, -1.11E-01)
                         .subtract(velocityAdjustment),
-                6.42E+23
+                6.42E+23, 1.0, 0.5*earthSize
         );
         // Mars.setRelativeScalingFactor(0.85);
 
@@ -86,7 +87,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(-1.318182239145089E+01, 1.572192901176178E+00, 2.885060369130182E-01)
                         .subtract(velocityAdjustment),
-                1.90E+27
+                1.90E+27, 1.0, 5*earthSize
         );
         // Jupiter.setRelativeScalingFactor(0.4);
 
@@ -96,7 +97,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(7.466654196823925E-01, 9.554030161946484E+00, -1.960083815552225E-01)
                         .subtract(velocityAdjustment),
-                5.68E+26
+                5.68E+26, 1.0, 4*earthSize
         );
         // Saturn.setRelativeScalingFactor(0.3);;
 
@@ -106,7 +107,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(5.951711470718787E+00, 7.676884294391810E+00, 2.538506864185868E-01)
                         .subtract(velocityAdjustment),
-                1.35E+23
+                1.35E+23, 1.0, 0.5*earthSize
         );
         // Titan.setRelativeScalingFactor(0.3);
 
@@ -116,7 +117,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(-5.72E+00, 3.45E+00, 8.70E-02)
                         .subtract(velocityAdjustment),
-                8.68E+25
+                8.68E+25, 1.0, 3.5*earthSize
         );
         // Uranus.setRelativeScalingFactor(0.2);
 
@@ -126,7 +127,7 @@ public class SolarSystem {
                         .subtract(positionAdjustment),
                 new Vector(2.87E-02, 5.47E+00, -1.13E-01)
                         .subtract(velocityAdjustment),
-                1.02E+26
+                1.02E+26, 1.0, 3.4*earthSize
         );
         // Neptune.setRelativeScalingFactor(0.15);
 

@@ -7,8 +7,8 @@ public class PlanetModel extends CelestialBodies {
     public PlanetModel(String name, Vector position, Vector velocity, double mass) {
         super(name, position, velocity, mass);
     }
-    public PlanetModel(String name, Vector position, Vector velocity, double mass, double scaling){
-        super(name, position, velocity, mass, scaling);
+    public PlanetModel(String name, Vector position, Vector velocity, double mass, double scaling, double size){
+        super(name, position, velocity, mass, scaling, size);
     }
 
 }

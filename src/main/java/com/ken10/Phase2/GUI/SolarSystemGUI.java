@@ -240,22 +240,10 @@ public class SolarSystemGUI extends Application {
         for (CelestialBodies body : celestialBodies) {
             String name = body.getName().toLowerCase();
             
-            // Skip bodies we don't want to visualize (if any)
+            // Determine radius for this specific body.
+            double radius = body.getSize();
             
-            // Determine radius based on body type and importance
-            double radius;
-            if (name.equals("sun")) {
-                radius = SUN_SIZE;
-            } else if (name.equals("jupiter") || name.equals("saturn")) {
-                radius = DEFAULT_PLANET_SIZE * 2.5;
-            } else if (name.equals("earth") || name.equals("venus")) {
-                radius = DEFAULT_PLANET_SIZE * 1.5;
-            } else if (name.equals("titan") || name.equals("moon")) {
-                radius = DEFAULT_PLANET_SIZE * 0.7;  
-            } else {
-                radius = DEFAULT_PLANET_SIZE;
-            }
-            
+            // Create a sphere that represents the body.
             Sphere sphere = new Sphere(radius);
             
             // Set the material and color based on the body type

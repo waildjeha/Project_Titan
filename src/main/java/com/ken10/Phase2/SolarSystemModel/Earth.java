@@ -6,7 +6,7 @@ public class Earth extends CelestialBodies {
     public Earth(String name, Vector position, Vector velocity, double mass) {
         super(name, position, velocity, mass);
     }
-    public Earth(String name, Vector position, Vector velocity, double mass, double scaling) {
-        super(name, position, velocity, mass, scaling);
+    public Earth(String name, Vector position, Vector velocity, double mass, double scaling, double size) {
+        super(name, position, velocity, mass, scaling, size);
     }
 }
