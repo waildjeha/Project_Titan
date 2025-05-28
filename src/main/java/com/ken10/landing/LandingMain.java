@@ -71,40 +71,28 @@ public class LandingMain {
                velocity: y=0 (parallel to the ground    x= calculate ->dependent on state y*/
 
     private static LandingState createExampleInitialState() {
-        // TODO: Provide the actual altitude (in km) from the surface of Titan
-        double y = ?; // e.g., 150–300 km (still haven't managed to find the value sorry)
 
-        // Arbitrary horizontal position (x) – doesn’t matter much
-        double x = 0.5;
+        private static LandingState createExampleInitialState() {
+            double y = 200.0;            // ??can still be modified -> Altitude over Titan surface in km
+            double x = 0.5;              // Arbitrary horizontal position(doesn't matter to much, can be modified as well)
+            double vy = 0.0;             // Vertical velocity is zero (parallel to the surface)
 
-        // Vertical velocity is zero (parallel to the surface)
-        double vy = 0.0;
+            // Constants for Titan and gravity
+            double G = 6.6743e-20;       // Gravitational constant in km^3/kg/s^2
+            double M_TITAN = 1.3452e23;  // Mass of Titan in kg
+            double R_TITAN = 2575.5;     // Radius of Titan in km
 
-        // Constants for Titan and gravity
-        double G = 6.6743e-20;       // Gravitational constant in km^3/kg/s^2
-        double M_TITAN = 1.3452e23;  // Mass of Titan in kg
-        double R_TITAN = 2575.5;     // Radius of Titan in km
 
-        // Calculate distance from Titan's center (surface + altitude)
-        double r = R_TITAN + y;
+            double r = R_TITAN + y;
+            double vx = Math.sqrt(G * M_TITAN / r); // orbital velocity  
 
-        // Compute the orbital velocity at that distance
-        double vx = Math.sqrt(G * M_TITAN / r);
+            //ignoring rotation for now 
+            double theta = 0.0;
+            double vtheta = 0.0;
+            double time = 0.0;
 
-        // We ignore rotation for now
-        double theta = 0.0;
-        double vtheta = 0.0;
-        double time = 0.0;
-
-        // Print to confirm values
-        System.out.println("Initial State:");
-        System.out.println("x = " + x + " km");
-        System.out.println("y = " + y + " km (altitude)");
-        System.out.println("vx = " + vx + " km/s (orbital velocity)");
-        System.out.println("vy = " + vy + " km/s");
-
-        return new LandingState(x, y, theta, vx, vy, vtheta, time);
-    }
+            return new LandingState(x, y, theta, vx, vy, vtheta, time);
+        }
 
     /**
      * Print landing accuracy information
