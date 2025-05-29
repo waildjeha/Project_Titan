@@ -81,7 +81,9 @@ public class SolarSystemGUI extends Application {
     private final Rotate rotateY = new Rotate(0, Rotate.Y_AXIS);
     private final Scale scale = new Scale(1.0, 1.0, 1.0);
     private final Translate translate = new Translate(0, 0, 0);
-    
+    private String trackedBody = null; // The body to focus on with the camera.
+    private final Translate cameraOffset = new Translate(0, 0, 0); // Set the camera offset.
+
     @Override
     public void start(Stage primaryStage) {
         // Load ephemeris data
@@ -91,8 +93,6 @@ public class SolarSystemGUI extends Application {
 
         VBox controls = createControls();
         VBox zoomMenu = createZoomMenu();
-
-
 
         BorderPane root = new BorderPane();
         root.setCenter(space);
@@ -113,8 +113,8 @@ public class SolarSystemGUI extends Application {
     private void loadEphemerisData() {
         System.out.println("Loading ephemeris data...");
         
-        // Initialize ephemeris loader with 60-minute steps (faster loading)
-        EphemerisLoader eph = new EphemerisLoader(1);
+        // Initialize ephemeris loader with 1-minute steps
+        EphemerisLoader eph = new EphemerisLoader(1, 1);
         eph.solve();
         timeStates = eph.history;
         
@@ -139,8 +139,8 @@ public class SolarSystemGUI extends Application {
     private VBox createZoomMenu() {
         Button zoomEarth = new Button("Zoom Earth");
         zoomEarth.setOnAction(e -> zoomOnBody("earth"));
-        Button zoomSaturn = new Button("Zoom Saturn");
 
+        Button zoomSaturn = new Button("Zoom Saturn");
         zoomSaturn.setOnAction(e -> zoomOnBody("saturn"));
         Button zoomTitan = new Button("Zoom Titan");
         zoomTitan.setOnAction(e -> zoomOnBody("titan"));
@@ -180,10 +180,11 @@ public class SolarSystemGUI extends Application {
         translate.setZ(-200); // Initial Z offset for better view
 
         // Add transformations to the world group for camera control
-        worldGroup.getTransforms().addAll(translate, rotateX, rotateY, scale);
+        worldGroup.getTransforms().addAll(translate, rotateX, rotateY, scale, cameraOffset);
     }
 
     private void resetCameraView() {
+        trackedBody = null;
         rotateX.setAngle(20);
         rotateY.setAngle(0);
         scale.setX(1.0);
@@ -192,30 +193,31 @@ public class SolarSystemGUI extends Application {
         translate.setX(600);
         translate.setY(250);
         translate.setZ(-200);
+        cameraOffset.setX(0);  // Reset camera offset
+        cameraOffset.setY(0);
+        cameraOffset.setZ(0);
 
         System.out.println("Camera reset to default view.");
     }
+
     private void zoomOnBody(String name) {
         Sphere target = planetSpheres.get(name.toLowerCase());
         if (target == null) {
             System.out.println("No body named " + name + " found.");
             return;
         }
-//        to be edited properly
-        double x = target.getTranslateX();
-        double y = target.getTranslateY();
-        double z = target.getTranslateZ();
-
-        translate.setX(600 - x);
-        translate.setY(250 - y);
-        translate.setZ(-200 - z);
-
+        
+        trackedBody = name.toLowerCase();
+        
+        // Set scale for zoom
         scale.setX(3.5);
-        scale.setY(3.5);
+        scale.setY(3.5); 
         scale.setZ(3.5);
-
+        
+        // Initial camera positioning will be handled in updateVisualization
         System.out.println("Zoomed on " + name);
     }
+
     private void addCoordinateAxes() {
         double axisLength = 50;
         
@@ -476,7 +478,7 @@ public class SolarSystemGUI extends Application {
         });
         
         // Create speed slider
-        Slider speedSlider = new Slider(0.1, 5.0, 1.0);
+        Slider speedSlider = new Slider(500, 1500, 1000);
         speedSlider.setPrefWidth(200);
         speedSlider.setBlockIncrement(0.1);
         speedSlider.valueProperty().addListener((obs, oldVal, newVal) -> 
@@ -485,8 +487,12 @@ public class SolarSystemGUI extends Application {
         // Create time label
         timeLabel = new Label("Simulation Time: " + formatDateTime(currentTime));
         
+        // Create restart button
+        Button restartButton = new Button("Restart");
+        restartButton.setOnAction(e -> restartSimulation());
+
         // Create layout for controls
-        HBox sliderBox = new HBox(10, new Label("Time:"), timeSlider, playPauseButton);
+        HBox sliderBox = new HBox(10, new Label("Time:"), timeSlider, playPauseButton, restartButton);
         sliderBox.setPadding(new Insets(10));
         
         HBox speedBox = new HBox(10, new Label("Speed:"), speedSlider);
@@ -496,6 +502,23 @@ public class SolarSystemGUI extends Application {
         controls.setPadding(new Insets(10));
         
         return controls;
+    }
+
+    private void restartSimulation() {
+        currentTimeIndex = 0;
+        currentTime = startTime;
+        isPlaying = true;
+        playPauseButton.setText("Pause");
+        timeSlider.setValue(0);
+        updateVisualization();
+        
+        // Clear all path histories for a fresh start
+        for (String bodyName : pathHistory.keySet()) {
+            pathHistory.get(bodyName).clear();
+            planetPaths.get(bodyName).getChildren().clear();
+        }
+        
+        System.out.println("Simulation restarted from beginning");
     }
     
     private String formatDateTime(LocalDateTime time) {
@@ -551,9 +574,12 @@ public class SolarSystemGUI extends Application {
                         // Advance time index based on simulation speed
                         currentTimeIndex += (int)Math.max(1, simulationSpeed);
                         
-                        // Loop back to start if we reach the end
+                        // Check if we've reached the end
                         if (currentTimeIndex >= timeKeys.size()) {
-                            currentTimeIndex = 0;
+                            currentTimeIndex = timeKeys.size() - 1; // Stay at the last frame
+                            isPlaying = false; // Pause the simulation
+                            playPauseButton.setText("Play");
+                            System.out.println("Simulation reached end time - paused");
                         }
                         
                         // Update slider position (without triggering its listener)
@@ -596,6 +622,21 @@ public class SolarSystemGUI extends Application {
                 
                 // Update orbit paths
                 updatePathVisualization(bodyName, body.getPosition());
+            }
+        }
+
+        // Handle camera tracking (add this after the position update loop)
+        if (trackedBody != null) {
+            Sphere trackedSphere = planetSpheres.get(trackedBody);
+            if (trackedSphere != null) {
+                double x = trackedSphere.getTranslateX();
+                double y = trackedSphere.getTranslateY();
+                double z = trackedSphere.getTranslateZ();
+                
+                // Update camera offset to center the tracked body
+                cameraOffset.setX(-x);
+                cameraOffset.setY(-y);
+                cameraOffset.setZ(-z);
             }
         }
         

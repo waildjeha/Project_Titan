@@ -35,6 +35,13 @@ public final ArrayList<CelestialBodies> initialState;
                 stepSizeMins);
         this.initialState = planetarySystem;
     }
+    public EphemerisLoader(int stepSizeMins, int durationYears) {
+        super(SolarSystem.CreatePlanets(),
+                LocalDateTime.of(2025, 4, 1, 0, 0),
+                LocalDateTime.of(2025+durationYears, 4, 1, 0, 0),
+                stepSizeMins);
+        this.initialState = planetarySystem;
+    }
 
     
 //    private static ArrayList<CelestialBodies> deepCopyList(
