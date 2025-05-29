@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="Newest code">
+    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="probe added">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/velocityAlgorithms/DifferentialEvolutionAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/velocityAlgorithms/DifferentialEvolutionAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/GUI/SolarSystemGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/GUI/SolarSystemGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/SolarSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/SolarSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +36,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Noortje" />
+        <entry key="$PROJECT_DIR$" value="Balistic-mission" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -45,7 +50,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/waildjeha/Project_Titan.git&quot;,
-    &quot;accountId&quot;: &quot;f372f1d3-6f4b-4837-87db-2e66f4b7f4a8&quot;
+    &quot;accountId&quot;: &quot;e0303f60-4922-4c4c-9b32-09d2fd14f23b&quot;
   }
 }</component>
   <component name="ProblemsViewState">
@@ -60,52 +65,61 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.BalisticMissionSimulator.executor&quot;: &quot;Run&quot;,
-    &quot;Application.DifferentialEvolutionAlgorithm.executor&quot;: &quot;Run&quot;,
-    &quot;Application.EphemerisLoader.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ExamplePlanetMovement.executor&quot;: &quot;Run&quot;,
-    &quot;Application.LaunchStateBuilder.executor&quot;: &quot;Run&quot;,
-    &quot;Application.LotkaVolterraSimulation.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MissionSim.executor&quot;: &quot;Run&quot;,
-    &quot;Application.PlanetInfo.executor&quot;: &quot;Run&quot;,
-    &quot;Application.PlanetMotionTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProbeDifferentialEvolution.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProbeHillClimb.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProbeMission.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProbeMissionRunner.executor&quot;: &quot;Run&quot;,
-    &quot;Application.RK4Solver.executor&quot;: &quot;Run&quot;,
-    &quot;Application.RocketMissionRunner.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SolarSystem.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SolarSystemVisualizer.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TitanInterceptSearch.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TitanInterceptSearchSimple.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TransferTime.executor&quot;: &quot;Run&quot;,
-    &quot;Application.com.ken10.Dillons_Phase2.entities.NumericalSolvers.RK4Solver.executor&quot;: &quot;Run&quot;,
-    &quot;Application.com.ken10.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.com.ken10.Phase2.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader.executor&quot;: &quot;Run&quot;,
-    &quot;Application.sim.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Balistic-mission&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/dilpa/signal_project&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.BalisticMissionSimulator.executor": "Run",
+    "Application.DifferentialEvolutionAlgorithm.executor": "Run",
+    "Application.EphemerisLoader.executor": "Run",
+    "Application.ExamplePlanetMovement.executor": "Run",
+    "Application.LaunchStateBuilder.executor": "Run",
+    "Application.LotkaVolterraSimulation.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.MissionSim.executor": "Run",
+    "Application.PlanetInfo.executor": "Run",
+    "Application.PlanetMotionTest.executor": "Run",
+    "Application.ProbeDifferentialEvolution.executor": "Run",
+    "Application.ProbeHillClimb.executor": "Run",
+    "Application.ProbeMission.executor": "Run",
+    "Application.ProbeMissionRunner.executor": "Run",
+    "Application.RK4Solver.executor": "Run",
+    "Application.RocketMissionRunner.executor": "Run",
+    "Application.SolarSystem.executor": "Run",
+    "Application.SolarSystemVisualizer.executor": "Run",
+    "Application.TitanInterceptSearch.executor": "Run",
+    "Application.TitanInterceptSearchSimple.executor": "Run",
+    "Application.TransferTime.executor": "Run",
+    "Application.com.ken10.Dillons_Phase2.entities.NumericalSolvers.RK4Solver.executor": "Run",
+    "Application.com.ken10.Main.executor": "Run",
+    "Application.com.ken10.Phase2.Main.executor": "Run",
+    "Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader.executor": "Run",
+    "Application.sim.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "CurrentBranch",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/ivapapukchieva/IdeaProjects/DSA_2023_Public/Maastricht-University-Project-1-2/Project_Titan/src/main/resources/models",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Application.com.ken10.Main">
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/models" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/resources/source" />
+    </key>
+  </component>
+  <component name="RunManager">
     <configuration name="EphemerisLoader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ken10.Dillons_Phase2.entities.astro.Emhemeris.EphemerisLoader" />
       <module name="titan" />
@@ -210,6 +224,8 @@
       <workItem from="1746713950903" duration="4412000" />
       <workItem from="1746810437916" duration="727000" />
       <workItem from="1746977612967" duration="21440000" />
+      <workItem from="1748541153507" duration="26000" />
+      <workItem from="1748541302833" duration="3105000" />
     </task>
     <task id="LOCAL-00001" summary="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors">
       <option name="closed" value="true" />
@@ -323,7 +339,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745592448157</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="probe added">
+      <option name="closed" value="true" />
+      <created>1748538265161</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1748538265161</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -347,6 +371,7 @@
     <MESSAGE value="Lambert runnable" />
     <MESSAGE value="Gravity for the moons to be corrected. They need a separate smaller step size in mins, not hours. TitanInterceptSearch added. Just chatGPT code, apparently using hill algortim as well" />
     <MESSAGE value="Newest code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Newest code" />
+    <MESSAGE value="probe added" />
+    <option name="LAST_COMMIT_MESSAGE" value="probe added" />
   </component>
 </project>

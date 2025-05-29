@@ -21,6 +21,7 @@ public class Probe extends CelestialBodies {
     public static final double MASS = 50000;
     private final Vector initialPosition;
     private final Vector initialVelocity;
+    private double size;
 //    private final double closestDistance;
     private static final LocalDateTime startTime = LocalDateTime.of(2025,4,1,0,0,0);
 
@@ -29,6 +30,15 @@ public class Probe extends CelestialBodies {
         super(name, position, velocity, MASS);
         this.initialPosition = position;
         this.initialVelocity = velocity;
+    }
+    public Probe(String name, Vector position, Vector velocity, double size) {
+        super(name, position, velocity, MASS);
+        this.initialPosition = position;
+        this.initialVelocity = velocity;
+        this.size=size;
+    }
+    public double getSize(){
+        return size;
     }
 
     private void getDistanceToTarget(ArrayList<CelestialBodies> state) {

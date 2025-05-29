@@ -1,5 +1,6 @@
 com/ken10/Phase2/ProbeMission/ProbeMissionDillon/ProbeMission.class
 com/ken10/Phase2/StatesCalculations/EphemerisLoader.class
+com/ken10/Phase2/ProbeMission/ProbeMissionDominik/Grid.class
 com/ken10/Phase2/SolarSystemModel/PlanetModel.class
 com/ken10/Phase1/RungeKutta4Solver.class
 com/ken10/Phase1/LotkaVolterraSimulation.class
@@ -31,5 +32,6 @@ com/ken10/Phase1/ODESolver$TimeState.class
 com/ken10/Phase2/GUI/SolarSystemGUI$Line3D.class
 com/ken10/Phase2/ProbeMission/ProbeMissionDillon/ThrustPlan.class
 com/ken10/Phase2/GUI/Line3D.class
+com/ken10/Phase2/ProbeMission/ProbeMissionDominik/RK4Probe.class
 com/ken10/Phase2/GUI/SolarSystemGUI.class
 com/ken10/Phase2/SolarSystemModel/Earth.class

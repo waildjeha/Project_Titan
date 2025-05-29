@@ -2,6 +2,7 @@
   <library name="lib">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../javafx-sdk-24/lib" />
+      <root url="jar://$USER_HOME$/Downloads/ModelBrowserJFX-0_4_1/jimModelBrowserJFX-0_4_1.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/Downloads/commons-math3-3.6.1-javadoc.jar!/" />

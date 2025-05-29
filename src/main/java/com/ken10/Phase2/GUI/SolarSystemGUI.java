@@ -1,7 +1,13 @@
 package com.ken10.Phase2.GUI;
 
+import com.interactivemesh.jfx.importer.obj.ObjModelImporter;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.shape.MeshView;
 import com.ken10.Phase2.SolarSystemModel.*;
 import com.ken10.Phase2.StatesCalculations.*;
+import javafx.scene.Group;
+import javafx.scene.Node;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -302,16 +308,26 @@ public class SolarSystemGUI extends Application {
             
             // Create a sphere that represents the body.
             Sphere sphere = new Sphere(radius);
-            
-            // Set the material and color based on the body type
-//            PhongMaterial material = new PhongMaterial();
-//            Color color = getPlanetColor(name);
-//            material.setDiffuseColor(color);
-//            sphere.setMaterial(material);
+
+
+//            if (name.equals("probe")) {
+//                root.getChildren().remove(sphere);
+//
+//                Group rocketModel = loadRocketModel();
+//                if (rocketModel != null) {
+//                    rocketModel.setTranslateX(sphere.getTranslateX());
+//                    rocketModel.setTranslateY(sphere.getTranslateY());
+//                    rocketModel.setTranslateZ(sphere.getTranslateZ());
+//
+//
+//                    root.getChildren().add(rocketModel);
+//                } else {
+//                    System.out.println("Failed to load rocket model, keeping probe sphere");
+//                    root.getChildren().add(sphere); // fallback
+//                }
+//            } else {
             PhongMaterial material = getTexturedMaterial(name);
             sphere.setMaterial(material);
-            
-            // Position the sphere
             updateCelestialBodyPosition(sphere, body);
             
             // Add to the scene
@@ -335,7 +351,9 @@ public class SolarSystemGUI extends Application {
             if (url == null) {
                 System.out.println("Resource not found: " + texturePath);
                 throw new RuntimeException("Resource missing: " + texturePath);
-            } else {
+            }
+
+            else {
                 System.out.println("Resource found: " + url);
             }
             Image texture = new Image(url.toExternalForm());
@@ -362,7 +380,28 @@ public class SolarSystemGUI extends Application {
             case "titan": return Color.ORANGE.darker();
             case "uranus": return Color.LIGHTBLUE;
             case "neptune": return Color.DARKBLUE;
+            case "probe": return Color.BROWN;
             default: return Color.WHITE;
+        }
+    }
+
+    private Group loadRocketModel() {
+        try {
+            String rocketModelPath = "model/rocket.obj";
+            URL rocketUrl = getClass().getClassLoader().getResource(rocketModelPath);
+            if (rocketUrl == null) {
+                System.out.println("Rocket model not found: " + rocketModelPath);
+                return null;
+            }
+            ObjModelImporter importer = new ObjModelImporter();
+            importer.read(rocketUrl);
+            MeshView[] meshViews = importer.getImport();
+            Group rocketGroup = new Group(meshViews);
+            importer.close();
+            return rocketGroup;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
     
@@ -645,7 +684,12 @@ public class SolarSystemGUI extends Application {
         double yearsFraction = daysBetween / 365.25;
         timeLabel.setText(String.format("Simulation Time: %s (%.2f days, %.2f years)", 
                 formatDateTime(currentTime), (double)daysBetween, yearsFraction));
+
+
+
     }
+
+
     
     public static void main(String[] args) {
         launch(args);
