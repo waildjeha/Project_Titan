@@ -131,6 +131,10 @@ public class SolarSystem {
         );
         // Neptune.setRelativeScalingFactor(0.15);
 
+        Vector earthPosition=new Vector(-1.4664541759104577E8, -2.8949304626334388E7, 2241.9186033698497);
+        Vector probeVelocity= new Vector(56.954145255280686, -31.47343183360373, -12.54370958156917);
+        Probe Probe=new Probe("probe",earthPosition,probeVelocity);
+
         // Add this after creating Earth and Moon
         System.out.println("\n\n\n");
         Vector earthMoonDistance = Earth.getPosition().subtract(Moon.getPosition());
@@ -154,6 +158,7 @@ public class SolarSystem {
         bodies.add(Titan);
         bodies.add(Uranus);
         bodies.add(Neptune);
+        bodies.add(Probe);
 
         return bodies;
     }
