@@ -29,9 +29,7 @@ com/ken10/Phase2/StatesCalculations/Solver.class
 com/ken10/Phase2/GUI/SolarSystemGUI$1.class
 com/ken10/Phase1/App.class
 com/ken10/Phase1/ODESolver$TimeState.class
-com/ken10/Phase2/GUI/SolarSystemGUI$Line3D.class
 com/ken10/Phase2/ProbeMission/ProbeMissionDillon/ThrustPlan.class
 com/ken10/Phase2/GUI/Line3D.class
 com/ken10/Phase2/ProbeMission/ProbeMissionDominik/RK4Probe.class
-com/ken10/Phase2/GUI/SolarSystemGUI.class
 com/ken10/Phase2/SolarSystemModel/Earth.class

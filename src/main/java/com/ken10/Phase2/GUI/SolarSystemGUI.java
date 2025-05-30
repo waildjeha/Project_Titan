@@ -1,6 +1,6 @@
 package com.ken10.Phase2.GUI;
 
-import com.interactivemesh.jfx.importer.obj.ObjModelImporter;
+// import com.interactivemesh.jfx.importer.obj.ObjModelImporter;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.shape.MeshView;
@@ -326,13 +326,34 @@ public class SolarSystemGUI extends Application {
 //                    root.getChildren().add(sphere); // fallback
 //                }
 //            } else {
-            PhongMaterial material = getTexturedMaterial(name);
+            PhongMaterial material;
+            if(name.equals("probe")){
+                material = new PhongMaterial(Color.WHITE);
+            } else{
+                material = getTexturedMaterial(name);
+            }
+            
             sphere.setMaterial(material);
             updateCelestialBodyPosition(sphere, body);
             
             // Add to the scene
             celestialGroup.getChildren().add(sphere);
             planetSpheres.put(name, sphere);
+
+            // Add this debug code after: sphere.setMaterial(material);
+if (name.equals("probe")) {
+    System.out.println("=== PROBE DEBUG ===");
+    System.out.println("Probe sphere created with radius: " + radius);
+    System.out.println("Probe position: " + body.getPosition());
+    System.out.println("Probe scaling factor: " + body.getRelativeScalingFactor());
+    System.out.println("Material: " + material.getDiffuseColor());
+    System.out.println("Sphere translate X: " + sphere.getTranslateX());
+    System.out.println("Sphere translate Y: " + sphere.getTranslateY());
+    System.out.println("Sphere translate Z: " + sphere.getTranslateZ());
+    System.out.println("Added to celestialGroup: " + celestialGroup.getChildren().contains(sphere));
+    System.out.println("Added to planetSpheres map: " + planetSpheres.containsKey("probe"));
+    System.out.println("==================");
+}
             
             // Initialize path history and visual representation
             pathHistory.put(name, new ArrayList<>());
@@ -346,6 +367,10 @@ public class SolarSystemGUI extends Application {
 
     private PhongMaterial getTexturedMaterial(String name) {
         try {
+            if(name.equals("probe")){
+                PhongMaterial material = new PhongMaterial(Color.WHITE);
+                return material;
+            }
             String texturePath = "textures/" + name.toLowerCase() + ".jpeg";
             URL url = getClass().getClassLoader().getResource(texturePath);
             if (url == null) {
@@ -384,7 +409,7 @@ public class SolarSystemGUI extends Application {
             default: return Color.WHITE;
         }
     }
-
+    /*
     private Group loadRocketModel() {
         try {
             String rocketModelPath = "model/rocket.obj";
@@ -403,7 +428,7 @@ public class SolarSystemGUI extends Application {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
     
     private void updateCelestialBodyPosition(Sphere sphere, CelestialBodies body) {
         Vector position = body.getPosition();

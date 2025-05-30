@@ -132,7 +132,7 @@ public class RK4Solver extends Solver {
             return new Titan(original.getName(), position, velocity, original.getMass(), original.getRelativeScalingFactor(), original.getSize());
         }
         else
-            return new Probe(original.getName(), position, velocity);
+            return new Probe(original.getName(), position, velocity, original.getRelativeScalingFactor(), original.getSize());
     }
 
 
