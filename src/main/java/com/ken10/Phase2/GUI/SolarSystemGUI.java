@@ -77,6 +77,7 @@ public class SolarSystemGUI extends Application {
     private ArrayList<CelestialBodies> celestialBodies;
     private Map<String, Sphere> planetSpheres = new HashMap<>();
     private Map<String, Group> planetPaths = new HashMap<>();
+    private Map<String, Node> celestialNodes = new HashMap<>(); // Store both spheres and rockets
     private Map<String, List<Vector>> pathHistory = new HashMap<>();
     private double simulationSpeed = 1000;
     
@@ -207,7 +208,7 @@ public class SolarSystemGUI extends Application {
     }
 
     private void zoomOnBody(String name) {
-        Sphere target = planetSpheres.get(name.toLowerCase());
+        Node target = celestialNodes.get(name.toLowerCase());
         if (target == null) {
             System.out.println("No body named " + name + " found.");
             return;
@@ -303,65 +304,51 @@ public class SolarSystemGUI extends Application {
         for (CelestialBodies body : celestialBodies) {
             String name = body.getName().toLowerCase();
             
-            // Determine radius for this specific body.
-            double radius = body.getSize();
+            Node celestialNode; // Can be either Sphere or Group (rocket)
             
-            // Create a sphere that represents the body.
-            Sphere sphere = new Sphere(radius);
-
-
-//            if (name.equals("probe")) {
-//                root.getChildren().remove(sphere);
-//
-//                Group rocketModel = loadRocketModel();
-//                if (rocketModel != null) {
-//                    rocketModel.setTranslateX(sphere.getTranslateX());
-//                    rocketModel.setTranslateY(sphere.getTranslateY());
-//                    rocketModel.setTranslateZ(sphere.getTranslateZ());
-//
-//
-//                    root.getChildren().add(rocketModel);
-//                } else {
-//                    System.out.println("Failed to load rocket model, keeping probe sphere");
-//                    root.getChildren().add(sphere); // fallback
-//                }
-//            } else {
-            PhongMaterial material;
-            if(name.equals("probe")){
-                material = new PhongMaterial(Color.WHITE);
-            } else{
-                material = getTexturedMaterial(name);
+            if (name.equals("probe")) {
+                // Create rocket for probe
+                celestialNode = createRocket();
+                
+                // Position the rocket
+                Vector position = body.getPosition();
+                double relativeScalingFactor = body.getRelativeScalingFactor();
+                celestialNode.setTranslateX(position.getX() * relativeScalingFactor * SCALE_FACTOR);
+                celestialNode.setTranslateY(position.getY() * relativeScalingFactor * SCALE_FACTOR);
+                celestialNode.setTranslateZ(position.getZ() * relativeScalingFactor * SCALE_FACTOR);
+                
+                System.out.println("=== PROBE ROCKET DEBUG ===");
+                System.out.println("Rocket created for probe");
+                System.out.println("Probe position: " + body.getPosition());
+                System.out.println("Rocket translate X: " + celestialNode.getTranslateX());
+                System.out.println("Rocket translate Y: " + celestialNode.getTranslateY());
+                System.out.println("Rocket translate Z: " + celestialNode.getTranslateZ());
+                System.out.println("=========================");
+                
+            } else {
+                // Create sphere for other bodies (existing code)
+                double radius = body.getSize();
+                Sphere sphere = new Sphere(radius);
+                
+                PhongMaterial material = getTexturedMaterial(name);
+                sphere.setMaterial(material);
+                updateCelestialBodyPosition(sphere, body);
+                
+                celestialNode = sphere;
+                planetSpheres.put(name, sphere); // Keep spheres in the old map for compatibility
             }
             
-            sphere.setMaterial(material);
-            updateCelestialBodyPosition(sphere, body);
-            
             // Add to the scene
-            celestialGroup.getChildren().add(sphere);
-            planetSpheres.put(name, sphere);
-
-            // Add this debug code after: sphere.setMaterial(material);
-if (name.equals("probe")) {
-    System.out.println("=== PROBE DEBUG ===");
-    System.out.println("Probe sphere created with radius: " + radius);
-    System.out.println("Probe position: " + body.getPosition());
-    System.out.println("Probe scaling factor: " + body.getRelativeScalingFactor());
-    System.out.println("Material: " + material.getDiffuseColor());
-    System.out.println("Sphere translate X: " + sphere.getTranslateX());
-    System.out.println("Sphere translate Y: " + sphere.getTranslateY());
-    System.out.println("Sphere translate Z: " + sphere.getTranslateZ());
-    System.out.println("Added to celestialGroup: " + celestialGroup.getChildren().contains(sphere));
-    System.out.println("Added to planetSpheres map: " + planetSpheres.containsKey("probe"));
-    System.out.println("==================");
-}
+            celestialGroup.getChildren().add(celestialNode);
+            celestialNodes.put(name, celestialNode); // Store in the new map
             
-            // Initialize path history and visual representation
+            // Initialize path history and visual representation (existing code)
             pathHistory.put(name, new ArrayList<>());
             Group pathLines = new Group();
             pathGroup.getChildren().add(pathLines);
             planetPaths.put(name, pathLines);
             
-            System.out.println("Added: " + name + " at position " + body.getPosition() + "scaling: " + body.getRelativeScalingFactor());
+            System.out.println("Added: " + name + " at position " + body.getPosition());
         }
     }
 
@@ -389,6 +376,173 @@ if (name.equals("probe")) {
             System.out.println("Texture not found for " + name + ", using default color.");
             PhongMaterial fallback = new PhongMaterial(getPlanetColor(name));
             return fallback;
+        }
+    }
+
+    private Group createRocket() {
+        Group rocket = new Group();
+        
+        // Main rocket body - more cylindrical and sleek
+        Cylinder mainBody = new Cylinder(1.5, 12.0);
+        PhongMaterial bodyMaterial = new PhongMaterial(Color.LIGHTGRAY);
+        bodyMaterial.setSpecularColor(Color.WHITE);
+        mainBody.setMaterial(bodyMaterial);
+        
+        // Nose cone - sharp pointed cone using scaled sphere
+        Sphere noseCone = new Sphere(1.5);
+        noseCone.setScaleY(2.0);
+        noseCone.setScaleX(0.3);
+        noseCone.setScaleZ(0.3);
+        PhongMaterial noseMaterial = new PhongMaterial(Color.DARKRED);
+        noseMaterial.setSpecularColor(Color.RED);
+        noseCone.setMaterial(noseMaterial);
+        noseCone.setTranslateY(-8.0); // Position at top of main body (negative Y is up)
+        
+        // Engine section - slightly wider cylinder at the bottom
+        Cylinder engineSection = new Cylinder(1.8, 3.0);
+        PhongMaterial engineMaterial = new PhongMaterial(Color.DARKGRAY);
+        engineMaterial.setSpecularColor(Color.GRAY);
+        engineSection.setMaterial(engineMaterial);
+        engineSection.setTranslateY(7.5); // Position at bottom of main body
+        
+        // Engine nozzle - tapered using scaled sphere
+        Sphere engineNozzle = new Sphere(1.8);
+        engineNozzle.setScaleY(0.8);
+        engineNozzle.setScaleX(0.6);
+        engineNozzle.setScaleZ(0.6);
+        PhongMaterial nozzleMaterial = new PhongMaterial(Color.BLACK);
+        engineNozzle.setMaterial(nozzleMaterial);
+        engineNozzle.setTranslateY(9.5); // Below engine section
+        
+        // Create 3 fins (like in the reference image) positioned around the rocket
+        for (int i = 0; i < 3; i++) {
+            Group fin = createStreamlinedFin();
+            fin.setRotationAxis(Rotate.Y_AXIS);
+            fin.setRotate(i * 120); // 120 degrees apart for 3 fins
+            rocket.getChildren().add(fin);
+        }
+        
+        // Add racing stripes for visual appeal
+        Cylinder stripe1 = new Cylinder(1.6, 1.0);
+        PhongMaterial stripeMaterial = new PhongMaterial(Color.DARKBLUE);
+        stripe1.setMaterial(stripeMaterial);
+        stripe1.setTranslateY(-2);
+        
+        Cylinder stripe2 = new Cylinder(1.6, 1.0);
+        stripe2.setMaterial(stripeMaterial);
+        stripe2.setTranslateY(2);
+        
+        // Engine flame
+        Group flame = createEngineFlame();
+        
+        // Assemble the rocket
+        rocket.getChildren().addAll(
+            mainBody, 
+            noseCone, 
+            engineSection, 
+            engineNozzle, 
+            stripe1, 
+            stripe2, 
+            flame
+        );
+        
+        return rocket;
+    }
+
+    private Group createStreamlinedFin() {
+        Group fin = new Group();
+        
+        // Main fin body - triangular shape using box
+        javafx.scene.shape.Box finBody = new javafx.scene.shape.Box(0.3, 6.0, 3.0);
+        PhongMaterial finMaterial = new PhongMaterial(Color.DARKRED);
+        finMaterial.setSpecularColor(Color.RED);
+        finBody.setMaterial(finMaterial);
+        finBody.setTranslateX(2.0); // Position outside rocket body
+        finBody.setTranslateY(5.0); // Position at the back/bottom of rocket (positive Y is down)
+        
+        // Fin tip - for tapered look
+        javafx.scene.shape.Box finTip = new javafx.scene.shape.Box(0.2, 3.0, 1.5);
+        finTip.setMaterial(finMaterial);
+        finTip.setTranslateX(2.8);
+        finTip.setTranslateY(6.5); // Below the main fin body
+        
+        // Fin leading edge
+        javafx.scene.shape.Box finEdge = new javafx.scene.shape.Box(0.15, 4.0, 2.0);
+        finEdge.setMaterial(finMaterial);
+        finEdge.setTranslateX(2.4);
+        finEdge.setTranslateY(3.5); // Above the main fin body
+        
+        fin.getChildren().addAll(finBody, finTip, finEdge);
+        return fin;
+    }
+
+    private Group createEngineFlame() {
+        Group flame = new Group();
+        
+        // Main flame body - elongated and tapered
+        Sphere flameCore = new Sphere(1.2);
+        flameCore.setScaleY(4.0);
+        flameCore.setScaleX(0.8);
+        flameCore.setScaleZ(0.8);
+        PhongMaterial flameMaterial = new PhongMaterial(Color.ORANGE);
+        flameMaterial.setSelfIlluminationMap(null); // Make it glow-like
+        flameCore.setMaterial(flameMaterial);
+        flameCore.setTranslateY(15.0); // Position below rocket
+        
+        // Inner flame - hotter core
+        Sphere innerFlame = new Sphere(0.8);
+        innerFlame.setScaleY(3.0);
+        innerFlame.setScaleX(0.6);
+        innerFlame.setScaleZ(0.6);
+        PhongMaterial innerMaterial = new PhongMaterial(Color.YELLOW);
+        innerFlame.setMaterial(innerMaterial);
+        innerFlame.setTranslateY(13.5);
+        
+        // Hot core - white center
+        Sphere hotCore = new Sphere(0.4);
+        hotCore.setScaleY(2.0);
+        hotCore.setScaleX(0.4);
+        hotCore.setScaleZ(0.4);
+        PhongMaterial hotMaterial = new PhongMaterial(Color.WHITE);
+        hotCore.setMaterial(hotMaterial);
+        hotCore.setTranslateY(11.5);
+        
+        flame.getChildren().addAll(flameCore, innerFlame, hotCore);
+        return flame;
+    }
+
+    private void updateRocketOrientation(Group rocket, Vector velocity) {
+        if (velocity.magnitude() > 1e-10) { // Check for non-zero velocity
+            // Clear existing transforms first
+            rocket.getTransforms().clear();
+            
+            // Normalize velocity vector to get direction
+            Vector direction = velocity.normalize();
+            
+            // The rocket's default orientation is along the Y-axis (pointing up)
+            // We need to rotate it to point in the direction of velocity
+            
+            // Calculate rotation to align Y-axis with velocity direction
+            Point3D yAxis = new Point3D(0, 1, 0); // Default rocket orientation
+            Point3D velocityDirection = new Point3D(direction.getX(), direction.getY(), direction.getZ());
+            
+            // Calculate the axis of rotation (cross product)
+            Point3D rotationAxis = yAxis.crossProduct(velocityDirection);
+            
+            // Calculate the angle of rotation (dot product)
+            double dotProduct = yAxis.dotProduct(velocityDirection);
+            double angle = Math.toDegrees(Math.acos(Math.max(-1.0, Math.min(1.0, dotProduct))));
+            
+            // Only apply rotation if we have a valid rotation axis
+            if (rotationAxis.magnitude() > 1e-10) {
+                Rotate rotation = new Rotate(angle, rotationAxis);
+                rocket.getTransforms().add(rotation);
+            } else if (dotProduct < 0) {
+                // Special case: velocity is opposite to Y-axis, rotate 180 degrees around X-axis
+                Rotate rotation = new Rotate(180, Rotate.X_AXIS);
+                rocket.getTransforms().add(rotation);
+            }
+            // If dotProduct > 0.99, velocity is already aligned with Y-axis, no rotation needed
         }
     }
     
@@ -673,44 +827,51 @@ if (name.equals("probe")) {
             System.out.println("No data for time: " + currentTime);
             return;
         }
-        
+
         // Update the visualization for each celestial body
         for (CelestialBodies body : currentState) {
             String bodyName = body.getName().toLowerCase();
             
-            // Get the sphere for this body
-            Sphere sphere = planetSpheres.get(bodyName);
-            if (sphere != null) {
-                // Update planet positions
-                updateCelestialBodyPosition(sphere, body);
+            // Get the node (sphere or rocket) for this body
+            Node celestialNode = celestialNodes.get(bodyName);
+            if (celestialNode != null) {
+                // Update positions
+                Vector position = body.getPosition();
+                double relativeScalingFactor = body.getRelativeScalingFactor();
+                celestialNode.setTranslateX(position.getX() * relativeScalingFactor * SCALE_FACTOR);
+                celestialNode.setTranslateY(position.getY() * relativeScalingFactor * SCALE_FACTOR);
+                celestialNode.setTranslateZ(position.getZ() * relativeScalingFactor * SCALE_FACTOR);
                 
+                if (bodyName.equals("probe") && celestialNode instanceof Group) {
+                    Vector velocity = body.getVelocity();
+                    updateRocketOrientation((Group) celestialNode, velocity);
+                }
+
                 // Update orbit paths
                 updatePathVisualization(bodyName, body.getPosition());
+
             }
         }
 
-        // Handle camera tracking (add this after the position update loop)
+        // Handle camera tracking (modify this part too):
         if (trackedBody != null) {
-            Sphere trackedSphere = planetSpheres.get(trackedBody);
-            if (trackedSphere != null) {
-                double x = trackedSphere.getTranslateX();
-                double y = trackedSphere.getTranslateY();
-                double z = trackedSphere.getTranslateZ();
+            Node trackedNode = celestialNodes.get(trackedBody);
+            if (trackedNode != null) {
+                double x = trackedNode.getTranslateX();
+                double y = trackedNode.getTranslateY();
+                double z = trackedNode.getTranslateZ();
                 
                 // Update camera offset to center the tracked body
                 cameraOffset.setX(-x);
                 cameraOffset.setY(-y);
                 cameraOffset.setZ(-z);
             }
-        }
-        
+        }        
         // Update the time label
         long daysBetween = ChronoUnit.DAYS.between(startTime, currentTime);
         double yearsFraction = daysBetween / 365.25;
         timeLabel.setText(String.format("Simulation Time: %s (%.2f days, %.2f years)", 
                 formatDateTime(currentTime), (double)daysBetween, yearsFraction));
-
-
 
     }
 
