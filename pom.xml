@@ -14,7 +14,7 @@
         <maven.compiler.target>21</maven.compiler.target>
         <javafx.version>21.0.1</javafx.version>
     </properties>
-
+    
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -42,6 +42,22 @@
             <artifactId>jim-model-browser</artifactId>
             <version>0.4.1</version>
         </dependency> -->
+
+        <!--<dependency>
+            <groupId>com.interactivemesh</groupId>
+            <artifactId>jimObjModelImporter</artifactId>
+            <version>0.8</version>
+        </dependency>-->
+
+        
+
+        <!-- Alternative: FXyz3D for procedural shapes -->
+        <dependency>
+            <groupId>org.fxyz3d</groupId>
+            <artifactId>fxyz3d</artifactId>
+            <version>0.5.4</version>
+        </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
