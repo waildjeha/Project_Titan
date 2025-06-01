@@ -133,7 +133,7 @@ public class SolarSystem {
 
         Vector earthPosition=new Vector(-1.4664541759104577E8, -2.8949304626334388E7, 2241.9186033698497);
         Vector probeVelocity= new Vector(56.954145255280686, -31.47343183360373, -12.54370958156917);
-        Probe Probe=new Probe("probe",earthPosition,probeVelocity,earthSize);
+        CelestialBodies Probe = new Probe("probe",earthPosition,probeVelocity, 1.0, 0.5*earthSize);
 
         // Add this after creating Earth and Moon
         System.out.println("\n\n\n");
