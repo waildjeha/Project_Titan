@@ -107,13 +107,13 @@ public class ProbeHillClimb {
     }
 
     private Vector getEarthPositionAtLaunch() {
-        ArrayList<CelestialBodies> solarSystem = SolarSystem.CreatePlanets();
+        ArrayList<CelestialBodies> solarSystem = SolarSystem.createPlanets();
         CelestialBodies earth = getBodyByName(solarSystem, "Earth");
         return earth.getPosition().add(new Vector(6371, 0, 0));
     }
 
     private Vector getEarthVelocityAtLaunch() {
-        ArrayList<CelestialBodies> solarSystem = SolarSystem.CreatePlanets();
+        ArrayList<CelestialBodies> solarSystem = SolarSystem.createPlanets();
         CelestialBodies earth = getBodyByName(solarSystem, "Earth");
         return earth.getVelocity();
     }
@@ -123,7 +123,7 @@ public class ProbeHillClimb {
         Probe probe = new Probe("Probe", earthPosition, probeVelocity);
         probe.setMass(PROBE_MASS);
 
-        ArrayList<CelestialBodies> systemCopy = SolarSystem.CreatePlanets();
+        ArrayList<CelestialBodies> systemCopy = SolarSystem.createPlanets();
         systemCopy.add(probe);
 
         LocalDateTime launchDate = LocalDateTime.of(2025, 4, 1, 0, 0);

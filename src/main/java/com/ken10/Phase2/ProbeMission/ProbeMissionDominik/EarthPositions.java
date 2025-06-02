@@ -31,7 +31,7 @@ public class EarthPositions {
     private void calculatePositions() {
     double cosEps = Math.cos(TILT_RAD);
     double sinEps = Math.sin(TILT_RAD);
-    Vector position = SolarSystem.CreatePlanets().get(BodyID.EARTH.index()).getPosition();
+    Vector position = SolarSystem.createPlanets().get(BodyID.EARTH.index()).getPosition();
     System.out.println(position.toString());
     List<Vector> positions = new ArrayList<>();
     for(double degree = 0; degree < 360; degree += stepDegree) {
@@ -54,7 +54,7 @@ public class EarthPositions {
 
     public static void main(String[] args) {
 Vector position = new Vector(-1.4665809771040002E8, -2.8948457794751514E7, 2475.989626902912);
-Vector earthPosition = SolarSystem.CreatePlanets().get(BodyID.EARTH.index()).getPosition();
+Vector earthPosition = SolarSystem.createPlanets().get(BodyID.EARTH.index()).getPosition();
 System.out.println(getDistance(position, earthPosition));
 
 

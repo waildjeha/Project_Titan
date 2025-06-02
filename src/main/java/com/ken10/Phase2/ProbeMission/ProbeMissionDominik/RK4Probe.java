@@ -51,11 +51,9 @@ public class RK4Probe {
             historyProbe.put(time,probe);
             closestDistance = getDistance(probe.getPosition(), historyPlanets.get(time).get(BodyID.TITAN.index()).getPosition());
             double noChangeLoopBreak = closestDistance;
-            double farAway = 1E9;
 
         while (time.isBefore(endTime)) {
-            if((time.isAfter((t0.plusMinutes(180))) && closestDistance==noChangeLoopBreak) ||
-                    (time.isAfter(t0.plusDays(45)) && closestDistance>farAway))
+            if((time.isAfter((t0.plusMinutes(180))) && closestDistance==noChangeLoopBreak))
                 {historyProbe.clear(); break;}
             if(time.isBefore(t0.plusMinutes(8))&&getDistance(probe.getPosition(),historyPlanets.get(time).get(BodyID.EARTH.index()).getPosition())<6369)
             {System.out.println("Probe gets inside the Earth");break;}
@@ -70,6 +68,7 @@ public class RK4Probe {
             historyProbe.put(time,probe);
         }
     }
+
     private Probe rk4Helper() {
         int stepMinutes = stepSizeMin;
         // we need to make the step size of the probe
@@ -116,9 +115,16 @@ public class RK4Probe {
         return new Probe(probe.getName(), y1.getPosition().add(kVelocity), y1.getVelocity().add(kAcceleration));
     }
 
+    @Override
+    public String toString(){
+        return "----------------------------------------------------------" + "\n" +
+                        "Initial probe position and velocity: " + launchProbe + "\n" +
+                        "Closest Distance to Titan: " + closestDistance + "\n" +
+                        "Date of closest approach: " + closestDistTime + "\n";
+    }
     public static void main(String[] args) {
         LocalDateTime startTime = LocalDateTime.of(2025,4,1,0,0,0);
-        Vector earthPosition = SolarSystem.CreatePlanets().get(BodyID.EARTH.index()).getPosition();
+        Vector earthPosition = SolarSystem.createPlanets().get(BodyID.EARTH.index()).getPosition();
         Probe probe = new Probe("probe", new Vector(earthPosition.getX() + 6370, earthPosition.getY(), earthPosition.getZ()), new Vector(51.656963, -2.127366, -12.546660));
         EphemerisLoader eph = new EphemerisLoader(2);
         eph.solve();
