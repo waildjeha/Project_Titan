@@ -3,6 +3,7 @@ package com.ken10.Phase2.GUI;
 // import com.interactivemesh.jfx.importer.obj.ObjModelImporter;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.layout.*;
 import javafx.scene.shape.MeshView;
 import com.ken10.Phase2.SolarSystemModel.*;
 import com.ken10.Phase2.StatesCalculations.*;
@@ -14,7 +15,6 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
@@ -25,9 +25,6 @@ import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
@@ -114,8 +111,10 @@ public class SolarSystemGUI extends Application {
         root.setCenter(space);
         root.setLeft(zoomMenu);
         root.setBottom(controls);
+        root.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
         Scene scene = new Scene(root, 1200, 800);
+
         primaryStage.setTitle("Solar System Visualization");
         primaryStage.setScene(scene);
         primaryStage.show();
