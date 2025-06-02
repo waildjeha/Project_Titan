@@ -1,6 +1,7 @@
 com/ken10/Phase2/ProbeMission/ProbeMissionDillon/ProbeMission.class
 com/ken10/Phase2/StatesCalculations/EphemerisLoader.class
 com/ken10/Phase2/ProbeMission/ProbeMissionDominik/Grid.class
+com/ken10/Phase2/GUI/SolarSystemGUI$ZoomConfig.class
 com/ken10/Phase2/SolarSystemModel/PlanetModel.class
 com/ken10/Phase1/RungeKutta4Solver.class
 com/ken10/Phase1/LotkaVolterraSimulation.class

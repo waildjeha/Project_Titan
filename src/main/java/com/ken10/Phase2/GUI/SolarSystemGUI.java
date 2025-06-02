@@ -193,6 +193,10 @@ public class SolarSystemGUI extends Application {
         cameraOffset.setY(0);
         cameraOffset.setZ(0);
 
+        for (Group pathGroup : planetPaths.values()) {
+            pathGroup.setVisible(true);
+        }
+
         System.out.println("Camera reset to default view.");
     }
 
@@ -243,6 +247,10 @@ public class SolarSystemGUI extends Application {
         
         // Immediately update camera tracking to position on the selected body
         updateCameraTracking();
+
+        for (Group pathGroup : planetPaths.values()) {
+            pathGroup.setVisible(false);
+        }
         
         System.out.println("Zoomed on " + name + " with context: " + currentZoomContext);
     }
@@ -762,26 +770,6 @@ public class SolarSystemGUI extends Application {
             default: return Color.WHITE;
         }
     }
-    /*
-    private Group loadRocketModel() {
-        try {
-            String rocketModelPath = "model/rocket.obj";
-            URL rocketUrl = getClass().getClassLoader().getResource(rocketModelPath);
-            if (rocketUrl == null) {
-                System.out.println("Rocket model not found: " + rocketModelPath);
-                return null;
-            }
-            ObjModelImporter importer = new ObjModelImporter();
-            importer.read(rocketUrl);
-            MeshView[] meshViews = importer.getImport();
-            Group rocketGroup = new Group(meshViews);
-            importer.close();
-            return rocketGroup;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }*/
     
     private void updateCelestialBodyPosition(Sphere sphere, CelestialBodies body) {
         Vector position = body.getPosition();
