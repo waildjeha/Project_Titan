@@ -12,7 +12,7 @@ import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
  * no pluto :(
  */
 public class SolarSystem {
-        public static double earthSize = 10.0;
+        public static double earthSize = 11.0;
     public static ArrayList<CelestialBodies> CreatePlanets() {
         ArrayList<CelestialBodies> bodies = new ArrayList<>();
         double sunX = -7.596727134361322E+05;
