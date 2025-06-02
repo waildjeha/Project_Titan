@@ -153,24 +153,65 @@ public class SolarSystemGUI extends Application {
 
     private VBox createZoomMenu() {
         Button zoomEarth = new Button("Zoom Earth");
+        styleButton(zoomEarth);
         zoomEarth.setOnAction(e -> zoomOnBody("earth"));
 
         Button zoomSaturn = new Button("Zoom Saturn");
+        styleButton(zoomSaturn);
         zoomSaturn.setOnAction(e -> zoomOnBody("saturn"));
 
         Button zoomTitan = new Button("Zoom Titan");
+        styleButton(zoomTitan);
         zoomTitan.setOnAction(e -> zoomOnBody("titan"));
 
         Button zoomProbe = new Button("Zoom Probe");
+        styleButton(zoomProbe);
         zoomProbe.setOnAction(e -> zoomOnBody("probe"));
 
         Button resetButton = new Button("Reset View");
+        styleButton(resetButton);
         resetButton.setOnAction(e -> resetCameraView());
 
         VBox menu = new VBox(10, zoomEarth, zoomSaturn, zoomTitan, zoomProbe, resetButton);
         menu.setPadding(new Insets(15));
         menu.setAlignment(Pos.TOP_LEFT);
         return menu;
+    }
+    private void styleButton(Button button) {
+        String white = "#DCDCDC";
+
+        button.setStyle(
+                "-fx-background-color: transparent; " +
+                        "-fx-background-radius: 10; " +
+                        "-fx-text-fill: " + white + "; " +
+                        "-fx-pref-width: 100px; " +
+                        "-fx-pref-height: 30px; " +
+                        "-fx-border-radius: 10; " +
+                        "-fx-border-width: 2px; " +
+                        "-fx-border-color: " + white + ";"
+        );
+
+        button.setOnMousePressed(event -> button.setStyle(
+                "-fx-background-color: " + white + "; " +
+                        "-fx-background-radius: 10; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-pref-width: 100px; " +
+                        "-fx-pref-height: 30px; " +
+                        "-fx-border-radius: 10; " +
+                        "-fx-border-width: 2px; " +
+                        "-fx-border-color: " + white + ";"
+        ));
+
+        button.setOnMouseReleased(event -> button.setStyle(
+                "-fx-background-color: transparent; " +
+                        "-fx-background-radius: 10; " +
+                        "-fx-text-fill: " + white + "; " +
+                        "-fx-pref-width: 100px; " +
+                        "-fx-pref-height: 30px; " +
+                        "-fx-border-radius: 10; " +
+                        "-fx-border-width: 2px; " +
+                        "-fx-border-color: " + white + ";"
+        ));
     }
 
     private void resetCameraView() {
@@ -199,6 +240,7 @@ public class SolarSystemGUI extends Application {
         System.out.println("Camera reset to default view.");
     }
 
+
     private void zoomOnBody(String name) {
         String bodyName = name.toLowerCase();
         Node target = celestialNodes.get(bodyName);
@@ -206,11 +248,12 @@ public class SolarSystemGUI extends Application {
             System.out.println("No body named " + name + " found.");
             return;
         }
+
         
         // Reset camera transformations first
         rotateX.setAngle(20);
         rotateY.setAngle(0);
-        translate.setX(600);
+        translate.setX(450);
         translate.setY(250);
         translate.setZ(-200);
         cameraOffset.setX(0);
@@ -226,7 +269,8 @@ public class SolarSystemGUI extends Application {
                 originalSizes.put(body.getName().toLowerCase(), body.getSize());
             }
         }
-        
+
+
         // Apply zoom configuration if it exists
         ZoomConfig config = zoomConfigurations.get(bodyName);
         if (config != null) {
