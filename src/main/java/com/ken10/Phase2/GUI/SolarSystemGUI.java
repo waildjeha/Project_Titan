@@ -1,6 +1,4 @@
 package com.ken10.Phase2.GUI;
-
-// import com.interactivemesh.jfx.importer.obj.ObjModelImporter;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
@@ -45,6 +43,8 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+
+import static javax.swing.text.StyleConstants.Background;
 
 public class SolarSystemGUI extends Application {
 
@@ -185,7 +185,7 @@ public class SolarSystemGUI extends Application {
         scale.setX(1.0);
         scale.setY(1.0);
         scale.setZ(1.0);
-        translate.setX(600);
+        translate.setX(450);
         translate.setY(250);
         translate.setZ(-200);
         cameraOffset.setX(0);
@@ -421,7 +421,7 @@ public class SolarSystemGUI extends Application {
         space.setFill(Color.BLACK);
         
         // Center the view
-        translate.setX(600);  // Half of width
+        translate.setX(450);  // Half of width
         translate.setY(250);  // Half of height
         translate.setZ(-200); // Initial Z offset for better view
 
@@ -847,21 +847,29 @@ public class SolarSystemGUI extends Application {
         speedSlider.setBlockIncrement(0.1);
         speedSlider.valueProperty().addListener((obs, oldVal, newVal) -> 
             simulationSpeed = newVal.doubleValue());
-        
-        // Create time label
+
         timeLabel = new Label("Simulation Time: " + formatDateTime(currentTime));
-        
-        // Create restart button
+
         Button restartButton = new Button("Restart");
         restartButton.setOnAction(e -> restartSimulation());
 
-        // Create layout for controls
-        HBox sliderBox = new HBox(10, new Label("Time:"), timeSlider, playPauseButton, restartButton);
+
+        timeLabel = new Label("Simulation Time: " + formatDateTime(currentTime));
+        timeLabel.setStyle("-fx-text-fill: white;");
+
+
+        Label timeText = new Label("Time:");
+        timeText.setStyle("-fx-text-fill: white;");
+
+        Label speedText = new Label("Speed:");
+        speedText.setStyle("-fx-text-fill: white;");
+
+        HBox sliderBox = new HBox(10, timeText, timeSlider, playPauseButton, restartButton);
         sliderBox.setPadding(new Insets(10));
-        
-        HBox speedBox = new HBox(10, new Label("Speed:"), speedSlider);
+
+        HBox speedBox = new HBox(10, speedText, speedSlider);
         speedBox.setPadding(new Insets(10));
-        
+
         VBox controls = new VBox(10, sliderBox, speedBox, timeLabel);
         controls.setPadding(new Insets(10));
         
