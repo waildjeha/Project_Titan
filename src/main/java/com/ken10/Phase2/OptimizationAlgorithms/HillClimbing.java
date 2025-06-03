@@ -1,12 +1,9 @@
-package com.ken10.Phase2.ProbeMission;
+package com.ken10.Phase2.OptimizationAlgorithms;
 
-import com.ken10.Phase2.SolarSystemModel.CelestialBodies;
 import com.ken10.Phase2.SolarSystemModel.Probe;
 import com.ken10.Phase2.SolarSystemModel.Vector;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -20,9 +17,8 @@ import java.util.List;
  */
 public class HillClimbing {
 
-    private final RK4Probe baseSimulation;
-    private final Vector EARTH_POSITION;
-    private final Hashtable<LocalDateTime, ArrayList<CelestialBodies>> planetHistory;
+    private RK4Probe bestSimulation;
+    private final LaunchData launchData;
 
     // Hyper‑parameters for the adaptive step size
     private final double initialStep;
@@ -33,35 +29,38 @@ public class HillClimbing {
     /**
      * Convenience constructor using sensible defaults.
      */
-    public HillClimbing(RK4Probe simulation,
-                                 Vector EARTH_POSITION,
-                                 Hashtable<LocalDateTime, ArrayList<CelestialBodies>> planetHistory) {
-        this(simulation, EARTH_POSITION, planetHistory,
-                1e-3,   // initial step (km/s)
-                1e-7,   // minimum step
-                1.2,    // enlarge factor
-                0.5);   // shrink factor
+    public HillClimbing(RK4Probe simulation, LaunchData launchData) {
+        this.bestSimulation = simulation;
+        this.launchData = launchData;
+        this.initialStep =     1e-3;   // initial step (km/s)
+        this.minStep = 1e-7;   // minimum step
+        this.enlargeFactor =   1.2;    // enlarge factor
+        this.shrinkFactor =  0.5;   // shrink factor
     }
 
     /**
      * Fully configurable constructor.
      */
     public HillClimbing(RK4Probe simulation,
-                                 Vector EARTH_POSITION,
-                                 Hashtable<LocalDateTime, ArrayList<CelestialBodies>> planetHistory,
+                                 LaunchData launchData,
                                  double initialStep,
                                  double minStep,
                                  double enlargeFactor,
                                  double shrinkFactor) {
-        this.baseSimulation = simulation;
-        this.EARTH_POSITION = EARTH_POSITION;
-        this.planetHistory = planetHistory;
+        this.bestSimulation = simulation;
+        this.launchData = launchData;
         this.initialStep = initialStep;
         this.minStep = minStep;
         this.enlargeFactor = enlargeFactor;
         this.shrinkFactor = shrinkFactor;
     }
 
+    public void solve() {
+        bestSimulation = findOptimalVelocity();
+    }
+    public RK4Probe getBestSimulation() {
+        return bestSimulation;
+    }
     /**
      * Runs an adaptive hill‑climbing search over the probe's initial velocity
      * vector.  The step size (“learning rate”) is increased each time an
@@ -72,7 +71,7 @@ public class HillClimbing {
      * @return a simulation whose closest approach distance is the best found.
      */
     public RK4Probe findOptimalVelocity() {
-        RK4Probe bestSim = baseSimulation;
+        RK4Probe bestSim = bestSimulation;
         double bestDistance = bestSim.getClosestDistance();
         double step = initialStep;
 
@@ -80,8 +79,8 @@ public class HillClimbing {
             boolean improved = false;
 
             for (Vector neighbourVelocity : generateNeighbours(bestSim.getInitialProbe().getVelocity(), step)) {
-                Probe probe = new Probe("dominik", EARTH_POSITION, neighbourVelocity);
-                RK4Probe sim = new RK4Probe(probe, planetHistory, bestSim.getStepSizeMin());
+                Probe probe = new Probe("dominik", launchData.getInitialPosition(), neighbourVelocity);
+                RK4Probe sim = new RK4Probe(probe, launchData.getHistoryPlanets(), bestSim.getStepSizeMin());
                 sim.solve();
                 double d = sim.getClosestDistance();
                 if (d < bestDistance) {

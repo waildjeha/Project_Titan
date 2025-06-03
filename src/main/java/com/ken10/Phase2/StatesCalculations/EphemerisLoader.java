@@ -1,15 +1,12 @@
 package com.ken10.Phase2.StatesCalculations;
 
 
-import com.ken10.Phase2.ProbeMission.RK4Probe;
+import com.ken10.Phase2.OptimizationAlgorithms.RK4Probe;
 import com.ken10.Phase2.SolarSystemModel.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 
 //To run this code(load all the states in a specified time frame) you create an instance of

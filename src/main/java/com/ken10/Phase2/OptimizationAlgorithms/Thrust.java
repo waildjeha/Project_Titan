@@ -1,8 +1,7 @@
-package com.ken10.Phase2.ProbeMission;
+package com.ken10.Phase2.OptimizationAlgorithms;
 
 import com.ken10.Phase2.SolarSystemModel.CelestialBodies;
 import com.ken10.Phase2.SolarSystemModel.Vector;
-import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
 
 import java.util.ArrayList;
 
