@@ -128,9 +128,11 @@ public class SolarSystemGUI extends Application {
 
     private void loadEphemerisData() {
         System.out.println("Loading ephemeris data...");
-        
-        // Initialize ephemeris loader with 1-minute steps
-        EphemerisLoader eph = new EphemerisLoader(1, 1);
+        Vector earthPosition = SolarSystem.createPlanets().get(BodyID.EARTH.index()).getPosition().addX(6370);
+        Vector earthVelocity = SolarSystem.createPlanets().get(BodyID.EARTH.index()).getVelocity();
+        Probe probe = new Probe("dominik", earthPosition, earthVelocity);
+        // Initialize ephemeris loader with 2-minute steps
+        EphemerisLoader eph = new EphemerisLoader(2, probe, 1);
         eph.solve();
         timeStates = eph.history;
         
@@ -140,8 +142,8 @@ public class SolarSystemGUI extends Application {
         timeKeys = new ArrayList<>(timeStates.keySet());
         Collections.sort(timeKeys);
         
-        startTime = timeKeys.get(0);
-        endTime = timeKeys.get(timeKeys.size() - 1);
+        startTime = timeKeys.getFirst();
+        endTime = timeKeys.getLast();
         currentTime = startTime;
         
         // Get the initial state of celestial bodies
