@@ -4,6 +4,7 @@ import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
 
@@ -11,7 +12,7 @@ import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
  * no pluto :(
  */
 public class SolarSystem {
-        public static double earthSize = 10.0;
+        public static double earthSize = 11.0;
     public static ArrayList<CelestialBodies> createPlanets() {
         ArrayList<CelestialBodies> bodies = new ArrayList<>();
         double sunX = -7.596727134361322E+05;

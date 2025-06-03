@@ -19,6 +19,7 @@ com/ken10/Phase2/SolarSystemModel/Titan.class
 com/ken10/Main.class
 com/ken10/Phase2/SolarSystemModel/SolarSystem.class
 com/ken10/Phase2/StatesCalculations/Solver.class
+com/ken10/Phase2/ProbeMission/ProbeMissionDillon/EvolutionAlgorithm.class
 com/ken10/Phase2/GUI/SolarSystemGUI$1.class
 com/ken10/Phase1/App.class
 com/ken10/Phase1/ODESolver$TimeState.class

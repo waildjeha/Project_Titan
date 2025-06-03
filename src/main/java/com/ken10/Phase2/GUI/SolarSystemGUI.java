@@ -1,8 +1,7 @@
 package com.ken10.Phase2.GUI;
-
-// import com.interactivemesh.jfx.importer.obj.ObjModelImporter;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.layout.*;
 import javafx.scene.shape.MeshView;
 import com.ken10.Phase2.SolarSystemModel.*;
 import com.ken10.Phase2.StatesCalculations.*;
@@ -14,7 +13,6 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
@@ -25,9 +23,6 @@ import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
@@ -49,12 +44,14 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import static javax.swing.text.StyleConstants.Background;
+
 public class SolarSystemGUI extends Application {
 
     // Constants for visualization
     private static final double SCALE_FACTOR = 10e-7; // Scale down astronomical distances (adjusted)
-    private static final double DEFAULT_PLANET_SIZE = 15; // Default size of planets in visualization (slightly larger)
-    private static final double SUN_SIZE = 25.0; // Size of sun in visualization (slightly smaller)
+    private static final double DEFAULT_PLANET_SIZE = 25; // Default size of planets in visualization (slightly larger)
+    private static final double SUN_SIZE = 35.0; // Size of sun in visualization (slightly smaller)
     private static final int PATH_LENGTH = 1000; // Number of points to keep in orbit path
     
     // Pre-loaded ephemeris data
@@ -114,8 +111,10 @@ public class SolarSystemGUI extends Application {
         root.setCenter(space);
         root.setLeft(zoomMenu);
         root.setBottom(controls);
+        root.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
         Scene scene = new Scene(root, 1200, 800);
+
         primaryStage.setTitle("Solar System Visualization");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -128,11 +127,9 @@ public class SolarSystemGUI extends Application {
 
     private void loadEphemerisData() {
         System.out.println("Loading ephemeris data...");
-        Vector earthPosition = new Vector(-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497);
-        Vector initialVelocity = new Vector(61.065619043674, -33.10614766691787, -15.82637073951113);
-        Probe probe = new Probe("probe", earthPosition, initialVelocity);
+        
         // Initialize ephemeris loader with 2-minute steps
-        EphemerisLoader eph = new EphemerisLoader(2, probe, 1);
+        EphemerisLoader eph = new EphemerisLoader(2, 2);
         eph.solve();
         timeStates = eph.history;
         
@@ -142,8 +139,8 @@ public class SolarSystemGUI extends Application {
         timeKeys = new ArrayList<>(timeStates.keySet());
         Collections.sort(timeKeys);
         
-        startTime = timeKeys.getFirst();
-        endTime = timeKeys.getLast();
+        startTime = timeKeys.get(0);
+        endTime = timeKeys.get(timeKeys.size() - 1);
         currentTime = startTime;
         
         // Get the initial state of celestial bodies
@@ -156,24 +153,65 @@ public class SolarSystemGUI extends Application {
 
     private VBox createZoomMenu() {
         Button zoomEarth = new Button("Zoom Earth");
+        styleButton(zoomEarth);
         zoomEarth.setOnAction(e -> zoomOnBody("earth"));
 
         Button zoomSaturn = new Button("Zoom Saturn");
+        styleButton(zoomSaturn);
         zoomSaturn.setOnAction(e -> zoomOnBody("saturn"));
 
         Button zoomTitan = new Button("Zoom Titan");
+        styleButton(zoomTitan);
         zoomTitan.setOnAction(e -> zoomOnBody("titan"));
 
         Button zoomProbe = new Button("Zoom Probe");
+        styleButton(zoomProbe);
         zoomProbe.setOnAction(e -> zoomOnBody("probe"));
 
         Button resetButton = new Button("Reset View");
+        styleButton(resetButton);
         resetButton.setOnAction(e -> resetCameraView());
 
         VBox menu = new VBox(10, zoomEarth, zoomSaturn, zoomTitan, zoomProbe, resetButton);
         menu.setPadding(new Insets(15));
         menu.setAlignment(Pos.TOP_LEFT);
         return menu;
+    }
+    private void styleButton(Button button) {
+        String white = "#DCDCDC";
+
+        button.setStyle(
+                "-fx-background-color: transparent; " +
+                        "-fx-background-radius: 10; " +
+                        "-fx-text-fill: " + white + "; " +
+                        "-fx-pref-width: 100px; " +
+                        "-fx-pref-height: 30px; " +
+                        "-fx-border-radius: 10; " +
+                        "-fx-border-width: 2px; " +
+                        "-fx-border-color: " + white + ";"
+        );
+
+        button.setOnMousePressed(event -> button.setStyle(
+                "-fx-background-color: " + white + "; " +
+                        "-fx-background-radius: 10; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-pref-width: 100px; " +
+                        "-fx-pref-height: 30px; " +
+                        "-fx-border-radius: 10; " +
+                        "-fx-border-width: 2px; " +
+                        "-fx-border-color: " + white + ";"
+        ));
+
+        button.setOnMouseReleased(event -> button.setStyle(
+                "-fx-background-color: transparent; " +
+                        "-fx-background-radius: 10; " +
+                        "-fx-text-fill: " + white + "; " +
+                        "-fx-pref-width: 100px; " +
+                        "-fx-pref-height: 30px; " +
+                        "-fx-border-radius: 10; " +
+                        "-fx-border-width: 2px; " +
+                        "-fx-border-color: " + white + ";"
+        ));
     }
 
     private void resetCameraView() {
@@ -188,7 +226,7 @@ public class SolarSystemGUI extends Application {
         scale.setX(1.0);
         scale.setY(1.0);
         scale.setZ(1.0);
-        translate.setX(600);
+        translate.setX(450);
         translate.setY(250);
         translate.setZ(-200);
         cameraOffset.setX(0);
@@ -202,6 +240,7 @@ public class SolarSystemGUI extends Application {
         System.out.println("Camera reset to default view.");
     }
 
+
     private void zoomOnBody(String name) {
         String bodyName = name.toLowerCase();
         Node target = celestialNodes.get(bodyName);
@@ -209,11 +248,12 @@ public class SolarSystemGUI extends Application {
             System.out.println("No body named " + name + " found.");
             return;
         }
+
         
         // Reset camera transformations first
         rotateX.setAngle(20);
         rotateY.setAngle(0);
-        translate.setX(600);
+        translate.setX(450);
         translate.setY(250);
         translate.setZ(-200);
         cameraOffset.setX(0);
@@ -229,7 +269,8 @@ public class SolarSystemGUI extends Application {
                 originalSizes.put(body.getName().toLowerCase(), body.getSize());
             }
         }
-        
+
+
         // Apply zoom configuration if it exists
         ZoomConfig config = zoomConfigurations.get(bodyName);
         if (config != null) {
@@ -280,24 +321,22 @@ public class SolarSystemGUI extends Application {
                 }
                 sphere.setOpacity(visibility);
             }
-            String probe;
-            if(bodyName.equals("dominik")) {probe = "dominik";}
-            else {probe = "probe";}
+            
             // Handle probe (rocket) - FIXED VERSION
-            if (bodyName.equals(probe)) {
-                Node probeNode = celestialNodes.get(probe);
+            if (bodyName.equals("probe")) {
+                Node probeNode = celestialNodes.get("probe");
                 if (probeNode != null && probeNode instanceof Group) {
                     Group probeGroup = (Group) probeNode;
                     
                     // Handle visibility
-                    Double visibility = config.bodyVisibility.get(probe);
+                    Double visibility = config.bodyVisibility.get("probe");
                     if (visibility == null) {
                         visibility = 0.2;
                     }
                     probeGroup.setOpacity(visibility);
                     
                     // Handle size scaling - COMPLETELY REWRITE THE SCALING APPROACH
-                    Double configSize = config.bodySizes.get(probe);
+                    Double configSize = config.bodySizes.get("probe");
                     if (configSize != null) {
                         // Remove ALL existing scale transforms first
                         probeGroup.getTransforms().removeIf(t -> t instanceof Scale);
@@ -324,12 +363,10 @@ public class SolarSystemGUI extends Application {
                 sphere.setRadius(originalSizes.get(bodyName));
                 sphere.setOpacity(1.0); // Full opacity
             }
-            String probe;
-            if(bodyName.equals("dominik")) {probe = "dominik";}
-            else {probe = "probe";}
+            
             // Reset probe opacity and size
-            if (bodyName.equals(probe)) {
-                Node probeNode = celestialNodes.get(probe);
+            if (bodyName.equals("probe")) {
+                Node probeNode = celestialNodes.get("probe");
                 if (probeNode != null && probeNode instanceof Group) {
                     Group probeGroup = (Group) probeNode;
                     probeGroup.setOpacity(1.0);
@@ -350,14 +387,12 @@ public class SolarSystemGUI extends Application {
         earthMoonSizes.put("earth", 0.2);
         earthMoonSizes.put("moon", 0.05);
         earthMoonSizes.put("probe", 0.005);
-        earthMoonSizes.put("dominik", 0.005);
         earthMoonSizes.put("sun", 1.0);
         
         Map<String, Double> earthMoonVisibility = new HashMap<>();
         earthMoonVisibility.put("earth", 1.0);
         earthMoonVisibility.put("moon", 1.0);
         earthMoonVisibility.put("probe", 1.0);
-        earthMoonVisibility.put("dominik", 1.0);
         earthMoonVisibility.put("sun", 0.3); // Dim but visible
         // Other bodies default to 0.1 visibility
         
@@ -366,7 +401,6 @@ public class SolarSystemGUI extends Application {
         // Probe zoom configuration
         Map<String, Double> probeSizes = new HashMap<>();
         probeSizes.put("probe", 0.02); // Make probe more visible
-        probeSizes.put("dominik", 0.02);
         probeSizes.put("earth", 0.2);
         probeSizes.put("moon", 0.05);
         probeSizes.put("saturn", 0.7);
@@ -374,7 +408,6 @@ public class SolarSystemGUI extends Application {
         
         Map<String, Double> probeVisibility = new HashMap<>();
         probeVisibility.put("probe", 1.0);
-        probeVisibility.put("dominik", 1.0);
         probeVisibility.put("earth", 1.0);
         probeVisibility.put("moon", 1.0);
         probeVisibility.put("saturn", 1.0);
@@ -382,21 +415,18 @@ public class SolarSystemGUI extends Application {
         probeVisibility.put("sun", 1.0);
         // Other bodies default to 0.2 visibility
         
-        zoomConfigurations.put("probe", new ZoomConfig(300.0, probeSizes, probeVisibility));
-        zoomConfigurations.put("dominik", new ZoomConfig(300.0, probeSizes, probeVisibility));
+        zoomConfigurations.put("probe", new ZoomConfig(100.0, probeSizes, probeVisibility));
         
         // Saturn-Titan system configuration
         Map<String, Double> saturnTitanSizes = new HashMap<>();
         saturnTitanSizes.put("saturn", 0.7);
         saturnTitanSizes.put("titan", 0.08);
         saturnTitanSizes.put("probe", 0.02);
-        saturnTitanSizes.put("dominik", 0.02);
         
         Map<String, Double> saturnTitanVisibility = new HashMap<>();
         saturnTitanVisibility.put("saturn", 1.0);
         saturnTitanVisibility.put("titan", 1.0);
         saturnTitanVisibility.put("probe", 1.0);
-        saturnTitanVisibility.put("dominik", 1.0);
         saturnTitanVisibility.put("sun", 0.3);
         
         zoomConfigurations.put("saturn", new ZoomConfig(170.0, saturnTitanSizes, saturnTitanVisibility));
@@ -406,13 +436,11 @@ public class SolarSystemGUI extends Application {
         titanSizes.put("saturn", 0.2);
         titanSizes.put("titan", 0.5);
         titanSizes.put("probe", 0.05);
-        titanSizes.put("dominik", 0.05);
         
         Map<String, Double> titanVisibility = new HashMap<>();
         titanVisibility.put("saturn", 1.0);
         titanVisibility.put("titan", 1.0);
         titanVisibility.put("probe", 1.0);
-        titanVisibility.put("dominik", 1.0);
         titanVisibility.put("sun", 0.3);
         
         zoomConfigurations.put("titan", new ZoomConfig(300.0, titanSizes, titanVisibility));
@@ -437,7 +465,7 @@ public class SolarSystemGUI extends Application {
         space.setFill(Color.BLACK);
         
         // Center the view
-        translate.setX(600);  // Half of width
+        translate.setX(450);  // Half of width
         translate.setY(250);  // Half of height
         translate.setZ(-200); // Initial Z offset for better view
 
@@ -526,7 +554,7 @@ public class SolarSystemGUI extends Application {
             
             Node celestialNode; // Can be either Sphere or Group (rocket)
             
-            if (name.equals("probe")||name.equals("dominik")) {
+            if (name.equals("probe")) {
                 // Create rocket for probe
                 celestialNode = createRocket(body.getSize());
                 
@@ -573,7 +601,7 @@ public class SolarSystemGUI extends Application {
 
     private PhongMaterial getTexturedMaterial(String name) {
         try {
-            if(name.equals("probe")||name.equals("dominik")) {
+            if(name.equals("probe")){
                 PhongMaterial material = new PhongMaterial(Color.WHITE);
                 return material;
             }
@@ -782,7 +810,6 @@ public class SolarSystemGUI extends Application {
             case "uranus": return Color.LIGHTBLUE;
             case "neptune": return Color.DARKBLUE;
             case "probe": return Color.BROWN;
-            case "dominik": return Color.BROWN;
             default: return Color.WHITE;
         }
     }
@@ -864,21 +891,29 @@ public class SolarSystemGUI extends Application {
         speedSlider.setBlockIncrement(0.1);
         speedSlider.valueProperty().addListener((obs, oldVal, newVal) -> 
             simulationSpeed = newVal.doubleValue());
-        
-        // Create time label
+
         timeLabel = new Label("Simulation Time: " + formatDateTime(currentTime));
-        
-        // Create restart button
+
         Button restartButton = new Button("Restart");
         restartButton.setOnAction(e -> restartSimulation());
 
-        // Create layout for controls
-        HBox sliderBox = new HBox(10, new Label("Time:"), timeSlider, playPauseButton, restartButton);
+
+        timeLabel = new Label("Simulation Time: " + formatDateTime(currentTime));
+        timeLabel.setStyle("-fx-text-fill: white;");
+
+
+        Label timeText = new Label("Time:");
+        timeText.setStyle("-fx-text-fill: white;");
+
+        Label speedText = new Label("Speed:");
+        speedText.setStyle("-fx-text-fill: white;");
+
+        HBox sliderBox = new HBox(10, timeText, timeSlider, playPauseButton, restartButton);
         sliderBox.setPadding(new Insets(10));
-        
-        HBox speedBox = new HBox(10, new Label("Speed:"), speedSlider);
+
+        HBox speedBox = new HBox(10, speedText, speedSlider);
         speedBox.setPadding(new Insets(10));
-        
+
         VBox controls = new VBox(10, sliderBox, speedBox, timeLabel);
         controls.setPadding(new Insets(10));
         
@@ -1024,7 +1059,7 @@ public class SolarSystemGUI extends Application {
                 celestialNode.setTranslateY(position.getY() * relativeScalingFactor * SCALE_FACTOR);
                 celestialNode.setTranslateZ(position.getZ() * relativeScalingFactor * SCALE_FACTOR);
                 
-                if ((bodyName.equals("probe")||bodyName.equals("dominik")) && celestialNode instanceof Group) {
+                if (bodyName.equals("probe") && celestialNode instanceof Group) {
                     Vector velocity = body.getVelocity();
                     updateRocketOrientation((Group) celestialNode, velocity);
                 }
