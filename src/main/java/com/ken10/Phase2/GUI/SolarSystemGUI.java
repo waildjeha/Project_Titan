@@ -128,8 +128,8 @@ public class SolarSystemGUI extends Application {
     private void loadEphemerisData() {
         System.out.println("Loading ephemeris data...");
         
-        // Initialize ephemeris loader with 1-minute steps
-        EphemerisLoader eph = new EphemerisLoader(1, 1);
+        // Initialize ephemeris loader with 2-minute steps
+        EphemerisLoader eph = new EphemerisLoader(2, 2);
         eph.solve();
         timeStates = eph.history;
         
@@ -415,7 +415,7 @@ public class SolarSystemGUI extends Application {
         probeVisibility.put("sun", 1.0);
         // Other bodies default to 0.2 visibility
         
-        zoomConfigurations.put("probe", new ZoomConfig(300.0, probeSizes, probeVisibility));
+        zoomConfigurations.put("probe", new ZoomConfig(100.0, probeSizes, probeVisibility));
         
         // Saturn-Titan system configuration
         Map<String, Double> saturnTitanSizes = new HashMap<>();
