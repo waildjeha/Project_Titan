@@ -128,9 +128,9 @@ public class SolarSystemGUI extends Application {
 
     private void loadEphemerisData() {
         System.out.println("Loading ephemeris data...");
-        Vector earthPosition = SolarSystem.createPlanets().get(BodyID.EARTH.index()).getPosition().addX(6370);
-        Vector earthVelocity = SolarSystem.createPlanets().get(BodyID.EARTH.index()).getVelocity();
-        Probe probe = new Probe("dominik", earthPosition, earthVelocity);
+        Vector earthPosition = new Vector(-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497);
+        Vector initialVelocity = new Vector(61.065619043674, -33.10614766691787, -15.82637073951113);
+        Probe probe = new Probe("probe", earthPosition, initialVelocity);
         // Initialize ephemeris loader with 2-minute steps
         EphemerisLoader eph = new EphemerisLoader(2, probe, 1);
         eph.solve();
@@ -280,22 +280,24 @@ public class SolarSystemGUI extends Application {
                 }
                 sphere.setOpacity(visibility);
             }
-            
+            String probe;
+            if(bodyName.equals("dominik")) {probe = "dominik";}
+            else {probe = "probe";}
             // Handle probe (rocket) - FIXED VERSION
-            if (bodyName.equals("probe")) {
-                Node probeNode = celestialNodes.get("probe");
+            if (bodyName.equals(probe)) {
+                Node probeNode = celestialNodes.get(probe);
                 if (probeNode != null && probeNode instanceof Group) {
                     Group probeGroup = (Group) probeNode;
                     
                     // Handle visibility
-                    Double visibility = config.bodyVisibility.get("probe");
+                    Double visibility = config.bodyVisibility.get(probe);
                     if (visibility == null) {
                         visibility = 0.2;
                     }
                     probeGroup.setOpacity(visibility);
                     
                     // Handle size scaling - COMPLETELY REWRITE THE SCALING APPROACH
-                    Double configSize = config.bodySizes.get("probe");
+                    Double configSize = config.bodySizes.get(probe);
                     if (configSize != null) {
                         // Remove ALL existing scale transforms first
                         probeGroup.getTransforms().removeIf(t -> t instanceof Scale);
@@ -322,10 +324,12 @@ public class SolarSystemGUI extends Application {
                 sphere.setRadius(originalSizes.get(bodyName));
                 sphere.setOpacity(1.0); // Full opacity
             }
-            
+            String probe;
+            if(bodyName.equals("dominik")) {probe = "dominik";}
+            else {probe = "probe";}
             // Reset probe opacity and size
-            if (bodyName.equals("probe")) {
-                Node probeNode = celestialNodes.get("probe");
+            if (bodyName.equals(probe)) {
+                Node probeNode = celestialNodes.get(probe);
                 if (probeNode != null && probeNode instanceof Group) {
                     Group probeGroup = (Group) probeNode;
                     probeGroup.setOpacity(1.0);
@@ -346,12 +350,14 @@ public class SolarSystemGUI extends Application {
         earthMoonSizes.put("earth", 0.2);
         earthMoonSizes.put("moon", 0.05);
         earthMoonSizes.put("probe", 0.005);
+        earthMoonSizes.put("dominik", 0.005);
         earthMoonSizes.put("sun", 1.0);
         
         Map<String, Double> earthMoonVisibility = new HashMap<>();
         earthMoonVisibility.put("earth", 1.0);
         earthMoonVisibility.put("moon", 1.0);
         earthMoonVisibility.put("probe", 1.0);
+        earthMoonVisibility.put("dominik", 1.0);
         earthMoonVisibility.put("sun", 0.3); // Dim but visible
         // Other bodies default to 0.1 visibility
         
@@ -360,6 +366,7 @@ public class SolarSystemGUI extends Application {
         // Probe zoom configuration
         Map<String, Double> probeSizes = new HashMap<>();
         probeSizes.put("probe", 0.02); // Make probe more visible
+        probeSizes.put("dominik", 0.02);
         probeSizes.put("earth", 0.2);
         probeSizes.put("moon", 0.05);
         probeSizes.put("saturn", 0.7);
@@ -367,6 +374,7 @@ public class SolarSystemGUI extends Application {
         
         Map<String, Double> probeVisibility = new HashMap<>();
         probeVisibility.put("probe", 1.0);
+        probeVisibility.put("dominik", 1.0);
         probeVisibility.put("earth", 1.0);
         probeVisibility.put("moon", 1.0);
         probeVisibility.put("saturn", 1.0);
@@ -375,17 +383,20 @@ public class SolarSystemGUI extends Application {
         // Other bodies default to 0.2 visibility
         
         zoomConfigurations.put("probe", new ZoomConfig(300.0, probeSizes, probeVisibility));
+        zoomConfigurations.put("dominik", new ZoomConfig(300.0, probeSizes, probeVisibility));
         
         // Saturn-Titan system configuration
         Map<String, Double> saturnTitanSizes = new HashMap<>();
         saturnTitanSizes.put("saturn", 0.7);
         saturnTitanSizes.put("titan", 0.08);
         saturnTitanSizes.put("probe", 0.02);
+        saturnTitanSizes.put("dominik", 0.02);
         
         Map<String, Double> saturnTitanVisibility = new HashMap<>();
         saturnTitanVisibility.put("saturn", 1.0);
         saturnTitanVisibility.put("titan", 1.0);
         saturnTitanVisibility.put("probe", 1.0);
+        saturnTitanVisibility.put("dominik", 1.0);
         saturnTitanVisibility.put("sun", 0.3);
         
         zoomConfigurations.put("saturn", new ZoomConfig(170.0, saturnTitanSizes, saturnTitanVisibility));
@@ -395,11 +406,13 @@ public class SolarSystemGUI extends Application {
         titanSizes.put("saturn", 0.2);
         titanSizes.put("titan", 0.5);
         titanSizes.put("probe", 0.05);
+        titanSizes.put("dominik", 0.05);
         
         Map<String, Double> titanVisibility = new HashMap<>();
         titanVisibility.put("saturn", 1.0);
         titanVisibility.put("titan", 1.0);
         titanVisibility.put("probe", 1.0);
+        titanVisibility.put("dominik", 1.0);
         titanVisibility.put("sun", 0.3);
         
         zoomConfigurations.put("titan", new ZoomConfig(300.0, titanSizes, titanVisibility));
@@ -513,7 +526,7 @@ public class SolarSystemGUI extends Application {
             
             Node celestialNode; // Can be either Sphere or Group (rocket)
             
-            if (name.equals("probe")) {
+            if (name.equals("probe")||name.equals("dominik")) {
                 // Create rocket for probe
                 celestialNode = createRocket(body.getSize());
                 
@@ -560,7 +573,7 @@ public class SolarSystemGUI extends Application {
 
     private PhongMaterial getTexturedMaterial(String name) {
         try {
-            if(name.equals("probe")){
+            if(name.equals("probe")||name.equals("dominik")) {
                 PhongMaterial material = new PhongMaterial(Color.WHITE);
                 return material;
             }
@@ -769,6 +782,7 @@ public class SolarSystemGUI extends Application {
             case "uranus": return Color.LIGHTBLUE;
             case "neptune": return Color.DARKBLUE;
             case "probe": return Color.BROWN;
+            case "dominik": return Color.BROWN;
             default: return Color.WHITE;
         }
     }
@@ -1010,7 +1024,7 @@ public class SolarSystemGUI extends Application {
                 celestialNode.setTranslateY(position.getY() * relativeScalingFactor * SCALE_FACTOR);
                 celestialNode.setTranslateZ(position.getZ() * relativeScalingFactor * SCALE_FACTOR);
                 
-                if (bodyName.equals("probe") && celestialNode instanceof Group) {
+                if ((bodyName.equals("probe")||bodyName.equals("dominik")) && celestialNode instanceof Group) {
                     Vector velocity = body.getVelocity();
                     updateRocketOrientation((Group) celestialNode, velocity);
                 }

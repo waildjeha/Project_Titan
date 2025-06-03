@@ -33,20 +33,20 @@ public class EvolutionAlgorithm {
     private final Vector EARTH_POSITION;
     private final Vector EARTH_VELOCITY;
 
-    private Hashtable<LocalDateTime, ArrayList<CelestialBodies>> planetHistory;
+    private final Hashtable<LocalDateTime, ArrayList<CelestialBodies>> planetHistory;
 
     public EvolutionAlgorithm() {
         ArrayList<CelestialBodies> solarSystem = SolarSystem.createPlanets();
         CelestialBodies earth = solarSystem.get(BodyID.EARTH.index());
-        loadHistory();
+        this.planetHistory = loadHistory();
         this.EARTH_POSITION = earth.getPosition().add(new Vector(6370, 0, 0));
         this.EARTH_VELOCITY = earth.getVelocity();
     }
 
-    private void loadHistory(){
+    private Hashtable<LocalDateTime, ArrayList<CelestialBodies>> loadHistory(){
         EphemerisLoader ephemerisLoader = new EphemerisLoader(1);
         ephemerisLoader.solve();
-        planetHistory = ephemerisLoader.history;
+        return ephemerisLoader.history;
     }
 
     /**
@@ -93,8 +93,7 @@ public class EvolutionAlgorithm {
                         bestDistance = trialDistance;
                         bestSimulation = trailSimulation;
                         System.out.println("New best distance: " + bestDistance + ", date: " + bestSimulation.getClosestDistTime());
-//                        bestVector = trial;
-                        System.out.println("Generation : " + gen + ", size pop: " + population.size());
+                        System.out.println("Generation : " + gen);
                     }
                     if(bestDistance<=1E6) {
                         System.out.println("Hill climbing takes over");
@@ -212,7 +211,8 @@ public class EvolutionAlgorithm {
     // closest distance = 4355.21 km from titan.
     // takes a few hours at current param.
 }
-//Initial probe position and velocity: (-1.4664541759104577E8, -2.8949304626334388E7, 2241.9186033698497) (63.28501526589577, -30.337437078355766, -12.818387742029104)
-//Velocity magnitude relative to earth: 41.52268087733812
-//Closest Distance to Titan: 2221.542046409627
-//Date of closest approach: 2026-03-23T00:48
+//Final result----------------------------------------------------------
+//Initial probe position and velocity: (-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497) (63.116478338136574, -26.26627885747304, 15.895966791164073)
+//Velocity magnitude relative to earth: 60.04618330310422
+//Closest Distance to Titan: 2573.5335720234507
+//Date of closest approach: 2026-03-29T01:16

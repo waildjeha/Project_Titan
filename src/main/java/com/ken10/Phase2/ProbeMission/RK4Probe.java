@@ -51,27 +51,42 @@ public class RK4Probe {
     }
 
     public void solve() {
-
-            LocalDateTime t0 = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
-            historyProbe.put(time,probe);
-            closestDistance = getDistance(probe.getPosition(), historyPlanets.get(time).get(BodyID.TITAN.index()).getPosition());
-            double noChangeLoopBreak = closestDistance;
+        LocalDateTime t0 = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
+        historyProbe.put(time, probe);
+        closestDistance = getDistance(probe.getPosition(),
+                historyPlanets.get(time).get(BodyID.TITAN.index()).getPosition());
 
         while (time.isBefore(endTime)) {
-            if((time.isAfter((t0.plusMinutes(180))) && closestDistance==noChangeLoopBreak))
-                {historyProbe.clear(); break;}
-            if(time.isBefore(t0.plusMinutes(8))&&getDistance(probe.getPosition(),historyPlanets.get(time).get(BodyID.EARTH.index()).getPosition())<=6369.9998)
-            {/*System.out.println("Probe gets inside the Earth");*/break;}
+            // Check collision at current time
+            if(time.isBefore(t0.plusMinutes(8))) {
+                double earthDist = getDistance(probe.getPosition(),
+                        historyPlanets.get(time).get(BodyID.EARTH.index()).getPosition());
+                if(earthDist <= 6369.9998) break;
+            }
+
+            // Calculate new probe state
             probe = rk4Helper();
-            time = time.plusMinutes(stepSizeMin);
-            Vector currentTitanPosition = historyPlanets.get(time).get(BodyID.TITAN.index()).getPosition();
+
+            // Get Titan position at CURRENT time
+            Vector currentTitanPosition = historyPlanets.get(time)
+                    .get(BodyID.TITAN.index()).getPosition();
+
+            // Calculate distance at CURRENT time
             double distToTitan = getDistance(currentTitanPosition, probe.getPosition());
-                if(distToTitan<closestDistance) {
-                closestDistTime = time;
+
+            // Update closest approach
+            if(distToTitan < closestDistance) {
+                closestDistTime = time;  // Use current time
                 closestDistance = distToTitan;
-                }
-            historyProbe.put(time,probe);
+            }
+
+            // Store state and advance time
+            historyProbe.put(time, probe);
+            time = time.plusMinutes(stepSizeMin);
         }
+
+        // Handle final state after loop
+        historyProbe.put(time, probe);
     }
 
     private Probe rk4Helper() {
