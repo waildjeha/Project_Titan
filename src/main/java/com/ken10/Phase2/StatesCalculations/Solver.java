@@ -45,7 +45,7 @@ public abstract class Solver implements ODE_Function {
         this.time = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
         this.endTime = LocalDateTime.of(2026, 3, 31, 23, 59, 59);
         this.stepSizeMins = stepSizeMins;
-        this.planetarySystem = SolarSystem.CreatePlanets();
+        this.planetarySystem = SolarSystem.createPlanets();
         this.history = new Hashtable<>();
         recordState();
     }

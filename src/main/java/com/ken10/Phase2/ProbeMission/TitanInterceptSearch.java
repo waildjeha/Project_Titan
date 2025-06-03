@@ -40,7 +40,7 @@ public final class TitanInterceptSearch {
     private final Random rng = new Random(123);
 
     private TitanInterceptSearch() {
-        eph   = new EphemerisLoader(SolarSystem.CreatePlanets(), T0, T0.plusMonths(14), TAPESTEP_MINS);
+        eph   = new EphemerisLoader(SolarSystem.createPlanets(), T0, T0.plusMonths(14), TAPESTEP_MINS);
         eph.solve();// planet-only run
         double AU = 1.496e8;
         System.out.printf("TITAN–Earth @T₀ : %.3f AU%n",

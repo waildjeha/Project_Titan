@@ -12,8 +12,8 @@ import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
  * no pluto :(
  */
 public class SolarSystem {
-        public static double earthSize = 10.0;
-    public static ArrayList<CelestialBodies> CreatePlanets() {
+        public static double earthSize = 11.0;
+    public static ArrayList<CelestialBodies> createPlanets() {
         ArrayList<CelestialBodies> bodies = new ArrayList<>();
         double sunX = -7.596727134361322E+05;
         double sunY = -7.764826803462036E+05;
@@ -133,7 +133,7 @@ public class SolarSystem {
 
         Vector earthPosition=new Vector(-1.4664541759104577E8, -2.8949304626334388E7, 2241.9186033698497);
         Vector probeVelocity= new Vector(56.954145255280686, -31.47343183360373, -12.54370958156917);
-        CelestialBodies Probe = new Probe("probe",earthPosition,probeVelocity, 1.0, 0.5*earthSize);
+        CelestialBodies Probe = new Probe("probe",earthPosition,probeVelocity, 1.0, earthSize);
 
         // Add this after creating Earth and Moon
         System.out.println("\n\n\n");

@@ -3,7 +3,6 @@ package com.ken10.Phase2.ProbeMission.ProbeMissionAli;
 import com.ken10.Phase2.SolarSystemModel.*;
 import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -14,7 +13,7 @@ public class ProbeMission {
 
 
     public void runMission() {
-        ArrayList<CelestialBodies> solarSystem = SolarSystem.CreatePlanets();
+        ArrayList<CelestialBodies> solarSystem = SolarSystem.createPlanets();
 
         CelestialBodies earth = getBodyByName(solarSystem, "Earth");
         Vector earthPosition = earth.getPosition().add(new Vector(6371, 0, 0)); // surface position
@@ -34,7 +33,7 @@ public class ProbeMission {
                     Probe probe = new Probe("Probe", earthPosition, probeVelocity);
                     probe.setMass(PROBE_MASS);
 
-                    ArrayList<CelestialBodies> systemCopy = SolarSystem.CreatePlanets();
+                    ArrayList<CelestialBodies> systemCopy = SolarSystem.createPlanets();
                     systemCopy.add(probe);
 
                     LocalDateTime launchDate = LocalDateTime.of(2025, 4, 1, 0, 0);

@@ -1,8 +1,7 @@
 package com.ken10.Phase2.GUI;
-
-// import com.interactivemesh.jfx.importer.obj.ObjModelImporter;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.layout.*;
 import javafx.scene.shape.MeshView;
 import com.ken10.Phase2.SolarSystemModel.*;
 import com.ken10.Phase2.StatesCalculations.*;
@@ -14,23 +13,21 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
+import javafx.scene.transform.Transform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Sphere;
+import javafx.scene.shape.Box;
 import javafx.geometry.Insets;
 import javafx.geometry.Point3D;
 import javafx.stage.Stage;
@@ -47,12 +44,14 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import static javax.swing.text.StyleConstants.Background;
+
 public class SolarSystemGUI extends Application {
 
     // Constants for visualization
     private static final double SCALE_FACTOR = 10e-7; // Scale down astronomical distances (adjusted)
-    private static final double DEFAULT_PLANET_SIZE = 15; // Default size of planets in visualization (slightly larger)
-    private static final double SUN_SIZE = 25.0; // Size of sun in visualization (slightly smaller)
+    private static final double DEFAULT_PLANET_SIZE = 25; // Default size of planets in visualization (slightly larger)
+    private static final double SUN_SIZE = 35.0; // Size of sun in visualization (slightly smaller)
     private static final int PATH_LENGTH = 1000; // Number of points to keep in orbit path
     
     // Pre-loaded ephemeris data
@@ -91,10 +90,17 @@ public class SolarSystemGUI extends Application {
     private String trackedBody = null; // The body to focus on with the camera.
     private final Translate cameraOffset = new Translate(0, 0, 0); // Set the camera offset.
 
+    // Variables for zooming on specific bodies.
+    private String currentZoomContext = null; // Track what we're zoomed on
+    private Map<String, Double> originalSizes = new HashMap<>();
+    private Map<String, ZoomConfig> zoomConfigurations = new HashMap<>();
+
     @Override
     public void start(Stage primaryStage) {
         // Load ephemeris data
         loadEphemerisData();
+
+        initializeZoomConfigurations();
 
         initializeScene();
 
@@ -105,8 +111,10 @@ public class SolarSystemGUI extends Application {
         root.setCenter(space);
         root.setLeft(zoomMenu);
         root.setBottom(controls);
+        root.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
         Scene scene = new Scene(root, 1200, 800);
+
         primaryStage.setTitle("Solar System Visualization");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -120,8 +128,8 @@ public class SolarSystemGUI extends Application {
     private void loadEphemerisData() {
         System.out.println("Loading ephemeris data...");
         
-        // Initialize ephemeris loader with 1-minute steps
-        EphemerisLoader eph = new EphemerisLoader(1, 1);
+        // Initialize ephemeris loader with 2-minute steps
+        EphemerisLoader eph = new EphemerisLoader(2, 2);
         eph.solve();
         timeStates = eph.history;
         
@@ -145,17 +153,23 @@ public class SolarSystemGUI extends Application {
 
     private VBox createZoomMenu() {
         Button zoomEarth = new Button("Zoom Earth");
+        styleButton(zoomEarth);
         zoomEarth.setOnAction(e -> zoomOnBody("earth"));
 
         Button zoomSaturn = new Button("Zoom Saturn");
+        styleButton(zoomSaturn);
         zoomSaturn.setOnAction(e -> zoomOnBody("saturn"));
+
         Button zoomTitan = new Button("Zoom Titan");
+        styleButton(zoomTitan);
         zoomTitan.setOnAction(e -> zoomOnBody("titan"));
 
         Button zoomProbe = new Button("Zoom Probe");
+        styleButton(zoomProbe);
         zoomProbe.setOnAction(e -> zoomOnBody("probe"));
 
         Button resetButton = new Button("Reset View");
+        styleButton(resetButton);
         resetButton.setOnAction(e -> resetCameraView());
 
         VBox menu = new VBox(10, zoomEarth, zoomSaturn, zoomTitan, zoomProbe, resetButton);
@@ -163,6 +177,275 @@ public class SolarSystemGUI extends Application {
         menu.setAlignment(Pos.TOP_LEFT);
         return menu;
     }
+    private void styleButton(Button button) {
+        String white = "#DCDCDC";
+
+        button.setStyle(
+                "-fx-background-color: transparent; " +
+                        "-fx-background-radius: 10; " +
+                        "-fx-text-fill: " + white + "; " +
+                        "-fx-pref-width: 100px; " +
+                        "-fx-pref-height: 30px; " +
+                        "-fx-border-radius: 10; " +
+                        "-fx-border-width: 2px; " +
+                        "-fx-border-color: " + white + ";"
+        );
+
+        button.setOnMousePressed(event -> button.setStyle(
+                "-fx-background-color: " + white + "; " +
+                        "-fx-background-radius: 10; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-pref-width: 100px; " +
+                        "-fx-pref-height: 30px; " +
+                        "-fx-border-radius: 10; " +
+                        "-fx-border-width: 2px; " +
+                        "-fx-border-color: " + white + ";"
+        ));
+
+        button.setOnMouseReleased(event -> button.setStyle(
+                "-fx-background-color: transparent; " +
+                        "-fx-background-radius: 10; " +
+                        "-fx-text-fill: " + white + "; " +
+                        "-fx-pref-width: 100px; " +
+                        "-fx-pref-height: 30px; " +
+                        "-fx-border-radius: 10; " +
+                        "-fx-border-width: 2px; " +
+                        "-fx-border-color: " + white + ";"
+        ));
+    }
+
+    private void resetCameraView() {
+        trackedBody = null;
+        currentZoomContext = null;
+        
+        // Reset to original sizes and full visibility
+        resetToOriginalSizes();
+        
+        rotateX.setAngle(20);
+        rotateY.setAngle(0);
+        scale.setX(1.0);
+        scale.setY(1.0);
+        scale.setZ(1.0);
+        translate.setX(450);
+        translate.setY(250);
+        translate.setZ(-200);
+        cameraOffset.setX(0);
+        cameraOffset.setY(0);
+        cameraOffset.setZ(0);
+
+        for (Group pathGroup : planetPaths.values()) {
+            pathGroup.setVisible(true);
+        }
+
+        System.out.println("Camera reset to default view.");
+    }
+
+
+    private void zoomOnBody(String name) {
+        String bodyName = name.toLowerCase();
+        Node target = celestialNodes.get(bodyName);
+        if (target == null) {
+            System.out.println("No body named " + name + " found.");
+            return;
+        }
+
+        
+        // Reset camera transformations first
+        rotateX.setAngle(20);
+        rotateY.setAngle(0);
+        translate.setX(450);
+        translate.setY(250);
+        translate.setZ(-200);
+        cameraOffset.setX(0);
+        cameraOffset.setY(0);
+        cameraOffset.setZ(0);
+        
+        trackedBody = bodyName;
+        currentZoomContext = bodyName;
+        
+        // Store original sizes if not already stored
+        if (originalSizes.isEmpty()) {
+            for (CelestialBodies body : celestialBodies) {
+                originalSizes.put(body.getName().toLowerCase(), body.getSize());
+            }
+        }
+
+
+        // Apply zoom configuration if it exists
+        ZoomConfig config = zoomConfigurations.get(bodyName);
+        if (config != null) {
+            applyZoomConfiguration(config);
+            
+            // Set scale
+            scale.setX(config.scaleX);
+            scale.setY(config.scaleY);
+            scale.setZ(config.scaleZ);
+        } else {
+            // Default zoom behavior for bodies without specific configuration
+            resetToOriginalSizes();
+            scale.setX(3.5);
+            scale.setY(3.5);
+            scale.setZ(3.5);
+        }
+        
+        // Immediately update camera tracking to position on the selected body
+        updateCameraTracking();
+
+        for (Group pathGroup : planetPaths.values()) {
+            pathGroup.setVisible(false);
+        }
+        
+        System.out.println("Zoomed on " + name + " with context: " + currentZoomContext);
+    }
+    // Generic method to apply zoom configuration
+    private void applyZoomConfiguration(ZoomConfig config) {
+        for (CelestialBodies body : celestialBodies) {
+            String bodyName = body.getName().toLowerCase();
+            
+            // Handle spheres (planets, moons, etc.)
+            Sphere sphere = planetSpheres.get(bodyName);
+            if (sphere != null) {
+                // Set size
+                Double configSize = config.bodySizes.get(bodyName);
+                if (configSize != null) {
+                    sphere.setRadius(configSize);
+                } else {
+                    // Use a small default size for unconfigured bodies
+                    sphere.setRadius(0.5);
+                }
+                
+                // Set visibility/opacity
+                Double visibility = config.bodyVisibility.get(bodyName);
+                if (visibility == null) {
+                    visibility = 0.1; // Default low visibility for unconfigured bodies
+                }
+                sphere.setOpacity(visibility);
+            }
+            
+            // Handle probe (rocket) - FIXED VERSION
+            if (bodyName.equals("probe")) {
+                Node probeNode = celestialNodes.get("probe");
+                if (probeNode != null && probeNode instanceof Group) {
+                    Group probeGroup = (Group) probeNode;
+                    
+                    // Handle visibility
+                    Double visibility = config.bodyVisibility.get("probe");
+                    if (visibility == null) {
+                        visibility = 0.2;
+                    }
+                    probeGroup.setOpacity(visibility);
+                    
+                    // Handle size scaling - COMPLETELY REWRITE THE SCALING APPROACH
+                    Double configSize = config.bodySizes.get("probe");
+                    if (configSize != null) {
+                        // Remove ALL existing scale transforms first
+                        probeGroup.getTransforms().removeIf(t -> t instanceof Scale);
+                        
+                        // Create a new scale transform and add it FIRST in the transform list
+                        // This ensures it's applied before any rotation transforms
+                        Scale probeScale = new Scale(configSize, configSize, configSize);
+                        probeGroup.getTransforms().add(0, probeScale); // Add at index 0 (first)
+                        
+                        System.out.println("Applied scale " + configSize + " to probe");
+                    }
+                }
+            }
+        }
+    }
+
+    private void resetToOriginalSizes() {
+        for (CelestialBodies body : celestialBodies) {
+            String bodyName = body.getName().toLowerCase();
+            
+            // Reset sphere sizes and opacity
+            Sphere sphere = planetSpheres.get(bodyName);
+            if (sphere != null && originalSizes.containsKey(bodyName)) {
+                sphere.setRadius(originalSizes.get(bodyName));
+                sphere.setOpacity(1.0); // Full opacity
+            }
+            
+            // Reset probe opacity and size
+            if (bodyName.equals("probe")) {
+                Node probeNode = celestialNodes.get("probe");
+                if (probeNode != null && probeNode instanceof Group) {
+                    Group probeGroup = (Group) probeNode;
+                    probeGroup.setOpacity(1.0);
+                    
+                    // Remove ALL Scale transforms to reset to original size
+                    probeGroup.getTransforms().removeIf(t -> t instanceof Scale);
+                    
+                    System.out.println("Reset probe to original size");
+                }
+            }
+        }
+    }
+
+    // Initialize zoom configurations
+    private void initializeZoomConfigurations() {
+        // Earth-Moon system configuration
+        Map<String, Double> earthMoonSizes = new HashMap<>();
+        earthMoonSizes.put("earth", 0.2);
+        earthMoonSizes.put("moon", 0.05);
+        earthMoonSizes.put("probe", 0.005);
+        earthMoonSizes.put("sun", 1.0);
+        
+        Map<String, Double> earthMoonVisibility = new HashMap<>();
+        earthMoonVisibility.put("earth", 1.0);
+        earthMoonVisibility.put("moon", 1.0);
+        earthMoonVisibility.put("probe", 1.0);
+        earthMoonVisibility.put("sun", 0.3); // Dim but visible
+        // Other bodies default to 0.1 visibility
+        
+        zoomConfigurations.put("earth", new ZoomConfig(300.0, earthMoonSizes, earthMoonVisibility));
+        
+        // Probe zoom configuration
+        Map<String, Double> probeSizes = new HashMap<>();
+        probeSizes.put("probe", 0.02); // Make probe more visible
+        probeSizes.put("earth", 0.2);
+        probeSizes.put("moon", 0.05);
+        probeSizes.put("saturn", 0.7);
+        probeSizes.put("titan", 0.2);
+        
+        Map<String, Double> probeVisibility = new HashMap<>();
+        probeVisibility.put("probe", 1.0);
+        probeVisibility.put("earth", 1.0);
+        probeVisibility.put("moon", 1.0);
+        probeVisibility.put("saturn", 1.0);
+        probeVisibility.put("titan", 1.0);
+        probeVisibility.put("sun", 1.0);
+        // Other bodies default to 0.2 visibility
+        
+        zoomConfigurations.put("probe", new ZoomConfig(100.0, probeSizes, probeVisibility));
+        
+        // Saturn-Titan system configuration
+        Map<String, Double> saturnTitanSizes = new HashMap<>();
+        saturnTitanSizes.put("saturn", 0.7);
+        saturnTitanSizes.put("titan", 0.08);
+        saturnTitanSizes.put("probe", 0.02);
+        
+        Map<String, Double> saturnTitanVisibility = new HashMap<>();
+        saturnTitanVisibility.put("saturn", 1.0);
+        saturnTitanVisibility.put("titan", 1.0);
+        saturnTitanVisibility.put("probe", 1.0);
+        saturnTitanVisibility.put("sun", 0.3);
+        
+        zoomConfigurations.put("saturn", new ZoomConfig(170.0, saturnTitanSizes, saturnTitanVisibility));
+
+        // Titan system configuration
+        Map<String, Double> titanSizes = new HashMap<>();
+        titanSizes.put("saturn", 0.2);
+        titanSizes.put("titan", 0.5);
+        titanSizes.put("probe", 0.05);
+        
+        Map<String, Double> titanVisibility = new HashMap<>();
+        titanVisibility.put("saturn", 1.0);
+        titanVisibility.put("titan", 1.0);
+        titanVisibility.put("probe", 1.0);
+        titanVisibility.put("sun", 0.3);
+        
+        zoomConfigurations.put("titan", new ZoomConfig(300.0, titanSizes, titanVisibility));
+    }
+
     private void initializeScene() {
         celestialGroup = new Group();
         pathGroup = new Group();
@@ -182,47 +465,12 @@ public class SolarSystemGUI extends Application {
         space.setFill(Color.BLACK);
         
         // Center the view
-        translate.setX(600);  // Half of width
+        translate.setX(450);  // Half of width
         translate.setY(250);  // Half of height
         translate.setZ(-200); // Initial Z offset for better view
 
         // Add transformations to the world group for camera control
         worldGroup.getTransforms().addAll(translate, rotateX, rotateY, scale, cameraOffset);
-    }
-
-    private void resetCameraView() {
-        trackedBody = null;
-        rotateX.setAngle(20);
-        rotateY.setAngle(0);
-        scale.setX(1.0);
-        scale.setY(1.0);
-        scale.setZ(1.0);
-        translate.setX(600);
-        translate.setY(250);
-        translate.setZ(-200);
-        cameraOffset.setX(0);  // Reset camera offset
-        cameraOffset.setY(0);
-        cameraOffset.setZ(0);
-
-        System.out.println("Camera reset to default view.");
-    }
-
-    private void zoomOnBody(String name) {
-        Node target = celestialNodes.get(name.toLowerCase());
-        if (target == null) {
-            System.out.println("No body named " + name + " found.");
-            return;
-        }
-        
-        trackedBody = name.toLowerCase();
-        
-        // Set scale for zoom
-        scale.setX(3.5);
-        scale.setY(3.5); 
-        scale.setZ(3.5);
-        
-        // Initial camera positioning will be handled in updateVisualization
-        System.out.println("Zoomed on " + name);
     }
 
     private void addCoordinateAxes() {
@@ -308,7 +556,11 @@ public class SolarSystemGUI extends Application {
             
             if (name.equals("probe")) {
                 // Create rocket for probe
-                celestialNode = createRocket();
+                celestialNode = createRocket(body.getSize());
+                
+                // IMPORTANT: Store the original size for the probe
+                // Use a consistent base size that represents the "scale factor 1.0"
+                originalSizes.put(name, 1.0); // This represents the base scale
                 
                 // Position the rocket
                 Vector position = body.getPosition();
@@ -317,18 +569,13 @@ public class SolarSystemGUI extends Application {
                 celestialNode.setTranslateY(position.getY() * relativeScalingFactor * SCALE_FACTOR);
                 celestialNode.setTranslateZ(position.getZ() * relativeScalingFactor * SCALE_FACTOR);
                 
-                System.out.println("=== PROBE ROCKET DEBUG ===");
-                System.out.println("Rocket created for probe");
-                System.out.println("Probe position: " + body.getPosition());
-                System.out.println("Rocket translate X: " + celestialNode.getTranslateX());
-                System.out.println("Rocket translate Y: " + celestialNode.getTranslateY());
-                System.out.println("Rocket translate Z: " + celestialNode.getTranslateZ());
-                System.out.println("=========================");
-                
             } else {
-                // Create sphere for other bodies (existing code)
+                // Create sphere for other bodies
                 double radius = body.getSize();
                 Sphere sphere = new Sphere(radius);
+                
+                // Store original size for planets
+                originalSizes.put(name, radius);
                 
                 PhongMaterial material = getTexturedMaterial(name);
                 sphere.setMaterial(material);
@@ -379,142 +626,143 @@ public class SolarSystemGUI extends Application {
         }
     }
 
-    private Group createRocket() {
+    private Group createRocket(double size) {
         Group rocket = new Group();
-        
-        // Main rocket body - more cylindrical and sleek
-        Cylinder mainBody = new Cylinder(1.5, 12.0);
-        PhongMaterial bodyMaterial = new PhongMaterial(Color.LIGHTGRAY);
-        bodyMaterial.setSpecularColor(Color.WHITE);
-        mainBody.setMaterial(bodyMaterial);
-        
-        // Nose cone - sharp pointed cone using scaled sphere
-        Sphere noseCone = new Sphere(1.5);
-        noseCone.setScaleY(2.0);
-        noseCone.setScaleX(0.3);
-        noseCone.setScaleZ(0.3);
-        PhongMaterial noseMaterial = new PhongMaterial(Color.DARKRED);
-        noseMaterial.setSpecularColor(Color.RED);
-        noseCone.setMaterial(noseMaterial);
-        noseCone.setTranslateY(-8.0); // Position at top of main body (negative Y is up)
-        
-        // Engine section - slightly wider cylinder at the bottom
-        Cylinder engineSection = new Cylinder(1.8, 3.0);
-        PhongMaterial engineMaterial = new PhongMaterial(Color.DARKGRAY);
-        engineMaterial.setSpecularColor(Color.GRAY);
-        engineSection.setMaterial(engineMaterial);
-        engineSection.setTranslateY(7.5); // Position at bottom of main body
-        
-        // Engine nozzle - tapered using scaled sphere
-        Sphere engineNozzle = new Sphere(1.8);
+
+        // All dimensions should scale with the size parameter
+        double bodyRadius = size / 8;
+        double bodyHeight = size;
+
+        // Main rocket body
+        Cylinder mainBody = new Cylinder(bodyRadius, bodyHeight);
+        mainBody.setMaterial(new PhongMaterial(Color.LIGHTGRAY));
+        mainBody.setTranslateY(0); // center at origin
+
+        // Nose cone - scales with body radius and height
+        Sphere noseCone = new Sphere(bodyRadius);
+        noseCone.setScaleY(2.5); // Keep proportional scaling
+        noseCone.setScaleX(1.0);
+        noseCone.setScaleZ(1.0);
+        noseCone.setMaterial(new PhongMaterial(Color.DARKRED));
+        noseCone.setTranslateY(-bodyHeight / 2); // placed above main body
+
+        // Engine section - scales with body dimensions
+        double engineHeight = bodyHeight / 4; // Scale engine height with body
+        Cylinder engineSection = new Cylinder(bodyRadius * 1.2, engineHeight);
+        engineSection.setMaterial(new PhongMaterial(Color.DARKGRAY));
+        engineSection.setTranslateY(bodyHeight / 2 + engineHeight / 2); // below main body
+
+        // Engine nozzle - scales with body radius
+        Sphere engineNozzle = new Sphere(bodyRadius * 1.2);
         engineNozzle.setScaleY(0.8);
         engineNozzle.setScaleX(0.6);
         engineNozzle.setScaleZ(0.6);
-        PhongMaterial nozzleMaterial = new PhongMaterial(Color.BLACK);
-        engineNozzle.setMaterial(nozzleMaterial);
-        engineNozzle.setTranslateY(9.5); // Below engine section
-        
-        // Create 3 fins (like in the reference image) positioned around the rocket
+        engineNozzle.setMaterial(new PhongMaterial(Color.BLACK));
+        engineNozzle.setTranslateY(bodyHeight / 2 + engineHeight + bodyRadius * 0.8); // below engine section
+
+        // Racing stripes - scale with body dimensions
+        double stripeHeight = bodyHeight / 6; // Scale stripe height
+        Cylinder stripe1 = new Cylinder(bodyRadius * 1.05, stripeHeight);
+        stripe1.setMaterial(new PhongMaterial(Color.DARKBLUE));
+        stripe1.setTranslateY(-bodyHeight / 4); // Position relative to body height
+
+        Cylinder stripe2 = new Cylinder(bodyRadius * 1.05, stripeHeight);
+        stripe2.setMaterial(new PhongMaterial(Color.DARKBLUE));
+        stripe2.setTranslateY(bodyHeight / 4); // Position relative to body height
+
+        // Add fins - pass scaled dimensions
         for (int i = 0; i < 3; i++) {
-            Group fin = createStreamlinedFin();
-            fin.setRotationAxis(Rotate.Y_AXIS);
-            fin.setRotate(i * 120); // 120 degrees apart for 3 fins
+            Group fin = createStreamlinedFin(bodyHeight, bodyRadius);
+            fin.getTransforms().add(new Rotate(i * 120, Rotate.Y_AXIS));
             rocket.getChildren().add(fin);
         }
-        
-        // Add racing stripes for visual appeal
-        Cylinder stripe1 = new Cylinder(1.6, 1.0);
-        PhongMaterial stripeMaterial = new PhongMaterial(Color.DARKBLUE);
-        stripe1.setMaterial(stripeMaterial);
-        stripe1.setTranslateY(-2);
-        
-        Cylinder stripe2 = new Cylinder(1.6, 1.0);
-        stripe2.setMaterial(stripeMaterial);
-        stripe2.setTranslateY(2);
-        
-        // Engine flame
-        Group flame = createEngineFlame();
-        
-        // Assemble the rocket
+
+        // Engine flame - scale with body dimensions
+        Group flame = createEngineFlame(bodyHeight, bodyRadius);
+        flame.setTranslateY(bodyHeight / 2 + engineHeight + bodyRadius * 1.6); // below nozzle
+
+        // Assemble everything
         rocket.getChildren().addAll(
-            mainBody, 
-            noseCone, 
-            engineSection, 
-            engineNozzle, 
-            stripe1, 
-            stripe2, 
+            mainBody,
+            noseCone,
+            engineSection,
+            engineNozzle,
+            stripe1,
+            stripe2,
             flame
         );
-        
+
         return rocket;
     }
 
-    private Group createStreamlinedFin() {
+    private Group createStreamlinedFin(double bodyHeight, double bodyRadius) {
         Group fin = new Group();
-        
-        // Main fin body - triangular shape using box
-        javafx.scene.shape.Box finBody = new javafx.scene.shape.Box(0.3, 6.0, 3.0);
-        PhongMaterial finMaterial = new PhongMaterial(Color.DARKRED);
-        finMaterial.setSpecularColor(Color.RED);
-        finBody.setMaterial(finMaterial);
-        finBody.setTranslateX(2.0); // Position outside rocket body
-        finBody.setTranslateY(5.0); // Position at the back/bottom of rocket (positive Y is down)
-        
-        // Fin tip - for tapered look
-        javafx.scene.shape.Box finTip = new javafx.scene.shape.Box(0.2, 3.0, 1.5);
-        finTip.setMaterial(finMaterial);
-        finTip.setTranslateX(2.8);
-        finTip.setTranslateY(6.5); // Below the main fin body
-        
-        // Fin leading edge
-        javafx.scene.shape.Box finEdge = new javafx.scene.shape.Box(0.15, 4.0, 2.0);
-        finEdge.setMaterial(finMaterial);
-        finEdge.setTranslateX(2.4);
-        finEdge.setTranslateY(3.5); // Above the main fin body
-        
-        fin.getChildren().addAll(finBody, finTip, finEdge);
+
+        // All fin dimensions scale with body dimensions
+        double finHeight = bodyHeight * 0.4; // Scale fin height with body height
+        double finWidth = bodyRadius / 5;     // Scale fin width with body radius
+        double finDepth = bodyHeight / 4;     // Scale fin depth with body height
+        double finOffset = bodyRadius * 1.2;  // Scale fin offset with body radius
+
+        Box finBody = new Box(finWidth, finHeight, finDepth);
+        PhongMaterial material = new PhongMaterial(Color.DARKRED);
+        finBody.setMaterial(material);
+        finBody.setTranslateX(0);
+        finBody.setTranslateY(bodyHeight/1.7); // Position relative to body height
+        finBody.setTranslateZ(finOffset); // Scale offset outward
+
+        fin.getChildren().add(finBody);
         return fin;
     }
 
-    private Group createEngineFlame() {
+    private Group createEngineFlame(double bodyHeight, double bodyRadius) {
         Group flame = new Group();
+
+        // All flame dimensions scale with body dimensions
+        double flameRadius = bodyRadius * 0.8;      // Scale flame radius
+        double flameHeight = bodyHeight * 0.3;      // Scale flame height with body
         
-        // Main flame body - elongated and tapered
-        Sphere flameCore = new Sphere(1.2);
-        flameCore.setScaleY(4.0);
-        flameCore.setScaleX(0.8);
-        flameCore.setScaleZ(0.8);
-        PhongMaterial flameMaterial = new PhongMaterial(Color.ORANGE);
-        flameMaterial.setSelfIlluminationMap(null); // Make it glow-like
-        flameCore.setMaterial(flameMaterial);
-        flameCore.setTranslateY(15.0); // Position below rocket
-        
-        // Inner flame - hotter core
-        Sphere innerFlame = new Sphere(0.8);
-        innerFlame.setScaleY(3.0);
-        innerFlame.setScaleX(0.6);
-        innerFlame.setScaleZ(0.6);
-        PhongMaterial innerMaterial = new PhongMaterial(Color.YELLOW);
-        innerFlame.setMaterial(innerMaterial);
-        innerFlame.setTranslateY(13.5);
-        
-        // Hot core - white center
-        Sphere hotCore = new Sphere(0.4);
-        hotCore.setScaleY(2.0);
-        hotCore.setScaleX(0.4);
-        hotCore.setScaleZ(0.4);
-        PhongMaterial hotMaterial = new PhongMaterial(Color.WHITE);
-        hotCore.setMaterial(hotMaterial);
-        hotCore.setTranslateY(11.5);
-        
+        // Outer flame core
+        Sphere flameCore = new Sphere(flameRadius);
+        flameCore.setScaleY(flameHeight / flameRadius); // Scale to desired height
+        flameCore.setMaterial(new PhongMaterial(Color.ORANGE));
+        flameCore.setTranslateY(0);
+
+        // Inner flame - smaller and shorter
+        double innerFlameRadius = flameRadius * 0.67;
+        double innerFlameHeight = flameHeight * 0.67;
+        Sphere innerFlame = new Sphere(innerFlameRadius);
+        innerFlame.setScaleY(innerFlameHeight / innerFlameRadius);
+        innerFlame.setMaterial(new PhongMaterial(Color.YELLOW));
+        innerFlame.setTranslateY(-flameHeight * 0.17); // Offset slightly
+
+        // Hot core - smallest and shortest
+        double hotCoreRadius = flameRadius * 0.33;
+        double hotCoreHeight = flameHeight * 0.44;
+        Sphere hotCore = new Sphere(hotCoreRadius);
+        hotCore.setScaleY(hotCoreHeight / hotCoreRadius);
+        hotCore.setMaterial(new PhongMaterial(Color.WHITE));
+        hotCore.setTranslateY(-flameHeight * 0.33); // Offset more
+
         flame.getChildren().addAll(flameCore, innerFlame, hotCore);
         return flame;
     }
 
     private void updateRocketOrientation(Group rocket, Vector velocity) {
         if (velocity.magnitude() > 1e-10) { // Check for non-zero velocity
-            // Clear existing transforms first
+            // PRESERVE existing Scale transforms while clearing only Rotate transforms
+            List<Scale> existingScales = new ArrayList<>();
+            for (Transform transform : rocket.getTransforms()) {
+                if (transform instanceof Scale) {
+                    existingScales.add((Scale) transform);
+                }
+            }
+            
+            // Clear all transforms
             rocket.getTransforms().clear();
+            
+            // Re-add the preserved Scale transforms FIRST
+            rocket.getTransforms().addAll(existingScales);
             
             // Normalize velocity vector to get direction
             Vector direction = velocity.normalize();
@@ -522,9 +770,9 @@ public class SolarSystemGUI extends Application {
             // The rocket's default orientation is along the Y-axis (pointing up)
             // We need to rotate it to point in the direction of velocity
             
-            // Calculate rotation to align Y-axis with velocity direction
+            // Calculate rotation to align Y-axis with velocity direction (negated for correct orientation)
             Point3D yAxis = new Point3D(0, 1, 0); // Default rocket orientation
-            Point3D velocityDirection = new Point3D(direction.getX(), direction.getY(), direction.getZ());
+            Point3D velocityDirection = new Point3D(-direction.getX(), -direction.getY(), -direction.getZ());
             
             // Calculate the axis of rotation (cross product)
             Point3D rotationAxis = yAxis.crossProduct(velocityDirection);
@@ -536,13 +784,15 @@ public class SolarSystemGUI extends Application {
             // Only apply rotation if we have a valid rotation axis
             if (rotationAxis.magnitude() > 1e-10) {
                 Rotate rotation = new Rotate(angle, rotationAxis);
-                rocket.getTransforms().add(rotation);
+                rocket.getTransforms().add(rotation); // Add AFTER the scale transforms
             } else if (dotProduct < 0) {
                 // Special case: velocity is opposite to Y-axis, rotate 180 degrees around X-axis
                 Rotate rotation = new Rotate(180, Rotate.X_AXIS);
-                rocket.getTransforms().add(rotation);
+                rocket.getTransforms().add(rotation); // Add AFTER the scale transforms
             }
             // If dotProduct > 0.99, velocity is already aligned with Y-axis, no rotation needed
+            
+            System.out.println("Rocket orientation updated. Total transforms: " + rocket.getTransforms().size());
         }
     }
     
@@ -563,26 +813,6 @@ public class SolarSystemGUI extends Application {
             default: return Color.WHITE;
         }
     }
-    /*
-    private Group loadRocketModel() {
-        try {
-            String rocketModelPath = "model/rocket.obj";
-            URL rocketUrl = getClass().getClassLoader().getResource(rocketModelPath);
-            if (rocketUrl == null) {
-                System.out.println("Rocket model not found: " + rocketModelPath);
-                return null;
-            }
-            ObjModelImporter importer = new ObjModelImporter();
-            importer.read(rocketUrl);
-            MeshView[] meshViews = importer.getImport();
-            Group rocketGroup = new Group(meshViews);
-            importer.close();
-            return rocketGroup;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }*/
     
     private void updateCelestialBodyPosition(Sphere sphere, CelestialBodies body) {
         Vector position = body.getPosition();
@@ -590,46 +820,6 @@ public class SolarSystemGUI extends Application {
         sphere.setTranslateX(position.getX() * relativeScalingFactor * SCALE_FACTOR);
         sphere.setTranslateY(position.getY() * relativeScalingFactor * SCALE_FACTOR);
         sphere.setTranslateZ(position.getZ() * relativeScalingFactor * SCALE_FACTOR);
-    }
-    
-    // Simple implementation of Line3D using a thin cylinder
-    private class Line3D extends Group {
-        public Line3D(double startX, double startY, double startZ, 
-                     double endX, double endY, double endZ, Color color) {
-            
-            // Calculate the length of the line
-            double dx = endX - startX;
-            double dy = endY - startY;
-            double dz = endZ - startZ;
-            double length = Math.sqrt(dx*dx + dy*dy + dz*dz);
-            
-            // Create a cylinder with the appropriate dimensions
-            Cylinder line = new Cylinder(0.1, length);
-            
-            // Set the material and color
-            PhongMaterial material = new PhongMaterial();
-            material.setDiffuseColor(color);
-            line.setMaterial(material);
-            
-            // Calculate rotation angles
-            Point3D yAxis = new Point3D(0, 1, 0);
-            Point3D diff = new Point3D(dx, dy, dz);
-            Point3D axisOfRotation = yAxis.crossProduct(diff);
-            double angle = Math.acos(yAxis.dotProduct(diff) / length) * 180 / Math.PI;
-            
-            // Apply transformations
-            Translate moveToStart = new Translate(startX, startY, startZ);
-            Rotate rotation = new Rotate(angle, axisOfRotation);
-            
-            // Position at the center of the line
-            Translate moveToCenter = new Translate(0, length/2, 0);
-            
-            // Apply transformations
-            this.getTransforms().addAll(moveToStart, rotation, moveToCenter);
-            
-            // Add the cylinder
-            this.getChildren().add(line);
-        }
     }
     
     private void updatePathVisualization(String bodyName, Vector position) {
@@ -701,21 +891,29 @@ public class SolarSystemGUI extends Application {
         speedSlider.setBlockIncrement(0.1);
         speedSlider.valueProperty().addListener((obs, oldVal, newVal) -> 
             simulationSpeed = newVal.doubleValue());
-        
-        // Create time label
+
         timeLabel = new Label("Simulation Time: " + formatDateTime(currentTime));
-        
-        // Create restart button
+
         Button restartButton = new Button("Restart");
         restartButton.setOnAction(e -> restartSimulation());
 
-        // Create layout for controls
-        HBox sliderBox = new HBox(10, new Label("Time:"), timeSlider, playPauseButton, restartButton);
+
+        timeLabel = new Label("Simulation Time: " + formatDateTime(currentTime));
+        timeLabel.setStyle("-fx-text-fill: white;");
+
+
+        Label timeText = new Label("Time:");
+        timeText.setStyle("-fx-text-fill: white;");
+
+        Label speedText = new Label("Speed:");
+        speedText.setStyle("-fx-text-fill: white;");
+
+        HBox sliderBox = new HBox(10, timeText, timeSlider, playPauseButton, restartButton);
         sliderBox.setPadding(new Insets(10));
-        
-        HBox speedBox = new HBox(10, new Label("Speed:"), speedSlider);
+
+        HBox speedBox = new HBox(10, speedText, speedSlider);
         speedBox.setPadding(new Insets(10));
-        
+
         VBox controls = new VBox(10, sliderBox, speedBox, timeLabel);
         controls.setPadding(new Insets(10));
         
@@ -806,12 +1004,31 @@ public class SolarSystemGUI extends Application {
                         
                         // Update visualization
                         updateVisualization();
+                    } else {
+                        // Even when paused, update camera tracking so zoom continues to work
+                        updateCameraTracking();
                     }
                     lastUpdate = now;
                 }
             }
         };
         timer.start();
+    }
+
+    private void updateCameraTracking() {
+        if (trackedBody != null) {
+            Node trackedNode = celestialNodes.get(trackedBody);
+            if (trackedNode != null) {
+                double x = trackedNode.getTranslateX();
+                double y = trackedNode.getTranslateY();
+                double z = trackedNode.getTranslateZ();
+                
+                // Update camera offset to center the tracked body
+                cameraOffset.setX(-x);
+                cameraOffset.setY(-y);
+                cameraOffset.setZ(-z);
+            }
+        }
     }
     
     private void updateVisualization() {
@@ -849,33 +1066,71 @@ public class SolarSystemGUI extends Application {
 
                 // Update orbit paths
                 updatePathVisualization(bodyName, body.getPosition());
-
             }
         }
 
-        // Handle camera tracking (modify this part too):
-        if (trackedBody != null) {
-            Node trackedNode = celestialNodes.get(trackedBody);
-            if (trackedNode != null) {
-                double x = trackedNode.getTranslateX();
-                double y = trackedNode.getTranslateY();
-                double z = trackedNode.getTranslateZ();
-                
-                // Update camera offset to center the tracked body
-                cameraOffset.setX(-x);
-                cameraOffset.setY(-y);
-                cameraOffset.setZ(-z);
-            }
-        }        
+        // Handle camera tracking using the extracted method
+        updateCameraTracking();
+            
         // Update the time label
         long daysBetween = ChronoUnit.DAYS.between(startTime, currentTime);
         double yearsFraction = daysBetween / 365.25;
         timeLabel.setText(String.format("Simulation Time: %s (%.2f days, %.2f years)", 
                 formatDateTime(currentTime), (double)daysBetween, yearsFraction));
-
     }
 
+    // Simple implementation of Line3D using a thin cylinder
+    private class Line3D extends Group {
+        public Line3D(double startX, double startY, double startZ, 
+                     double endX, double endY, double endZ, Color color) {
+            
+            // Calculate the length of the line
+            double dx = endX - startX;
+            double dy = endY - startY;
+            double dz = endZ - startZ;
+            double length = Math.sqrt(dx*dx + dy*dy + dz*dz);
+            
+            // Create a cylinder with the appropriate dimensions
+            Cylinder line = new Cylinder(0.1, length);
+            
+            // Set the material and color
+            PhongMaterial material = new PhongMaterial();
+            material.setDiffuseColor(color);
+            line.setMaterial(material);
+            
+            // Calculate rotation angles
+            Point3D yAxis = new Point3D(0, 1, 0);
+            Point3D diff = new Point3D(dx, dy, dz);
+            Point3D axisOfRotation = yAxis.crossProduct(diff);
+            double angle = Math.acos(yAxis.dotProduct(diff) / length) * 180 / Math.PI;
+            
+            // Apply transformations
+            Translate moveToStart = new Translate(startX, startY, startZ);
+            Rotate rotation = new Rotate(angle, axisOfRotation);
+            
+            // Position at the center of the line
+            Translate moveToCenter = new Translate(0, length/2, 0);
+            
+            // Apply transformations
+            this.getTransforms().addAll(moveToStart, rotation, moveToCenter);
+            
+            // Add the cylinder
+            this.getChildren().add(line);
+        }
+    }
 
+    // Class to define zoom configurations for different contexts
+    private static class ZoomConfig {
+        final double scaleX, scaleY, scaleZ;
+        final Map<String, Double> bodySizes;
+        final Map<String, Double> bodyVisibility; // 0.0 = invisible, 1.0 = fully visible
+        
+        ZoomConfig(double scale, Map<String, Double> sizes, Map<String, Double> visibility) {
+            this.scaleX = this.scaleY = this.scaleZ = scale;
+            this.bodySizes = sizes;
+            this.bodyVisibility = visibility;
+        }
+    }
     
     public static void main(String[] args) {
         launch(args);

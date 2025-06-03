@@ -8,7 +8,6 @@ import com.ken10.Phase2.SolarSystemModel.Vector;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 
 //To run this code(load all the states in a specified time frame) you create an instance of
@@ -29,14 +28,14 @@ public final ArrayList<CelestialBodies> initialState;
 
     }
     public EphemerisLoader(int stepSizeMins) {
-        super(SolarSystem.CreatePlanets(),
+        super(SolarSystem.createPlanets(),
                 LocalDateTime.of(2025, 4, 1, 0, 0),
                 LocalDateTime.of(2026, 4, 1, 0, 0),
                 stepSizeMins);
         this.initialState = planetarySystem;
     }
     public EphemerisLoader(int stepSizeMins, int durationYears) {
-        super(SolarSystem.CreatePlanets(),
+        super(SolarSystem.createPlanets(),
                 LocalDateTime.of(2025, 4, 1, 0, 0),
                 LocalDateTime.of(2025+durationYears, 4, 1, 0, 0),
                 stepSizeMins);
@@ -74,7 +73,7 @@ public final ArrayList<CelestialBodies> initialState;
 
     public static void main(String[] args) {
         LocalDateTime startTime = LocalDateTime.of(2025, 4, 1, 0, 0);
-        EphemerisLoader ephemeris = new EphemerisLoader(SolarSystem.CreatePlanets(), startTime, startTime.plusMonths(12), 1);
+        EphemerisLoader ephemeris = new EphemerisLoader(SolarSystem.createPlanets(), startTime, startTime.plusMonths(12), 1);
         ephemeris.solve();
         ArrayList<CelestialBodies> startState = ephemeris.history.get(startTime);
         if(startState == null) System.out.println("No history found");
