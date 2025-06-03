@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="titan" />
         <module name="Project_Titan" />
+        <module name="project-titan" />
       </profile>
     </annotationProcessing>
   </component>
