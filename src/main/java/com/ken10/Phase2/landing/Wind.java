@@ -1,4 +1,4 @@
-package com.ken10.Phase2.ProbeMission;
+package com.ken10.Phase2.landing;
 
 import com.ken10.Phase2.SolarSystemModel.Vector;
 
