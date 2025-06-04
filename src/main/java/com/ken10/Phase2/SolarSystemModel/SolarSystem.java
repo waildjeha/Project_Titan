@@ -307,7 +307,7 @@ public class SolarSystem {
         bodies.add(Titan);
         bodies.add(Uranus);
         bodies.add(Neptune);
-        bodies.add(Probe);
+//        bodies.add(Probe);
 
         return bodies;
     }
