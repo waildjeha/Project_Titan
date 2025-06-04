@@ -36,10 +36,10 @@ private RK4Probe simulation;
         this.initialState = planetarySystem;
     }
 
-    public EphemerisLoader(int stepSizeMins,CelestialBodies probe, int duration) {
+    public EphemerisLoader(int stepSizeMins,Probe probe, int duration) {
         super(SolarSystem.createPlanets(), START_TIME, START_TIME.plusYears(duration), stepSizeMins);
         this.initialState = planetarySystem;
-        loadHistory((Probe) probe, duration);
+        loadHistory(probe, duration);
     }
 
     private void loadHistory(Probe probe, int duration) {
