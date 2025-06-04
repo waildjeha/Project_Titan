@@ -52,6 +52,10 @@ public abstract class CelestialBodies {
         System.out.printf("  Distance from origin: %.2f\n", pos.magnitude());
         System.out.println("----------------------------------------");
     }
+    @Override
+    public String toString(){
+        return getName() + ", \nposition" + getPosition() + ", \nvelocity" + getVelocity() + ", \nmagnitude" + getPosition().magnitude() ;
+    }
 
     public CelestialBodies deepCopy(){
         if(this instanceof PlanetModel) return new PlanetModel(getName(), getPosition().copy(),
