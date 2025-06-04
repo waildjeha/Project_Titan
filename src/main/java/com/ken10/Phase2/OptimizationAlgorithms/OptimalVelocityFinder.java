@@ -41,8 +41,9 @@ RK4Probe foundData;
         System.out.println(optimalVelocityFinder.getFoundData());
     }
 }
+
 //----------------------------------------------------------
-//Initial probe position and velocity: (-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497) (62.37766685559131, -32.92234163864975, -15.852587264581345)
-//Velocity magnitude relative to earth: 59.35185082621291
-//Closest Distance to Titan: 2545.9443054973567
-//Date of closest approach: 2026-03-17T20:52
+//Initial probe position and velocity: (-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497) (62.25493222046365, -33.2301274780465, -15.851610868521927)
+//Velocity magnitude relative to earth: 59.252937842857804
+//Closest Distance to Titan: 2467.6639546830183
+//Date of closest approach: 2026-03-26T09:20
