@@ -23,6 +23,10 @@ public class Vector {
     public void setY(double y) { this.y = y; }
     public void setZ(double z) { this.z = z; }
 
+    public Vector addX(double x) { return new Vector(this.x + x, this.y, this.z); }
+    public Vector addY(double y) { return new Vector(this.x, this.y+y, this.z); }
+    public Vector addZ(double z) { return new Vector(this.x, this.y, this.z + z); }
+
     public Vector add(Vector v) {
         return new Vector(this.x + v.x, this.y + v.y, this.z + v.z);
     }

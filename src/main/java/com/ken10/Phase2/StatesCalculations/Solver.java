@@ -14,11 +14,11 @@ import java.util.Hashtable;
  */
 public abstract class Solver implements ODE_Function {
     protected ArrayList<CelestialBodies> planetarySystem;
-    //    protected ArrayList<Body> planetaryDerivatives;
     protected LocalDateTime time;
     protected LocalDateTime endTime;
     protected int stepSizeMins;
-    public final Hashtable<LocalDateTime, ArrayList<CelestialBodies>> history;
+    protected static final LocalDateTime START_TIME = LocalDateTime.of(2025, 4, 1, 0,0);
+    public Hashtable<LocalDateTime, ArrayList<CelestialBodies>> history;
 
     /**
      * Initialize the ODE solver
@@ -35,14 +35,13 @@ public abstract class Solver implements ODE_Function {
     public Solver(ArrayList<CelestialBodies> planetarySystem, LocalDateTime startTime, LocalDateTime endTime, int stepSizeMins) {
         this.time = startTime;
         this.planetarySystem = planetarySystem;
-        //this.planetaryDerivatives = planetarySystem.planetaryDerivatives;
         this.endTime = endTime;
         this.stepSizeMins = stepSizeMins;
         this.history = new Hashtable<>();
         recordState();
     }
     public Solver(int stepSizeMins) {
-        this.time = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
+        this.time = START_TIME;
         this.endTime = LocalDateTime.of(2026, 3, 31, 23, 59, 59);
         this.stepSizeMins = stepSizeMins;
         this.planetarySystem = SolarSystem.createPlanets();
@@ -70,15 +69,13 @@ public abstract class Solver implements ODE_Function {
     /**
      * Record current state to history
      */
-    protected void recordState(){
+    protected void recordState() {
         ArrayList<CelestialBodies> snapshot = new ArrayList<>();
-        for(CelestialBodies b : planetarySystem){
-             // deep copy each body
-            snapshot.add(b.deepCopy());
+        for (CelestialBodies body : planetarySystem) {
+            snapshot.add(body.deepCopy()); // Deep copy constructor
         }
         history.put(time, snapshot);
     }
-
 
     public void printState(ArrayList<CelestialBodies> planetarySystem, LocalDateTime time) {
         System.out.println("Time : " + time.toString());

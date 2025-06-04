@@ -1,11 +1,8 @@
-package com.ken10.Phase2.ProbeMission.ProbeMissionDillon;
+package com.ken10.Phase2.OptimizationAlgorithms;
 
-import com.ken10.Phase2.ProbeMission.ProbeMissionDominik.RK4Probe;
 import com.ken10.Phase2.SolarSystemModel.*;
 import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -32,20 +29,30 @@ public class EvolutionAlgorithm {
     private static final double MAX_VELOCITY = 60.0;
 
     private final Random RANDOM = new Random();
-    private final Vector EARTH_POSITION;
-    private final Vector EARTH_VELOCITY;
+    private final Vector LAUNCH_POSITION;
+    private final Vector SURFACE_PLANET_VELOCITY;
 
-    private final Hashtable<LocalDateTime, ArrayList<CelestialBodies>> planetHistory;
+    private final LaunchData launchData;
+    private RK4Probe evolutionAlgorithmInitialGuess;
 
-    public EvolutionAlgorithm() {
-        ArrayList<CelestialBodies> solarSystem = SolarSystem.createPlanets();
-        EphemerisLoader ephemerisLoader = new EphemerisLoader(1);
-        ephemerisLoader.solve();
-        planetHistory = ephemerisLoader.history;
-        CelestialBodies earth = solarSystem.get(BodyID.EARTH.index());
-        this.EARTH_POSITION = earth.getPosition().add(new Vector(6371, 0, 0));
-        this.EARTH_VELOCITY = earth.getVelocity();
+    public EvolutionAlgorithm(LaunchData launchData) {
+        this.launchData = launchData;
+
+        this.LAUNCH_POSITION = launchData.getInitialPosition();
+        this.SURFACE_PLANET_VELOCITY = loadSurfaceVelocity(launchData.getIsSurface());
     }
+
+    private Vector loadSurfaceVelocity(BodyID body) {
+        if (body.equals(BodyID.SPACESHIP)) return new Vector(0,0,0);
+        ArrayList<CelestialBodies> solarSystem = SolarSystem.createPlanets();
+        return solarSystem.get(body.index()).getVelocity();
+    }
+
+//    private Hashtable<LocalDateTime, ArrayList<CelestialBodies>> loadHistory(int duration) {
+//        EphemerisLoader ephemerisLoader = new EphemerisLoader(1, duration);
+//        ephemerisLoader.solve();
+//        return ephemerisLoader.history;
+//    }
 
     /**
      * Initializes Vectors in population and distances to titan for each.
@@ -57,7 +64,15 @@ public class EvolutionAlgorithm {
      * @return trial vector.
      */
 
-    public RK4Probe optimizeTrajectory() throws IOException {
+    public void solve(){
+        optimizeTrajectory();
+    }
+
+    public RK4Probe getEvolutionAlgorithmInitialGuess() {
+        return evolutionAlgorithmInitialGuess;
+    }
+
+    private void optimizeTrajectory() {
         List<Vector> population = initializePopulation();
         List<Double> distances = evaluatePopulation(population);
 
@@ -88,18 +103,22 @@ public class EvolutionAlgorithm {
                     distances.set(i, trialDistance);
 
                     if (trialDistance < bestDistance) {
-                        System.out.println(trailSimulation);
                         bestDistance = trialDistance;
                         bestSimulation = trailSimulation;
-//                        bestVector = trial;
+                        System.out.println("New best distance: " + bestDistance + ", date: " + bestSimulation.getClosestDistTime());
+                        System.out.println("Generation : " + gen);
                     }
-
+                    if(bestDistance<=1E6) {
+                        System.out.println("Hill climbing takes over");
+//                        HillClimbing hillClimbing = new HillClimbing(bestSimulation, EARTH_POSITION, planetHistory);
+                        evolutionAlgorithmInitialGuess = bestSimulation;
+                        return;
+//                        return hillClimbing.findOptimalVelocity();
+                    }
                 }
             }
         }
-//        writer.close();
-
-        return bestSimulation;
+//        return bestSimulation;
     }
 
     /**
@@ -146,7 +165,7 @@ public class EvolutionAlgorithm {
      */
 
     private RK4Probe evaluateTrajectory(Vector velocity) {
-        RK4Probe simulation = new RK4Probe(new Probe("dominik", EARTH_POSITION, EARTH_VELOCITY.add(velocity)), planetHistory, 12);
+        RK4Probe simulation = new RK4Probe(new Probe("dominik", LAUNCH_POSITION, SURFACE_PLANET_VELOCITY.add(velocity)), launchData.getHistoryPlanets(), 2);
         simulation.solve();
         return simulation;
     }
@@ -197,13 +216,18 @@ public class EvolutionAlgorithm {
         return trial;
     }
 
-    public static void main(String[] args) throws IOException {
-        EvolutionAlgorithm optimizer = new EvolutionAlgorithm();
-        RK4Probe bestSimulation = optimizer.optimizeTrajectory();
-        System.out.printf(bestSimulation.toString());
-    }
+//    public static void main(String[] args) throws IOException {
+//        EvolutionAlgorithm optimizer = new EvolutionAlgorithm();
+//        RK4Probe bestSimulation = optimizer.optimizeTrajectory();
+//        System.out.printf("Final result" + bestSimulation.toString());
+//    }
     // Best Velocity at current parameters = (55.941793, -2.277140, -11.512891)
     // mag = 57.15956814 km/s
     // closest distance = 4355.21 km from titan.
     // takes a few hours at current param.
 }
+//Final result----------------------------------------------------------
+//Initial probe position and velocity: (-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497) (63.116478338136574, -26.26627885747304, 15.895966791164073)
+//Velocity magnitude relative to earth: 60.04618330310422
+//Closest Distance to Titan: 2573.5335720234507
+//Date of closest approach: 2026-03-29T01:16

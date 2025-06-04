@@ -1,4 +1,4 @@
-package com.ken10.Phase2.ProbeMission.ProbeMissionDominik;
+package com.ken10.Phase2.OptimizationAlgorithms;
 
 import com.ken10.Phase2.SolarSystemModel.*;
 import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
@@ -7,12 +7,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import static com.ken10.Phase2.SolarSystemModel.Earth.EARTH_VELOCITY_INITIAL;
 import static com.ken10.Phase2.SolarSystemModel.GravityCalc.computeAcceleration;
 import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
 
 public class RK4Probe {
     private Probe probe;
-    private Probe launchProbe;
+    private final Probe launchProbe;
     private final Hashtable<LocalDateTime, ArrayList<CelestialBodies>> historyPlanets;
     private static final LocalDateTime endTime = LocalDateTime.of(2026,4,1,0,0,0);
     private final int stepSizeMin;
@@ -45,28 +46,47 @@ public class RK4Probe {
         return launchProbe;
     }
 
-    public void solve() {
+    public int getStepSizeMin() {
+        return stepSizeMin;
+    }
 
-            LocalDateTime t0 = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
-            historyProbe.put(time,probe);
-            closestDistance = getDistance(probe.getPosition(), historyPlanets.get(time).get(BodyID.TITAN.index()).getPosition());
-            double noChangeLoopBreak = closestDistance;
+    public void solve() {
+        LocalDateTime t0 = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
+        historyProbe.put(time, probe);
+        closestDistance = getDistance(probe.getPosition(),
+                historyPlanets.get(time).get(BodyID.TITAN.index()).getPosition());
 
         while (time.isBefore(endTime)) {
-            if((time.isAfter((t0.plusMinutes(180))) && closestDistance==noChangeLoopBreak))
-                {historyProbe.clear(); break;}
-            if(time.isBefore(t0.plusMinutes(8))&&getDistance(probe.getPosition(),historyPlanets.get(time).get(BodyID.EARTH.index()).getPosition())<6369)
-            {System.out.println("Probe gets inside the Earth");break;}
+            // Check collision at current time
+            if(time.isBefore(t0.plusMinutes(8))) {
+                double earthDist = getDistance(probe.getPosition(),
+                        historyPlanets.get(time).get(BodyID.EARTH.index()).getPosition());
+                if(earthDist <= 6369.9998) break;
+            }
+
+            // Calculate new probe state
             probe = rk4Helper();
-            time = time.plusMinutes(stepSizeMin);
-            Vector currentTitanPosition = historyPlanets.get(time).get(BodyID.TITAN.index()).getPosition();
+
+            // Get Titan position at CURRENT time
+            Vector currentTitanPosition = historyPlanets.get(time)
+                    .get(BodyID.TITAN.index()).getPosition();
+
+            // Calculate distance at CURRENT time
             double distToTitan = getDistance(currentTitanPosition, probe.getPosition());
-                if(distToTitan<closestDistance) {
-                closestDistTime = time;
+
+            // Update closest approach
+            if(distToTitan < closestDistance) {
+                closestDistTime = time;  // Use current time
                 closestDistance = distToTitan;
-                }
-            historyProbe.put(time,probe);
+            }
+
+            // Store state and advance time
+            historyProbe.put(time, probe);
+            time = time.plusMinutes(stepSizeMin);
         }
+
+        // Handle final state after loop
+        historyProbe.put(time, probe);
     }
 
     private Probe rk4Helper() {
@@ -112,29 +132,30 @@ public class RK4Probe {
         kVelocity = kVelocity.divide(6);
         kAcceleration = kAcceleration.divide(6);
 
-        return new Probe(probe.getName(), y1.getPosition().add(kVelocity), y1.getVelocity().add(kAcceleration));
+        return new Probe(probe.getName(), y1.getPosition().add(kVelocity), y1.getVelocity().add(kAcceleration),1.0,11.0);
     }
 
     @Override
     public String toString(){
         return "----------------------------------------------------------" + "\n" +
                         "Initial probe position and velocity: " + launchProbe + "\n" +
+                        "Velocity magnitude relative to earth: " + (launchProbe.getVelocity().subtract(EARTH_VELOCITY_INITIAL).magnitude()) + "\n" +
                         "Closest Distance to Titan: " + closestDistance + "\n" +
                         "Date of closest approach: " + closestDistTime + "\n";
     }
+
+
     public static void main(String[] args) {
         LocalDateTime startTime = LocalDateTime.of(2025,4,1,0,0,0);
-        Vector earthPosition = SolarSystem.createPlanets().get(BodyID.EARTH.index()).getPosition();
-        Probe probe = new Probe("probe", new Vector(earthPosition.getX() + 6370, earthPosition.getY(), earthPosition.getZ()), new Vector(51.656963, -2.127366, -12.546660));
-        EphemerisLoader eph = new EphemerisLoader(2);
+        Probe probe = new Probe("probe", new Vector(-1.4664541759104577E8, -2.8949304626334388E7, 2241.9186033698497), new Vector(63.28501526589577, -30.337437078355766, -12.818387742029104));
+        ArrayList<CelestialBodies> stateT0 = SolarSystem.createPlanets();
+        stateT0.add(probe);
+        EphemerisLoader eph = new EphemerisLoader(stateT0, startTime, startTime.plusYears(1), 1);
         eph.solve();
-        RK4Probe dataProbe = new RK4Probe(probe, eph.history, 4);
-        dataProbe.solve();
-        System.out.println("Closest distance to Titan: " + dataProbe.getClosestDistance());
-        System.out.println("Time of the closest approach: " + dataProbe.getClosestDistTime());
-        System.out.println("Initial Position of the probe: " + dataProbe.getInitialProbe().getPosition());
-        System.out.println("Initial velocity of the probe: " + dataProbe.getInitialProbe().getVelocity());
-        System.out.println("Initial speed: " + dataProbe.getInitialProbe().getVelocity().magnitude() + " km/s");
+        ArrayList<CelestialBodies> stateT1 = eph.history.get(LocalDateTime.of(2026, 3, 23, 0, 48));
+        Vector positionT = stateT1.get(BodyID.TITAN.index()).getPosition();
+        Vector positionP = stateT1.get(BodyID.SPACESHIP.index()).getPosition();
+        System.out.println(positionP.getDistance(positionT));
 
     }
 }
