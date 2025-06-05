@@ -56,6 +56,8 @@ public class SolarSystemGUI extends Application {
     
     // Pre-loaded ephemeris data
     private Hashtable<LocalDateTime, ArrayList<CelestialBodies>> timeStates;
+    private Hashtable<LocalDateTime, ArrayList<CelestialBodies>> ProbeTimeStates;
+    private Hashtable<LocalDateTime, ArrayList<CelestialBodies>> EngineMissionTimeStates;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private LocalDateTime currentTime;
@@ -78,7 +80,7 @@ public class SolarSystemGUI extends Application {
     private Map<String, Group> planetPaths = new HashMap<>();
     private Map<String, Node> celestialNodes = new HashMap<>(); // Store both spheres and rockets
     private Map<String, List<Vector>> pathHistory = new HashMap<>();
-    private double simulationSpeed = 1000;
+    private double simulationSpeed = 200;
     
     // Camera control
     private double mousePosX, mousePosY;
@@ -105,10 +107,12 @@ public class SolarSystemGUI extends Application {
         initializeScene();
 
         VBox controls = createControls();
+        HBox missionChoice = createMissionButtons();
         VBox zoomMenu = createZoomMenu();
 
         BorderPane root = new BorderPane();
         root.setCenter(space);
+        root.setTop(missionChoice);
         root.setLeft(zoomMenu);
         root.setBottom(controls);
         root.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -135,12 +139,18 @@ public class SolarSystemGUI extends Application {
                 1.0, 11.0);
 
 
-        // Initialize ephemeris loader with 2-minute steps
-        EphemerisLoader eph = new EphemerisLoader(2, probe, 1);
-        eph.solve();
-        timeStates = eph.history;
+        // Initialize ephemeris loader with 2-minute steps for the probe mission
+        EphemerisLoader ephProbe = new EphemerisLoader(2, probe, 1);
+        ephProbe.solve();
+        ProbeTimeStates = ephProbe.history;
 
+        // Initialize ephemeris loader with 2-minute steps for the engine mission
+        EphemerisLoader ephEngine = new EphemerisLoader(2, probe, 2);
+        ephEngine.solve();
+        EngineMissionTimeStates = ephEngine.history;
 
+        // Assume that the simulation by default starts with the Engine Mission.
+        timeStates = EngineMissionTimeStates;
         System.out.println("Loaded " + timeStates.size() + " time states");
         
         // Extract start and end times from the data
@@ -220,6 +230,32 @@ public class SolarSystemGUI extends Application {
                         "-fx-border-width: 2px; " +
                         "-fx-border-color: " + white + ";"
         ));
+    }
+
+    private HBox createMissionButtons() {
+        Button probeMission = new Button("Probe Mission");
+        styleButton(probeMission);
+        probeMission.setOnAction(e -> startSpecifiedMission("probe"));
+
+        Button engineMission = new Button("Engine Mission");
+        styleButton(engineMission);
+        engineMission.setOnAction(e -> startSpecifiedMission("engine"));
+
+        HBox menu = new HBox(10, probeMission, engineMission); // Horizontal layout
+        menu.setPadding(new Insets(15));
+        menu.setAlignment(Pos.CENTER); // Center at the top
+
+        return menu;
+    }
+    
+    private void startSpecifiedMission(String mission){
+        if(mission.equals("probe")){
+            timeStates = ProbeTimeStates;
+        } else{
+            timeStates = EngineMissionTimeStates;
+        }
+
+        restartSimulation();
     }
 
     private void resetCameraView() {
@@ -894,7 +930,7 @@ public class SolarSystemGUI extends Application {
         });
         
         // Create speed slider
-        Slider speedSlider = new Slider(500, 1500, 1000);
+        Slider speedSlider = new Slider(10, 1000, 200);
         speedSlider.setPrefWidth(200);
         speedSlider.setBlockIncrement(0.1);
         speedSlider.valueProperty().addListener((obs, oldVal, newVal) -> 
