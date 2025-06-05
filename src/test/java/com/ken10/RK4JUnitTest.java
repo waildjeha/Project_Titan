@@ -1,7 +1,9 @@
-package com.ken10.Phase1;
+package com.ken10;
 
+import com.ken10.Phase1.OdeFunction;
+import com.ken10.Phase1.RungeKutta4Solver;
 import org.junit.Test;
-import org.junit.Before;
+
 import static org.junit.Assert.*;
 
 public class RungeKutta4SolverTest {
