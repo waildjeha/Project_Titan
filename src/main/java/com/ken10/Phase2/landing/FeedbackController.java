@@ -1,6 +1,6 @@
 package com.ken10.Phase2.landing;
 
-public class FeedbackController {
+public abstract class FeedbackController {
 
     private final StateVector goal;
 
@@ -9,15 +9,17 @@ public class FeedbackController {
 
     }
 
-    public ControlOutput controlFunction(StateVector stateVector){
-//        TO DO
-//        the idea is that based on the error a new thrust parameters are calculated
-//        return new ControlOutput(thrustX, thrustY, torque);
-//        adjust the values based on the thrust
-//        solve using rk4 - the plant function
-//        check if landed
+    public abstract ControlOutput compute(StateVector state, double time);
 
-return null;
+    public ControlOutput controlFunction(StateVector stateVector){
+        //        TO DO
+        //        the idea is that based on the error a new thrust parameters are calculated
+        //        return new ControlOutput(thrustX, thrustY, torque);
+        //        adjust the values based on the thrust
+        //        solve using rk4 - the plant function
+        //        check if landed
+
+        return null;
 
     }
     public StateVector plantFunction(StateVector currentState, ControlOutput control, double dt) {

@@ -68,4 +68,9 @@ public abstract class CelestialBodies {
                     getVelocity().copy(), getRelativeScalingFactor(), getSize());
     }
 
+
+    public double getRadius() {
+        return 0; // Placeholder, should be overridden by subclasses
+    }
+
 }

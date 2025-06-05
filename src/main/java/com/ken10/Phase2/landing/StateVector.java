@@ -17,6 +17,15 @@ public class StateVector {
         this.omega = omega;
     }
 
+    public StateVector(double[] initialState) {
+        this.x = initialState[0];
+        this.vx = initialState[1];
+        this.y = initialState[2];
+        this.vy = initialState[3];
+        this.theta = initialState[4];
+        this.omega = initialState[5];
+    }
+
     public double getX() { return x; }
     public double getVx() { return vx; }
     public double getY() { return y; }
