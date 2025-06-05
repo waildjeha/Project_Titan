@@ -1,5 +1,6 @@
-package com.ken10.Phase2.OptimizationAlgorithms;
+package com.ken10;
 
+import com.ken10.Phase2.OptimizationAlgorithms.RK4Probe;
 import com.ken10.Phase2.SolarSystemModel.*;
 import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
 import org.junit.Before;

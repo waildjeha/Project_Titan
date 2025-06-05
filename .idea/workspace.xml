@@ -61,53 +61,53 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.BalisticMissionSimulator.executor": "Run",
-    "Application.DifferentialEvolutionAlgorithm.executor": "Run",
-    "Application.EphemerisLoader.executor": "Run",
-    "Application.ExamplePlanetMovement.executor": "Run",
-    "Application.LaunchStateBuilder.executor": "Run",
-    "Application.LotkaVolterraSimulation.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.MissionSim.executor": "Run",
-    "Application.PlanetInfo.executor": "Run",
-    "Application.PlanetMotionTest.executor": "Run",
-    "Application.ProbeDifferentialEvolution.executor": "Run",
-    "Application.ProbeHillClimb.executor": "Run",
-    "Application.ProbeMission.executor": "Run",
-    "Application.ProbeMissionRunner.executor": "Run",
-    "Application.RK4Solver.executor": "Run",
-    "Application.RocketMissionRunner.executor": "Run",
-    "Application.SolarSystem.executor": "Run",
-    "Application.SolarSystemGUI.executor": "Run",
-    "Application.SolarSystemVisualizer.executor": "Run",
-    "Application.TitanInterceptSearch.executor": "Run",
-    "Application.TitanInterceptSearchSimple.executor": "Run",
-    "Application.TransferTime.executor": "Run",
-    "Application.Wind.executor": "Run",
-    "Application.com.ken10.Dillons_Phase2.entities.NumericalSolvers.RK4Solver.executor": "Run",
-    "Application.com.ken10.Main.executor": "Run",
-    "Application.com.ken10.Phase2.Main.executor": "Run",
-    "Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader.executor": "Run",
-    "Application.sim.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "CurrentBranch",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/ivapapukchieva/IdeaProjects/DSA_2023_Public/Maastricht-University-Project-1-2/Project_Titan/src/main/resources/models",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.BalisticMissionSimulator.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DifferentialEvolutionAlgorithm.executor&quot;: &quot;Run&quot;,
+    &quot;Application.EphemerisLoader.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ExamplePlanetMovement.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LaunchStateBuilder.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LotkaVolterraSimulation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MissionSim.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PlanetInfo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PlanetMotionTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ProbeDifferentialEvolution.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ProbeHillClimb.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ProbeMission.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ProbeMissionRunner.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RK4Solver.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RocketMissionRunner.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SolarSystem.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SolarSystemGUI.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SolarSystemVisualizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TitanInterceptSearch.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TitanInterceptSearchSimple.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TransferTime.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Wind.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.ken10.Dillons_Phase2.entities.NumericalSolvers.RK4Solver.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.ken10.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.ken10.Phase2.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader.executor&quot;: &quot;Run&quot;,
+    &quot;Application.sim.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;CurrentBranch&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/ivapapukchieva/IdeaProjects/DSA_2023_Public/Maastricht-University-Project-1-2/Project_Titan/src/main/resources/models&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/models" />
@@ -117,7 +117,7 @@
       <recent name="$PROJECT_DIR$/src/main/resources/source" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.com.ken10.Main">
     <configuration name="EphemerisLoader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ken10.Dillons_Phase2.entities.astro.Emhemeris.EphemerisLoader" />
       <module name="titan" />
