@@ -1,6 +1,7 @@
 package com.ken10.landing;
 
 import java.util.Random;
+import java.util.Arrays;
 
 /**
  * Represents a thrust schedule for the landing module
@@ -32,7 +33,17 @@ public class ThrustSchedule {
 
         for (int i = 0; i < steps; i++) {
             // Random main thrust between 0 and U_MAX
-            schedule.mainThrust[i] = random.nextDouble() * U_MAX;
+            // Mindestens 40% von U_MAX, maximal 100% von U_MAX
+            if (i < 20 || i > steps - 30) {
+                // Start-Boost + Landemanöver
+                schedule.mainThrust[i] = (0.8 + 0.2 * random.nextDouble()) * U_MAX;
+            } else {
+                // Normaler Flug
+                schedule.mainThrust[i] = (0.2 + 0.4 * random.nextDouble()) * U_MAX;
+            }
+
+
+
 
             // Random side thrust between -V_MAX and V_MAX
             schedule.sideThrust[i] = (random.nextDouble() - 0.5) * 2 * V_MAX;
@@ -61,7 +72,7 @@ public class ThrustSchedule {
                 mutated.sideThrust[i] = Math.max(-V_MAX, Math.min(V_MAX, sideThrust[i] + change));
             }
         }
-
+        System.out.println("Mutated main thrust: " + Arrays.toString(mutated.mainThrust));
         return mutated;
     }
 

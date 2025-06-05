@@ -11,11 +11,11 @@ public class OpenLoopController {
     private Random random;
 
     // Optimization parameters
-    private int maxIterations = 10000;
-    private int scheduleSteps = 200;      // Number of thrust commands
+    private int maxIterations = 1000000;
+    private int scheduleSteps = 150;      // Number of thrust commands
     private double timeStep = 0.5;        // Time between commands (seconds)
     private double mutationRate = 0.1;    // Probability of mutating each thrust value
-    private double mutationStrength = 0.3; // Strength of mutations
+    private double mutationStrength = 2.0; // Strength of mutations
 
     public OpenLoopController() {
         this.simulator = new LandingSimulator();
@@ -35,9 +35,9 @@ public class OpenLoopController {
         System.out.println("Target: Land at (0,0) with minimal fuel consumption");
         System.out.println();
 
-        ThrustSchedule bestSchedule = null;
-        LandingResult bestResult = null;
-        double bestFitness = -1;
+        ThrustSchedule bestSchedule = ThrustSchedule.generateRandom(scheduleSteps, timeStep, random);
+        LandingResult bestResult = simulator.simulate(initialState, bestSchedule);
+        double bestFitness = bestResult.getFitnessScore();
 
         // Track progress
         int successCount = 0;
@@ -71,8 +71,8 @@ public class OpenLoopController {
                     successCount++;
                     System.out.printf("  SUCCESS! Fuel used: %.4f, Final position: (%.6f, %.6f)%n",
                             result.getFuelUsed(),
-                            result.getFinalState().x,
-                            result.getFinalState().y);
+                            result.getFinalState().position.x,
+                            result.getFinalState().position.y);
                 }
             }
 

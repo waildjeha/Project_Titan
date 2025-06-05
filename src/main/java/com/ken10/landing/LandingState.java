@@ -4,26 +4,28 @@ package com.ken10.landing;
  * Represents the state of the landing module at any given time
  */
 public class LandingState {
-    public double x;        // horizontal position (km)
-    public double y;        // vertical position (km)
+    public Vector2D position;  // position.x = x, position.y = y
+    public Vector2D velocity;  // velocity.x = vx, velocity.y = vy
     public double theta;    // rotation angle (rad)
-    public double vx;       // horizontal velocity (km/s)
-    public double vy;       // vertical velocity (km/s)
     public double vtheta;   // angular velocity (rad/s)
     public double time;     // current time (s)
 
-    public LandingState(double x, double y, double theta, double vx, double vy, double vtheta, double time) {
-        this.x = x;
-        this.y = y;
+    public LandingState(Vector2D position, double theta, Vector2D velocity, double vtheta, double time) {
+        this.position = position;
         this.theta = theta;
-        this.vx = vx;
-        this.vy = vy;
+        this.velocity = velocity;
         this.vtheta = vtheta;
         this.time = time;
-    }
+
+}
 
     public LandingState copy() {
-        return new LandingState(x, y, theta, vx, vy, vtheta, time);
+        return new LandingState(
+                new Vector2D(position.x, position.y),
+                theta,
+                new Vector2D(velocity.x, velocity.y),
+                vtheta,
+                time);
     }
 
     /**
@@ -36,11 +38,11 @@ public class LandingState {
         double EPSILON_Y = 1e-4;     // 0.1 m/s in km/s
         double EPSILON_THETA = 0.01; // rad/s
 
-        return Math.abs(y) < 1e-6 &&  // landed (y = 0)
-                Math.abs(x) <= DELTA_X &&
+        return Math.abs(position.y) < 1e-6 &&  // landed (y = 0)
+                Math.abs(position.x) <= DELTA_X &&
                 Math.abs(theta % (2 * Math.PI)) <= DELTA_THETA &&
-                Math.abs(vx) <= EPSILON_X &&
-                Math.abs(vy) <= EPSILON_Y &&
+                Math.abs(velocity.x) <= EPSILON_X &&
+                Math.abs(velocity.y) <= EPSILON_Y &&
                 Math.abs(vtheta) <= EPSILON_THETA;
     }
 
@@ -48,12 +50,15 @@ public class LandingState {
      * Check if module has crashed (hit ground with bad conditions)
      */
     public boolean hasCrashed() {
-        return y <= 0 && !isSuccessfulLanding();
+        return position.y <= 0 && !isSuccessfulLanding();
+
     }
 
     @Override
     public String toString() {
         return String.format("State[x=%.6f, y=%.6f, θ=%.3f, vx=%.6f, vy=%.6f, ω=%.3f, t=%.1f]",
-                x, y, theta, vx, vy, vtheta, time);
+                position.x, position.y, theta, velocity.x, velocity.y, vtheta, time);
+
+
     }
 }

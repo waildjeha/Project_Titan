@@ -30,38 +30,51 @@ public class LandingResult {
         double score = 0;
 
         if (landingStatus == LandingStatus.SUCCESS) {
-            // the base score for successful landing?? unsure!
+            // Basis-Punkte für erfolgreiche Landung
             score = 1000;
 
-            // Bonus for fuel efficiency => less fuel = higher score
+            // Bonus für sparsamen Treibstoffverbrauch
             score += Math.max(0, 100 - fuelUsed);
 
-            // Bonus for accuracy (closer to target = higher score)
-            double distanceFromTarget = Math.abs(finalState.x);
-            score += Math.max(0, 50 - distanceFromTarget * 1000); // convert km to m
+            // Bonus für Nähe zur Zielposition
+            double distanceFromTarget = Math.abs(finalState.position.x);
+            score += Math.max(0, 50 - distanceFromTarget * 1000); // km → m
 
         } else if (landingStatus == LandingStatus.CRASH) {
-            // Partial score based on how close we got
-            if (finalState.y >= -0.001) { // very close to ground
+            // Teilpunkte, wenn wir sehr nah dran waren
+            if (finalState.position.y >= -0.001) {
                 score = 100;
 
-                // Small bonus for being close to target horizontally
-                double horizontalError = Math.abs(finalState.x);
+                double horizontalError = Math.abs(finalState.position.x);
                 score += Math.max(0, 20 - horizontalError * 1000);
 
-                // Small bonus for low velocity
-                double velocityMagnitude = Math.sqrt(finalState.vx*finalState.vx + finalState.vy*finalState.vy);
+                double velocityMagnitude = Math.sqrt(
+                        finalState.velocity.x * finalState.velocity.x +
+                                finalState.velocity.y * finalState.velocity.y
+                );
+
                 score += Math.max(0, 10 - velocityMagnitude * 1000);
             } else {
-                score = 10; // crashed far from surface
+                score = 10;
             }
-        } else {
-            // Timeout - very low score
-            score = 1;
+        } else if (landingStatus == LandingStatus.TIMEOUT) {
+            score = 5;
+
+            double distanceFromTarget = Math.sqrt(
+                    finalState.position.x * finalState.position.x +
+                            finalState.position.y * finalState.position.y);
+            score += Math.max(0, 300 - distanceFromTarget * 100);
+
+            double velocityMagnitude = Math.sqrt(
+                    finalState.velocity.x * finalState.velocity.x +
+                            finalState.velocity.y * finalState.velocity.y);
+            score += Math.max(0, 200 - velocityMagnitude * 100);
         }
 
         return score;
     }
+
+
 
     public void addTrajectoryPoint(LandingState state) {
         trajectory.add(state);

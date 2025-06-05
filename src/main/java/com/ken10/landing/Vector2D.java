@@ -1,0 +1,42 @@
+package com.ken10.landing;
+
+
+/**
+ * Simple class to represent 2D vectors.
+ */
+public class Vector2D {
+    public double x;
+    public double y;
+
+    public Vector2D(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public Vector2D add(Vector2D other) {
+        return new Vector2D(this.x + other.x, this.y + other.y);
+    }
+
+    public Vector2D subtract(Vector2D other) {
+        return new Vector2D(this.x - other.x, this.y - other.y);
+    }
+
+    public Vector2D scale(double factor) {
+        return new Vector2D(this.x * factor, this.y * factor);
+    }
+
+    public double magnitude() {
+        return Math.sqrt(x * x + y * y);
+    }
+
+    public Vector2D normalize() {
+        double mag = magnitude();
+        if (mag == 0) return new Vector2D(0, 0);
+        return new Vector2D(x / mag, y / mag);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("(%.4f, %.4f)", x, y);
+    }
+}

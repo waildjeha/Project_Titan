@@ -1,5 +1,11 @@
 package com.ken10.landing;
 
+import com.ken10.landing.Vector2D;
+import com.ken10.landing.LandingState;
+import com.ken10.landing.OpenLoopController;
+import com.ken10.landing.LandingResult;
+import com.ken10.landing.ThrustSchedule;
+
 /**
  * Main class to demonstrate the Open-Loop Controller for Titan landing
  * Replace the main method in App.java with this code
@@ -16,17 +22,17 @@ public class LandingMain {
         LandingState initialState = createExampleInitialState();
 
         System.out.println("Initial conditions:");
-        System.out.println("  Position: (" + initialState.x + ", " + initialState.y + ") km");
-        System.out.println("  Velocity: (" + initialState.vx + ", " + initialState.vy + ") km/s");
+        System.out.println("  Position: (" + initialState.position.x + ", " + initialState.position.y + ") km");
+        System.out.println("  Velocity: (" + initialState.velocity.x + ", " + initialState.velocity.y + ") km/s");
         System.out.println("  Angle: " + Math.toDegrees(initialState.theta) + "°");
         System.out.println("  Angular velocity: " + initialState.vtheta + " rad/s");
         System.out.println();
 
         // Creating and configuring the controller
         OpenLoopController controller = new OpenLoopController(42); // Fixed seed for reproducibility
-        controller.setMaxIterations(5000);  // Reduce for faster testing
-        controller.setScheduleParameters(150, 0.5); // 150 steps, 0.5s each = 75s total
-        controller.setMutationParameters(0.15, 0.25);
+        controller.setMaxIterations(100000);  // Reduce for faster testing
+        controller.setScheduleParameters(1500, 0.5); // 1800 Schritte à 1 Sekunde
+        controller.setMutationParameters(0.25, 0.4);
 
         // Find optimal thrust schedule
         long startTime = System.currentTimeMillis();
@@ -71,39 +77,30 @@ public class LandingMain {
                velocity: y=0 (parallel to the ground    x= calculate ->dependent on state y*/
 
     private static LandingState createExampleInitialState() {
+        Vector2D position = new Vector2D(0.5, 200.0);  // x = 0.5, y = 200.0 km
+        Vector2D velocity = new Vector2D(Math.sqrt(6.6743e-20 * 1.3452e23 / (2575.5 + 200.0)), 0.0);
 
-        private static LandingState createExampleInitialState() {
-            double y = 200.0;            // ??can still be modified -> Altitude over Titan surface in km
-            double x = 0.5;              // Arbitrary horizontal position(doesn't matter to much, can be modified as well)
-            double vy = 0.0;             // Vertical velocity is zero (parallel to the surface)
-
-            // Constants for Titan and gravity
-            double G = 6.6743e-20;       // Gravitational constant in km^3/kg/s^2
-            double M_TITAN = 1.3452e23;  // Mass of Titan in kg
-            double R_TITAN = 2575.5;     // Radius of Titan in km
-
-
-            double r = R_TITAN + y;
-            double vx = Math.sqrt(G * M_TITAN / r); // orbital velocity  
-
-            //ignoring rotation for now 
+        //ignoring rotation for now
             double theta = 0.0;
             double vtheta = 0.0;
             double time = 0.0;
 
-            return new LandingState(x, y, theta, vx, vy, vtheta, time);
-        }
+        return new LandingState(position, theta, velocity, vtheta, time);
+
+    }
 
     /**
      * Print landing accuracy information
      */
     private static void printLandingAccuracy(LandingState finalState) {
         System.out.println("Landing Accuracy:");
-        System.out.printf("  Horizontal error: %.1f m%n", Math.abs(finalState.x * 1000));
-        System.out.printf("  Vertical error: %.1f m%n", Math.abs(finalState.y * 1000));
+
+
+        System.out.printf("  Horizontal error: %.1f m%n", Math.abs(finalState.position.x * 1000));
+        System.out.printf("  Vertical error: %.1f m%n", Math.abs(finalState.position.y * 1000));
         System.out.printf("  Angle error: %.2f°%n", Math.toDegrees(Math.abs(finalState.theta % (2*Math.PI))));
-        System.out.printf("  Horizontal velocity: %.1f m/s%n", Math.abs(finalState.vx * 1000));
-        System.out.printf("  Vertical velocity: %.1f m/s%n", Math.abs(finalState.vy * 1000));
+        System.out.printf("  Horizontal velocity: %.1f m/s%n", Math.abs(finalState.velocity.x * 1000));
+        System.out.printf("  Vertical velocity: %.1f m/s%n", Math.abs(finalState.velocity.y * 1000));
         System.out.printf("  Angular velocity: %.3f rad/s%n", Math.abs(finalState.vtheta));
     }
 
@@ -128,7 +125,8 @@ public class LandingMain {
             if (i < totalPoints) {
                 LandingState state = trajectory.get(i);
                 System.out.printf("  t=%.1fs: x=%.3fkm, y=%.3fkm, vy=%.3fkm/s%n",
-                        state.time, state.x, state.y, state.vy);
+                        state.time, state.position.x, state.position.y, state.velocity.y);
+
             }
         }
     }
