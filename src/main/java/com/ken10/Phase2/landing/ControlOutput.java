@@ -28,4 +28,8 @@ public class ControlOutput {
         return String.format("ControlOutput[thrustX=%.4f, thrustY=%.4f, torque=%.4f]",
                 thrustX, thrustY, torque);
     }
+
+    public double getThrustMagnitude() {
+        return Math.sqrt(thrustX * thrustX + thrustY * thrustY);
+    }
 }

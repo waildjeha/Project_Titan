@@ -1,12 +1,12 @@
 package com.ken10.Phase2.landing;
 
 public class StateVector {
-    private final double x;
-    private final double vx;
-    private final double y;
-    private final double vy;
-    private final double theta;
-    private final double omega;
+    private double x;
+    private double vx;
+    private double y;
+    private double vy;
+    private  double theta;
+    private double omega;
 
     public StateVector(double x, double vx, double y, double vy, double theta, double omega) {
         this.x = x;
@@ -17,13 +17,17 @@ public class StateVector {
         this.omega = omega;
     }
 
-    public StateVector(double[] initialState) {
-        this.x = initialState[0];
-        this.vx = initialState[1];
-        this.y = initialState[2];
-        this.vy = initialState[3];
-        this.theta = initialState[4];
-        this.omega = initialState[5];
+    public void setFromArray(double[] arr) {
+        if (arr == null || arr.length != 6) {
+            throw new IllegalArgumentException("Input array must have exactly 6 elements.");
+        }
+
+        this.x = arr[0];
+        this.vx = arr[1];
+        this.y = arr[2];
+        this.vy = arr[3];
+        this.theta = arr[4];
+        this.omega = arr[5];
     }
 
     public double getX() { return x; }
@@ -44,32 +48,43 @@ public class StateVector {
 
     // Tolerance values
     public static double getLandingToleranceX() {
-        return 1e-4; // km
+        return 1e-4;
     }
 
     public static double getLandingToleranceY() {
-        return 1e-4; // km
+        return 0.0;
     }
 
     public static double getLandingToleranceVelocityX() {
-        return 1e-4; // km/s
+        return 1e-4;
     }
 
     public static double getLandingToleranceVelocityY() {
-        return 1e-4; // km/s
+        return 1e-4;
     }
 
     public static double getLandingToleranceTheta() {
-        return 0.02; // radians
+        return 0.02;
     }
 
     public static double getLandingToleranceAngularVelocity() {
-        return 0.01; // rad/s
+        return 0.01;
     }
 
     @Override
     public String toString() {
         return String.format("StateVector[x=%.5f, vx=%.5f, y=%.5f, vy=%.5f, θ=%.5f, ω=%.5f]",
                 x, vx, y, vy, theta, omega);
+    }
+
+    public double[] toArray() {
+        return new double[] {
+                x,
+                vx,
+                y,
+                vy,
+                theta,
+                omega
+        };
     }
 }
