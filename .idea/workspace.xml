@@ -5,7 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="unit test moved">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/landing/LandingSimulation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/landing/Vector2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase1/ODESolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase1/ODESolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/landing/ControlOutput.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/landing/FeedbackController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/landing/FeedbackTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/landing/StateVector.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/landing/TitanLandingODE.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/landing/Wind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/landing/Wind.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,53 +68,54 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.BalisticMissionSimulator.executor&quot;: &quot;Run&quot;,
-    &quot;Application.DifferentialEvolutionAlgorithm.executor&quot;: &quot;Run&quot;,
-    &quot;Application.EphemerisLoader.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ExamplePlanetMovement.executor&quot;: &quot;Run&quot;,
-    &quot;Application.LaunchStateBuilder.executor&quot;: &quot;Run&quot;,
-    &quot;Application.LotkaVolterraSimulation.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MissionSim.executor&quot;: &quot;Run&quot;,
-    &quot;Application.PlanetInfo.executor&quot;: &quot;Run&quot;,
-    &quot;Application.PlanetMotionTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProbeDifferentialEvolution.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProbeHillClimb.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProbeMission.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProbeMissionRunner.executor&quot;: &quot;Run&quot;,
-    &quot;Application.RK4Solver.executor&quot;: &quot;Run&quot;,
-    &quot;Application.RocketMissionRunner.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SolarSystem.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SolarSystemGUI.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SolarSystemVisualizer.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TitanInterceptSearch.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TitanInterceptSearchSimple.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TransferTime.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Wind.executor&quot;: &quot;Run&quot;,
-    &quot;Application.com.ken10.Dillons_Phase2.entities.NumericalSolvers.RK4Solver.executor&quot;: &quot;Run&quot;,
-    &quot;Application.com.ken10.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.com.ken10.Phase2.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader.executor&quot;: &quot;Run&quot;,
-    &quot;Application.sim.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;CurrentBranch&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/ivapapukchieva/IdeaProjects/DSA_2023_Public/Maastricht-University-Project-1-2/Project_Titan/src/main/resources/models&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.BalisticMissionSimulator.executor": "Run",
+    "Application.DifferentialEvolutionAlgorithm.executor": "Run",
+    "Application.EphemerisLoader.executor": "Run",
+    "Application.ExamplePlanetMovement.executor": "Run",
+    "Application.LandingSimulation.executor": "Run",
+    "Application.LaunchStateBuilder.executor": "Run",
+    "Application.LotkaVolterraSimulation.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.MissionSim.executor": "Run",
+    "Application.PlanetInfo.executor": "Run",
+    "Application.PlanetMotionTest.executor": "Run",
+    "Application.ProbeDifferentialEvolution.executor": "Run",
+    "Application.ProbeHillClimb.executor": "Run",
+    "Application.ProbeMission.executor": "Run",
+    "Application.ProbeMissionRunner.executor": "Run",
+    "Application.RK4Solver.executor": "Run",
+    "Application.RocketMissionRunner.executor": "Run",
+    "Application.SolarSystem.executor": "Run",
+    "Application.SolarSystemGUI.executor": "Run",
+    "Application.SolarSystemVisualizer.executor": "Run",
+    "Application.TitanInterceptSearch.executor": "Run",
+    "Application.TitanInterceptSearchSimple.executor": "Run",
+    "Application.TransferTime.executor": "Run",
+    "Application.Wind.executor": "Run",
+    "Application.com.ken10.Dillons_Phase2.entities.NumericalSolvers.RK4Solver.executor": "Run",
+    "Application.com.ken10.Main.executor": "Run",
+    "Application.com.ken10.Phase2.Main.executor": "Run",
+    "Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader.executor": "Run",
+    "Application.sim.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "CurrentBranch",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/ivapapukchieva/IdeaProjects/DSA_2023_Public/Maastricht-University-Project-1-2/Project_Titan/src/main/resources/models",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.editor.code.editing",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/models" />
@@ -118,7 +128,7 @@
       <recent name="com.ken10" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.com.ken10.Main">
+  <component name="RunManager">
     <configuration name="EphemerisLoader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ken10.Dillons_Phase2.entities.astro.Emhemeris.EphemerisLoader" />
       <module name="titan" />
@@ -186,11 +196,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.com.ken10.Main" />
         <item itemvalue="Application.TitanInterceptSearch" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.EphemerisLoader" />
         <item itemvalue="Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader" />
-        <item itemvalue="Application.com.ken10.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -225,6 +235,7 @@
       <workItem from="1746977612967" duration="21440000" />
       <workItem from="1748541153507" duration="26000" />
       <workItem from="1748541302833" duration="3105000" />
+      <workItem from="1749202269165" duration="9092000" />
     </task>
     <task id="LOCAL-00001" summary="Changed LotkaVolterraForPlanets and RK4ForPlanets to work with vectors">
       <option name="closed" value="true" />
@@ -362,7 +373,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749146098626</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="unit test moved">
+      <option name="closed" value="true" />
+      <created>1749146770113</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1749146770113</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -401,5 +420,9 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
