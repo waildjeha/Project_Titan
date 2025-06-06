@@ -72,7 +72,7 @@ public class SolarSystemGUI extends Application {
     private Label timeLabel;
     private Button playPauseButton;
     private Slider timeSlider;
-    private boolean isPlaying = true; // Start playing by default
+    private boolean isPlaying = false; // Only starts playing when the user clicks a button for that.
     
     // Visualization components
     private ArrayList<CelestialBodies> celestialBodies;
@@ -923,7 +923,7 @@ public class SolarSystemGUI extends Application {
         });
         
         // Create play/pause button
-        playPauseButton = new Button("Pause");  // Start in playing state
+        playPauseButton = new Button("Play");  // Start in paused state
         playPauseButton.setOnAction(e -> {
             isPlaying = !isPlaying;
             playPauseButton.setText(isPlaying ? "Pause" : "Play");
@@ -967,8 +967,8 @@ public class SolarSystemGUI extends Application {
     private void restartSimulation() {
         currentTimeIndex = 0;
         currentTime = startTime;
-        isPlaying = true;
-        playPauseButton.setText("Pause");
+        isPlaying = false; // Pause the simulation and only restarts when the user specifies it.
+        playPauseButton.setText("Play");
         timeSlider.setValue(0);
         updateVisualization();
         
