@@ -29,6 +29,7 @@ public class LandingSimulation
     private double currentTorque;
 
     private double targetRotation;
+    private double windFactor=0.5;
 
     public LandingSimulation(Vector2 startPosition, Vector2 startVelocity, double startRotation)
     {
@@ -114,8 +115,15 @@ public class LandingSimulation
         double x = acceleration * Math.sin(radians);
         double y = acceleration * Math.cos(radians) - g;
         currentVelocity = new Vector2(x, y);
-//        currentVelocity=Wind.applyWindVector(currentVelocity);
+
+        currentVelocity=Wind.applyWindVector(currentVelocity,windFactor);
         currentPosition = currentPosition.add(currentVelocity);
+
+        if (Math.abs(currentPosition.getY()) < 1e-3 + 0.001) {
+            currentPosition = new Vector2(currentPosition.getX(), 0);
+            currentVelocity = new Vector2(currentVelocity.getX(), 0);
+        }
+
     }
 
     private void rotate()
@@ -136,7 +144,7 @@ public class LandingSimulation
     private boolean isRotationAligned() { return currentRotation == targetRotation; }
 
     private boolean isXReached() { return Math.abs(currentPosition.getX()) <= positionXTolerance; }
-    private boolean isYReached() { return Math.abs(currentPosition.getY()) <= positionYTolerance; }
+    private boolean isYReached() {return Math.abs(currentPosition.getY()) <= positionYTolerance; }
     private boolean isRotationReached() { return Math.abs(currentRotation) <= rotationTolerance; }
 
     private double clamp(double value, double min, double max)
@@ -146,7 +154,7 @@ public class LandingSimulation
 
     public static void main(String[] args)
     {
-        Vector2 startPosition = new Vector2(100, 100);
+        Vector2 startPosition = new Vector2(10, 1000);
         Vector2 startVelocity = Vector2.ZERO;
         double startRotation = 0;
         LandingSimulation landingSimulation = new LandingSimulation(startPosition, startVelocity, startRotation);

@@ -21,9 +21,9 @@ public class Wind {
 
 
 
-    public static Vector2 applyWindVector(Vector2 currentVector){
-        Vector2 windVector=getWindVector(currentVector.getY());
-        return new Vector2(currentVector.getX()+windVector.getX(),currentVector.getY()+windVector.getY());
+    public static Vector2 applyWindVector(Vector2 currentVector, double scalar) {
+        Vector2 windVector = getWindVector(currentVector.getY()).multiply(scalar);
+        return  currentVector.add(windVector);
     }
 
     public static Vector2 getWindVector(double distanceToTitan){
@@ -52,7 +52,10 @@ public class Wind {
      */
     public static double calculateZonalWind(double distanceToTitan) {
         double wind;
-        if (distanceToTitan < 10) {
+        if(distanceToTitan<0.005){
+            wind=0;
+        }
+        else if (distanceToTitan < 10) {
             double slope = calculateSlope(0, 0, 10, 1);
             wind = slope * distanceToTitan;
         } else if (distanceToTitan < 60) {
@@ -96,6 +99,9 @@ public class Wind {
      * @return The meridional wind speed in meters per second (m/s).
      */
     public static double calculateMeridionalWind(double distanceToTitan) {
+        if(distanceToTitan<0.005){
+            return 0;
+        }
         if (distanceToTitan < 1) {
             return -0.9 * Math.sin(Math.PI * distanceToTitan);
         } else if (distanceToTitan < 20) {
@@ -130,6 +136,8 @@ public class Wind {
                 applyNoise(windVector.getX(), noiseFactor),
                 applyNoise(windVector.getY(), noiseFactor));
     }
+
+
 
 
         public static void main(String[] args) {
