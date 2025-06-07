@@ -57,6 +57,10 @@ public class Probe extends CelestialBodies {
         this.earthReturnTime = null;
     }
 
+    public Probe(String name, Vector position, Vector velocity, double relativeScalingFactor, double size) {
+        super(name, position, velocity, MASS);
+    }
+
     /**
      * Use for quick maneuvers like path correction or deceleration
      * for orbital insertion

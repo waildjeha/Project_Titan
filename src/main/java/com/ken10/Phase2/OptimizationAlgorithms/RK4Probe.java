@@ -132,7 +132,8 @@ public class RK4Probe {
         kVelocity = kVelocity.divide(6);
         kAcceleration = kAcceleration.divide(6);
 
-        return new Probe(probe.getName(), y1.getPosition().add(kVelocity), y1.getVelocity().add(kAcceleration),1.0,11.0);
+       // return new Probe(probe.getName(), y1.getPosition().add(kVelocity), y1.getVelocity().add(kAcceleration),1.0,11.0);
+        return y1;
     }
 
     @Override
