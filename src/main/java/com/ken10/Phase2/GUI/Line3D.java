@@ -6,63 +6,59 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.transform.Rotate;
 import javafx.geometry.Point3D;
+import javafx.scene.transform.Translate;
 
 /**
- * A simple 3D line implementation using a thin cylinder
+ * Class for creating 3D line segments using thin cylinders.
+ * Used for visualizing orbital paths in 3D space.
+ * Calculates proper positioning and rotation to connect two 3D points.
 */
 public class Line3D extends Group {
+    /**
+     * Constructor for Line3D that creates a 3D line between two points.
+     * 
+     * @param startX X coordinate of the line start point
+     * @param startY Y coordinate of the line start point  
+     * @param startZ Z coordinate of the line start point
+     * @param endX X coordinate of the line end point
+     * @param endY Y coordinate of the line end point
+     * @param endZ Z coordinate of the line end point
+     * @param color Color of the line
+    */
     public Line3D(double startX, double startY, double startZ, 
-                double endX, double endY, double endZ, Color color) {
+                    double endX, double endY, double endZ, Color color) {
         
-        // Calculate the midpoint of the line
-        double midX = (startX + endX) / 2;
-        double midY = (startY + endY) / 2;
-        double midZ = (startZ + endZ) / 2;
-        
-        // Calculate length and direction
+        // Calculate the length of the line
         double dx = endX - startX;
         double dy = endY - startY;
         double dz = endZ - startZ;
         double length = Math.sqrt(dx*dx + dy*dy + dz*dz);
         
-        // Create a thin cylinder to represent the line
-        Cylinder line = new Cylinder(0.2, length);
+        // Create a cylinder with the appropriate dimensions
+        Cylinder line = new Cylinder(0.1, length);
         
-        // Set the material
+        // Set the material and color
         PhongMaterial material = new PhongMaterial();
         material.setDiffuseColor(color);
         line.setMaterial(material);
         
-        // Position at midpoint
-        line.setTranslateX(midX);
-        line.setTranslateY(midY);
-        line.setTranslateZ(midZ);
-        
-        // Rotate to align with the direction
-        // Default orientation of cylinder is along y-axis
+        // Calculate rotation angles
         Point3D yAxis = new Point3D(0, 1, 0);
-        Point3D direction = new Point3D(dx, dy, dz);
+        Point3D diff = new Point3D(dx, dy, dz);
+        Point3D axisOfRotation = yAxis.crossProduct(diff);
+        double angle = Math.acos(yAxis.dotProduct(diff) / length) * 180 / Math.PI;
         
-        // Skip rotation if direction is too small
-        if (length > 0.001) {
-            // Normalize the direction vector
-            direction = direction.normalize();
-            
-            // Find the rotation axis (perpendicular to both vectors)
-            Point3D rotationAxis = yAxis.crossProduct(direction);
-            double rotationAxisLength = rotationAxis.magnitude();
-            
-            // If rotation axis length is not zero, perform rotation
-            if (rotationAxisLength > 0.001) {
-                double angle = Math.acos(yAxis.dotProduct(direction));
-                Rotate rotate = new Rotate(Math.toDegrees(angle), rotationAxis);
-                line.getTransforms().add(rotate);
-            } else if (direction.getY() < 0) {
-                // Special case when direction is opposite to y-axis
-                line.getTransforms().add(new Rotate(180, 1, 0, 0));
-            }
-        }
+        // Apply transformations
+        Translate moveToStart = new Translate(startX, startY, startZ);
+        Rotate rotation = new Rotate(angle, axisOfRotation);
         
-        getChildren().add(line);
+        // Position at the center of the line
+        Translate moveToCenter = new Translate(0, length/2, 0);
+        
+        // Apply transformations
+        this.getTransforms().addAll(moveToStart, rotation, moveToCenter);
+        
+        // Add the cylinder
+        this.getChildren().add(line);
     }
 }
