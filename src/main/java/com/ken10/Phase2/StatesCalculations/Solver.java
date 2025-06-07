@@ -16,7 +16,8 @@ public abstract class Solver implements ODE_Function {
     protected ArrayList<CelestialBodies> planetarySystem;
     protected LocalDateTime time;
     protected LocalDateTime endTime;
-    protected int stepSizeMins;
+    protected int stepSize;
+    protected boolean isSeconds = false;
     protected static final LocalDateTime START_TIME = LocalDateTime.of(2025, 4, 1, 0,0);
     public Hashtable<LocalDateTime, ArrayList<CelestialBodies>> history;
 
@@ -30,20 +31,21 @@ public abstract class Solver implements ODE_Function {
      *
      * @param startTime     Initial time
      * @param endTime       End time for simulation
-     * @param stepSizeMins Time step size
+     * @param stepSize Time step size
      */
-    public Solver(ArrayList<CelestialBodies> planetarySystem, LocalDateTime startTime, LocalDateTime endTime, int stepSizeMins) {
+    public Solver(ArrayList<CelestialBodies> planetarySystem, LocalDateTime startTime, LocalDateTime endTime, int stepSize, boolean isSeconds) {
         this.time = startTime;
         this.planetarySystem = planetarySystem;
         this.endTime = endTime;
-        this.stepSizeMins = stepSizeMins;
+        this.stepSize = stepSize;
+        this.isSeconds = isSeconds;
         this.history = new Hashtable<>();
         recordState();
     }
-    public Solver(int stepSizeMins) {
+    public Solver(int stepSize) {
         this.time = START_TIME;
         this.endTime = LocalDateTime.of(2026, 3, 31, 23, 59, 59);
-        this.stepSizeMins = stepSizeMins;
+        this.stepSize = stepSize;
         this.planetarySystem = SolarSystem.createPlanets();
         this.history = new Hashtable<>();
         recordState();

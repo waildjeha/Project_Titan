@@ -52,20 +52,17 @@ public class RK4Probe {
 
     public void solve() {
         LocalDateTime t0 = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
-        historyProbe.put(time, probe);
         closestDistance = getDistance(probe.getPosition(),
                 historyPlanets.get(time).get(BodyID.TITAN.index()).getPosition());
 
         while (time.isBefore(endTime)) {
+            historyProbe.put(time, probe);
             // Check collision at current time
             if(time.isBefore(t0.plusMinutes(8))) {
                 double earthDist = getDistance(probe.getPosition(),
                         historyPlanets.get(time).get(BodyID.EARTH.index()).getPosition());
-                if(earthDist <= 6369.9998) break;
+                if(earthDist <= 6369.9998){historyProbe.clear(); break;}
             }
-
-            // Calculate new probe state
-            probe = rk4Helper();
 
             // Get Titan position at CURRENT time
             Vector currentTitanPosition = historyPlanets.get(time)
@@ -80,11 +77,12 @@ public class RK4Probe {
                 closestDistance = distToTitan;
             }
 
+            // Calculate new probe state
+            probe = rk4Helper();
             // Store state and advance time
-            historyProbe.put(time, probe);
             time = time.plusMinutes(stepSizeMin);
         }
-
+//        System.out.println(time);
         // Handle final state after loop
         historyProbe.put(time, probe);
     }
@@ -150,13 +148,10 @@ public class RK4Probe {
         Probe probe = new Probe("probe", new Vector(-1.4664541759104577E8, -2.8949304626334388E7, 2241.9186033698497), new Vector(63.28501526589577, -30.337437078355766, -12.818387742029104));
         ArrayList<CelestialBodies> stateT0 = SolarSystem.createPlanets();
         stateT0.add(probe);
-        EphemerisLoader eph = new EphemerisLoader(stateT0, startTime, startTime.plusYears(1), 1);
+        EphemerisLoader eph = new EphemerisLoader(stateT0, startTime, startTime.plusYears(1), 1, false);
         eph.solve();
-        ArrayList<CelestialBodies> stateT1 = eph.history.get(LocalDateTime.of(2026, 3, 23, 0, 48));
-        Vector positionT = stateT1.get(BodyID.TITAN.index()).getPosition();
-        Vector positionP = stateT1.get(BodyID.SPACESHIP.index()).getPosition();
-        System.out.println(positionP.getDistance(positionT));
-
+        RK4Probe sim = new RK4Probe(probe, eph.history, 2);
+        sim.solve();
     }
 }
 

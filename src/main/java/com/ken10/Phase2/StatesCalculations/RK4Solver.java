@@ -19,8 +19,8 @@ public class RK4Solver extends Solver {
      * @param endTime Finish time, probably will be a year.
      * @param stepSizeMins stepsize -_-
      */
-    public RK4Solver(ArrayList<CelestialBodies> planetarySystem, LocalDateTime startTime, LocalDateTime endTime, int stepSizeMins) {
-        super(planetarySystem, startTime, endTime, stepSizeMins);
+    public RK4Solver(ArrayList<CelestialBodies> planetarySystem, LocalDateTime startTime, LocalDateTime endTime, int stepSizeMins, boolean isSeconds) {
+        super(planetarySystem, startTime, endTime, stepSizeMins, isSeconds);
     }
 
 
@@ -29,11 +29,15 @@ public class RK4Solver extends Solver {
      */
     @Override
     public void step() {
+        double h;
+        if(isSeconds) h = stepSize;
+        else h = stepSize*60;
+        long hNano = safeDoubleToInt(h) * 1000000000L;
         // Calculate the derivatives at the current time step using GravityCalc
-        int h = stepSizeMins * 60;
+
         LocalDateTime t = time;
-        LocalDateTime t2 = t.plusSeconds(h/2);
-        LocalDateTime t4 = t.plusSeconds(h);
+        LocalDateTime t2 = t.plusNanos(hNano/2);
+        LocalDateTime t4 = t.plusNanos(hNano);
         ArrayList<CelestialBodies> y1 = planetarySystem;
         int n = y1.size();
         ArrayList<CelestialBodies> k1 = GravityCalc.computeDerivatives(time, y1);
@@ -106,7 +110,7 @@ public class RK4Solver extends Solver {
         }
 
 
-        time = time.plusMinutes(stepSizeMins);
+        time = time.plusNanos(hNano);
         //printState();
         recordState();
 
@@ -135,9 +139,20 @@ public class RK4Solver extends Solver {
             return new Probe(original.getName(), position, velocity, original.getRelativeScalingFactor(), original.getSize());
     }
 
+    public static int safeDoubleToInt(double value) {
+        double tolerance = 10e-9;
+        double rounded = Math.round(value);
+        if (Math.abs(value - rounded) > tolerance) {
+            throw new IllegalArgumentException("Value " + value + " is not close to an integer.");
+        }
+        return (int) rounded;
+    }
 
-    /**
-     * temp main for testing.
-     * @param args
-     */
+
+    public static void main(String[] args) {
+        double i = 9.99999999999;
+        int ii = 10;
+        if (safeDoubleToInt(i)==ii) System.out.println("works");
+        else System.out.println("doesnt work");
+    }
 }

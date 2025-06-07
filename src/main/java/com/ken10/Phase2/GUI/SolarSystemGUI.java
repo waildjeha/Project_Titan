@@ -5,8 +5,7 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.MeshView;
 import com.ken10.Phase2.SolarSystemModel.*;
 import com.ken10.Phase2.StatesCalculations.*;
-import javafx.scene.Group;
-import javafx.scene.Node;
+
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -129,8 +128,8 @@ public class SolarSystemGUI extends Application {
         System.out.println("Loading ephemeris data...");
         
         // Initialize ephemeris loader with 2-minute steps
-
-        Probe probe = new Probe("probe", new Vector(-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497), new Vector(62.37766685559131, -32.92234163864975, -15.852587264581345), 1.0, 11.0);
+//      Probe probe = new Probe("probe", new Vector(-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497), new Vector(63.29024702239812, -33.49000052271595, -15.072908267640539), 1.0, 11.0);
+        Probe probe = new Probe("probe", new Vector(-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497), new Vector(63.29024702239812, -33.49000052271595, -15.072908267640539), 1.0, 11.0);
 
         // Initialize ephemeris loader with 2-minute steps
         EphemerisLoader eph = new EphemerisLoader(2, probe, 1);

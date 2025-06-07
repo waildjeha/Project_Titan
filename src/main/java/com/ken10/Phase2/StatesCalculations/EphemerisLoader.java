@@ -17,50 +17,50 @@ public final class EphemerisLoader extends RK4Solver implements EphemerisProvide
 public final ArrayList<CelestialBodies> initialState;
 private RK4Probe simulation;
 
-    public EphemerisLoader(ArrayList<CelestialBodies> planetarySystem, LocalDateTime startTime, LocalDateTime endTime, int stepSizeMins) {
-        super(planetarySystem, startTime, endTime, stepSizeMins);
+    public EphemerisLoader(ArrayList<CelestialBodies> planetarySystem, LocalDateTime startTime, LocalDateTime endTime, int stepSize, boolean isSeconds) {
+        super(planetarySystem, startTime, endTime, stepSize, isSeconds);
         this.initialState = planetarySystem;
     }
     public EphemerisLoader(int stepSizeMins) {
         super(SolarSystem.createPlanets(),
                 LocalDateTime.of(2025, 4, 1, 0, 0),
                 LocalDateTime.of(2026, 4, 1, 0, 0),
-                stepSizeMins);
+                stepSizeMins, false);
         this.initialState = planetarySystem;
     }
     public EphemerisLoader(int stepSizeMins, int durationYears) {
         super(SolarSystem.createPlanets(),
                 LocalDateTime.of(2025, 4, 1, 0, 0),
                 LocalDateTime.of(2025+durationYears, 4, 1, 0, 0),
-                stepSizeMins);
+                stepSizeMins, false);
         this.initialState = planetarySystem;
     }
 
-    public EphemerisLoader(int stepSizeMins,Probe probe, int duration) {
-        super(SolarSystem.createPlanets(), START_TIME, START_TIME.plusYears(duration), stepSizeMins);
+    public EphemerisLoader(int stepSizeMins, Probe probe, int duration) {
+        super(SolarSystem.createPlanets(), START_TIME, START_TIME.plusYears(duration), stepSizeMins, false);
         this.initialState = planetarySystem;
         loadHistory(probe, duration);
     }
 
     private void loadHistory(Probe probe, int duration) {
-        stepSizeMins = stepSizeMins/2;
+        stepSize = stepSize /2;
         solve();
-        stepSizeMins = stepSizeMins*2;
-        RK4Probe simulation = new RK4Probe(probe, history, stepSizeMins);
+        stepSize = stepSize *2;
+        RK4Probe simulation = new RK4Probe(probe, history, stepSize);
         simulation.solve();
         this.simulation = simulation;
         endTime = simulation.getClosestDistTime();
         System.out.println("EphemerisLoader: simulation = " + simulation);
-        for (LocalDateTime time = START_TIME; time.isBefore(endTime) || time.isEqual(endTime); time = time.plusMinutes(stepSizeMins))
+        for (LocalDateTime time = START_TIME; time.isBefore(endTime) || time.isEqual(endTime); time = time.plusMinutes(stepSize))
         {
             ArrayList<CelestialBodies> currentState = history.get(time);
             currentState.add(simulation.historyProbe.get(time));
             history.replace(time, currentState);
-            if(time.plusMinutes(stepSizeMins/2).isBefore(endTime))
-                history.remove(time.plusMinutes(stepSizeMins/2));
+            if(time.plusMinutes(stepSize /2).isBefore(endTime))
+                history.remove(time.plusMinutes(stepSize /2));
         }
 
-        for(var time = endTime.plusMinutes(stepSizeMins/2); time.isBefore(START_TIME.plusYears(duration))||time.isEqual(START_TIME.plusYears(duration)); time = time.plusMinutes(stepSizeMins/2)){
+        for(var time = endTime.plusMinutes(stepSize /2); time.isBefore(START_TIME.plusYears(duration))||time.isEqual(START_TIME.plusYears(duration)); time = time.plusMinutes(stepSize /2)){
             history.remove(time);
         }
     }
@@ -86,7 +86,12 @@ private RK4Probe simulation;
         //We need to find the velocity of the planets in the current state
     }
 
-
+    public int getStepSize() {
+        return stepSize;
+    }
+    public boolean isSeconds() {
+        return isSeconds;
+    }
 
     public static void main(String[] args) {
         LocalDateTime startTime = LocalDateTime.of(2025, 4, 1, 0, 0);

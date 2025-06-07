@@ -1,8 +1,12 @@
 package com.ken10.Phase2.OptimizationAlgorithms;
 
+import com.ken10.Phase2.SolarSystemModel.BodyID;
+import com.ken10.Phase2.SolarSystemModel.Earth;
 import com.ken10.Phase2.SolarSystemModel.Probe;
 import com.ken10.Phase2.SolarSystemModel.Vector;
+import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +65,9 @@ public class HillClimbing {
     public RK4Probe getBestSimulation() {
         return bestSimulation;
     }
+    public void setBestVelocity(RK4Probe bestSimulation){
+        this.bestSimulation = bestSimulation;
+    }
     /**
      * Runs an adaptive hill‑climbing search over the probe's initial velocity
      * vector.  The step size (“learning rate”) is increased each time an
@@ -70,7 +77,7 @@ public class HillClimbing {
      *
      * @return a simulation whose closest approach distance is the best found.
      */
-    public RK4Probe findOptimalVelocity() {
+    private RK4Probe findOptimalVelocity() {
         RK4Probe bestSim = bestSimulation;
         double bestDistance = bestSim.getClosestDistance();
         double step = initialStep;
@@ -79,6 +86,7 @@ public class HillClimbing {
             boolean improved = false;
 
             for (Vector neighbourVelocity : generateNeighbours(bestSim.getInitialProbe().getVelocity(), step)) {
+
                 Probe probe = new Probe("dominik", launchData.getInitialPosition(), neighbourVelocity);
                 RK4Probe sim = new RK4Probe(probe, launchData.getHistoryPlanets(), bestSim.getStepSizeMin());
                 sim.solve();
@@ -92,10 +100,8 @@ public class HillClimbing {
                             bestDistance, step, bestSim.getClosestDistTime());
 
                     break;      // explore around the new best solution
-
                 }
             }
-
             // Adapt the step size (“learning rate”)
             step = improved ? step * enlargeFactor : step * shrinkFactor;
         }
@@ -116,6 +122,19 @@ public class HillClimbing {
         neighbours.add(v.addZ(step));
         neighbours.add(v.addZ(-step));
         return neighbours;
+    }
+
+    public static void main(String[] args) {
+        var probe = new Probe("probe",new Vector(-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497),new Vector (63.289186302398114, -33.49000052271595, -15.073058267640539));
+        EphemerisLoader eph = new EphemerisLoader(1);
+        eph.solve();
+        RK4Probe bestSimulation = new RK4Probe(probe, eph.history, 2);
+        bestSimulation.solve();
+        LocalDateTime launchTime = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
+        LaunchData launchData = new LaunchData(BodyID.TITAN, Earth.EARTH_INITIAL_POSITION.addX(6370), launchTime);
+        HillClimbing hc = new HillClimbing(bestSimulation, launchData);
+        hc.solve();
+        System.out.println(hc.getBestSimulation());
     }
 }
 

@@ -62,6 +62,39 @@ public class Vector {
         );
     }
 
+    public Vector findOrthogonalVector() {
+        double x = getX();
+        double y = getY();
+        double z = getZ();
+
+        // Handle zero vector case
+        if (x == 0 && y == 0 && z == 0) {
+            throw new IllegalArgumentException("Cannot find orthogonal vector for zero vector");
+        }
+
+        // Fixed reference vector (1,0,0)
+        Vector reference = new Vector(1, 0, 0);
+
+        // Compute cross product v × reference
+        Vector orthogonal = new Vector(
+                y * reference.getZ() - z * reference.getY(),
+                z * reference.getX() - x * reference.getZ(),
+                x * reference.getY() - y * reference.getX()
+        );
+
+        // If result is zero (v parallel to reference), use different reference (0,1,0)
+        if (orthogonal.magnitude() < 1e-10) {
+            reference = new Vector(0, 1, 0);
+            orthogonal = new Vector(
+                    y * reference.getZ() - z * reference.getY(),
+                    z * reference.getX() - x * reference.getZ(),
+                    x * reference.getY() - y * reference.getX()
+            );
+        }
+
+        return orthogonal;
+    }
+
     public double dot(Vector v) {
         return this.x * v.x + this.y * v.y + this.z * v.z;
     }
@@ -77,4 +110,15 @@ public class Vector {
     public String toString() {
         return "(" + x + ", " + y + ", " + z + ")";
     }
+
+    public static void main(String[] args) {
+        Vector vector = new Vector(1, 2, 3).normalize();
+        Vector orthogonalVector = vector.findOrthogonalVector();
+        System.out.println(vector);
+        System.out.println(orthogonalVector);
+        double dotProduct = vector.dot(orthogonalVector);
+        System.out.println(dotProduct);
+    }
 }
+
+

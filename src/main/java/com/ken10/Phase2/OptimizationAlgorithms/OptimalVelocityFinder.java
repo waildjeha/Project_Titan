@@ -46,3 +46,9 @@ RK4Probe foundData;
 //Velocity magnitude relative to earth: 59.35185082621291
 //Closest Distance to Titan: 2545.9443054973567
 //Date of closest approach: 2026-03-17T20:52
+
+//----------------------------------------------------------
+//Initial probe position and velocity: (-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497) (63.29024702239812, -33.49000052271595, -15.072908267640539)
+//Velocity magnitude relative to earth: 60.066056771931656
+//Closest Distance to Titan: 2508.27816086085
+//Date of closest approach: 2026-03-20T02:26

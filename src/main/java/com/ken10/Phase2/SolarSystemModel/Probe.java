@@ -98,5 +98,8 @@ public class Probe extends CelestialBodies {
         Vector pointedAtTitan = earthPosition.add(surfaceOffset).multiply(-1);
         System.out.println(pointedAtTitan.normalize().multiply(60));
     }
+    public Probe copyProbe(Vector position, Vector velocity) {
+        return new Probe(getName(), position, velocity, MASS, size);
+    }
 
 }
