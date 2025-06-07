@@ -43,6 +43,10 @@ public class Probe extends CelestialBodies {
         super(name, position, velocity, mass, scaling, size);
     }
 
+    public Probe(String name, Vector position, Vector velocity, double scaling, double size){
+        super(name, position, velocity, MASS, scaling, size);
+    }
+
     public Probe(String name, Vector position, Vector velocity, boolean isNuclearEngine) {
         super(name, position, velocity, MASS);
         this.initialPosition = position;

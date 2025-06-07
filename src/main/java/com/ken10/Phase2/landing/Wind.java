@@ -1,4 +1,4 @@
-package com.ken10.Phase2.ProbeMission;
+package com.ken10.Phase2.landing;
 
 import com.ken10.Phase2.SolarSystemModel.Vector;
 
@@ -11,10 +11,25 @@ import java.util.Random;
  * <i>Journal of Geophysical Research: Planets – Chapter 4.1: Winds</i>.</p>
  *
  */
+
+//since the landing is 2D we will apply two types of wind
+
 public class Wind {
 
    private static Random random =new Random();
     private static final double DEFAULT_NOISE_FACTOR = 0.1;
+
+
+
+    public static Vector2 applyWindVector(Vector2 currentVector){
+        Vector2 windVector=getWindVector(currentVector.getY());
+        return new Vector2(currentVector.getX()+windVector.getX(),currentVector.getY()+windVector.getY());
+    }
+
+    public static Vector2 getWindVector(double distanceToTitan){
+        Vector2 windVector=createWindVector(distanceToTitan);
+     return addRandomNoise(windVector);
+    }
 
     /**
      * Creates a wind vector at a given altitude (km) from Titan's surface.
@@ -23,17 +38,11 @@ public class Wind {
      */
 
 
-    public static Vector getWindVector(double distanceToTitan){
-        Vector windVector=createWindVector(distanceToTitan);
-     return addRandomNoise(windVector);
-    }
-
-
-    public static Vector createWindVector(double distanceToTitan) {
+    public static Vector2 createWindVector(double distanceToTitan) {
         double zonal = calculateZonalWind(distanceToTitan);
         double meridional = calculateMeridionalWind(distanceToTitan);
         double vertical = calculateVerticalWind(distanceToTitan);
-        return new Vector(zonal, meridional, vertical);
+        return new Vector2(zonal, meridional);
     }
 
     /**
@@ -112,16 +121,14 @@ public class Wind {
         return value * (1 + (random.nextDouble() * 2 - 1) * noiseFactor);
     }
 
-    public static Vector addRandomNoise(Vector windVector) {
+    public static Vector2 addRandomNoise(Vector2 windVector) {
         return addRandomNoise(windVector, DEFAULT_NOISE_FACTOR);
     }
 
-    public static Vector addRandomNoise(Vector windVector, double noiseFactor) {
-        return new Vector(
+    public static Vector2 addRandomNoise(Vector2 windVector, double noiseFactor) {
+        return new Vector2(
                 applyNoise(windVector.getX(), noiseFactor),
-                applyNoise(windVector.getY(), noiseFactor),
-                applyNoise(windVector.getZ(), noiseFactor)
-        );
+                applyNoise(windVector.getY(), noiseFactor));
     }
 
 
@@ -133,14 +140,14 @@ public class Wind {
             System.out.println("-----------------------------------------------------------------------------------------");
 
             for (double altitude : distanceToTitan) {
-                Vector windVector = Wind.getWindVector(altitude);
+                Vector2 windVector = Wind.getWindVector(altitude);
                 double zonal = Wind.calculateZonalWind(altitude);
                 double meridional = Wind.calculateMeridionalWind(altitude);
-                double vertical = Wind.calculateVerticalWind(altitude);
+//                double vertical = Wind.calculateVerticalWind(altitude);
 
-                System.out.printf("%12.1f | %11.3f | %15.3f | %13.5f | (%.3f, %.3f, %.5f)%n",
-                        altitude, zonal, meridional, vertical,
-                        windVector.getX(), windVector.getY(), windVector.getZ());
+                System.out.printf("%12.1f | %11.3f | %15.3f  | (%.3f, %.3f)%n",
+                        altitude, zonal,meridional,
+                        windVector.getX(), windVector.getY());
             }
         }
     }

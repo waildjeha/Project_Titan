@@ -85,4 +85,13 @@ public class GravityCalc {
 
         return derivatives;
     }
+
+
+    public static double calculateGravity(CelestialBodies planet, double altitude) {
+        double G = g; 
+        double M = planet.getMass();     // kg
+        double R = planet.getRadius();   // km  for now, it is only usable for titan, because it has getRadius method
+        return G * M / Math.pow(R + altitude, 2);  // km/s²
+    }
+
 }

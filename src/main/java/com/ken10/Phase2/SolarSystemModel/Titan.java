@@ -8,4 +8,8 @@ public class Titan extends CelestialBodies {
     public Titan(String name, Vector position, Vector velocity, double mass, double scaling, double size) {
         super(name, position, velocity, mass, scaling, size);
     }
+
+    public double getRadius() {
+        return RADIUS;
+    }
 }

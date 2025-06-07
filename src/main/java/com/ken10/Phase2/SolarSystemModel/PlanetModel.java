@@ -11,4 +11,8 @@ public class PlanetModel extends CelestialBodies {
         super(name, position, velocity, mass, scaling, size);
     }
 
+    public double getRadius() {
+        return 0; // Placeholder, should be overridden by subclasses
+    }
+
 }
