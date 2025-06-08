@@ -1,11 +1,16 @@
 package com.ken10.Phase2.OptimizationAlgorithms;
 
-import com.ken10.Phase2.SolarSystemModel.BodyID;
-import com.ken10.Phase2.SolarSystemModel.Earth;
-import com.ken10.Phase2.SolarSystemModel.Vector;
+import com.ken10.Phase2.SolarSystemModel.*;
 import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+
+import static com.ken10.Phase2.SolarSystemModel.SolarSystem.T_0;
 
 public class OptimalVelocityFinder{
 LaunchData launchData;
@@ -33,12 +38,33 @@ RK4Probe foundData;
         return finalGuess.getBestSimulation();
     }
 
+    private static EphemerisLoader findFirstMissionHistory(){
+        Vector earthPos = new Vector (-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497);
+        Probe probe = new Probe("probe", earthPos, new Vector (63.29024702239812, -33.49000052271595, -15.072908267640539));
+        EphemerisLoader eph = new EphemerisLoader(1, probe, 1);
+        eph.solve();
+        return eph;
+    }
+
+    private static LaunchData prepareDataForReturn(EphemerisLoader mission1){
+        List<LocalDateTime> sortedTimes = new ArrayList<>(mission1.history.keySet().stream().sorted().toList());
+        LocalDateTime startTime2 = sortedTimes.get(sortedTimes.size()-2);
+        LocalDateTime endTime2 = LocalDateTime.of(2027, 4, 1, 0,0,0);
+        BodyID destination = BodyID.EARTH;
+        BodyID launchPlanet = BodyID.TITAN;
+        ArrayList<CelestialBodies> initialState = mission1.history.get(startTime2);
+        Vector initialPos = initialState.get(BodyID.SPACESHIP.index()).getPosition();
+        initialState.remove(BodyID.SPACESHIP.index());
+        return new LaunchData(destination, launchPlanet, initialPos, startTime2, endTime2, initialState);
+    }
+
     public static void main(String[] args) {
-        LocalDateTime launchTime = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
-        LaunchData launchData = new LaunchData(BodyID.TITAN, Earth.EARTH_INITIAL_POSITION.addX(6370), launchTime);
-        OptimalVelocityFinder optimalVelocityFinder = new OptimalVelocityFinder(launchData);
+        EphemerisLoader mission1 = findFirstMissionHistory();
+        LaunchData launchData2 = prepareDataForReturn(mission1);
+        OptimalVelocityFinder optimalVelocityFinder = new OptimalVelocityFinder(launchData2);
         optimalVelocityFinder.solve();
         System.out.println(optimalVelocityFinder.getFoundData());
+
     }
 }
 //----------------------------------------------------------
@@ -47,6 +73,9 @@ RK4Probe foundData;
 //Closest Distance to Titan: 2545.9443054973567
 //Date of closest approach: 2026-03-17T20:52
 
+
+
+//MISSION 1 RESULTS
 //----------------------------------------------------------
 //Initial probe position and velocity: (-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497) (63.29024702239812, -33.49000052271595, -15.072908267640539)
 //Velocity magnitude relative to earth: 60.066056771931656

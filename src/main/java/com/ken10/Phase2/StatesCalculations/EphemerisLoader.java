@@ -1,11 +1,14 @@
 package com.ken10.Phase2.StatesCalculations;
 
 
+import com.ken10.Phase2.OptimizationAlgorithms.LaunchData;
 import com.ken10.Phase2.OptimizationAlgorithms.RK4Probe;
 import com.ken10.Phase2.SolarSystemModel.*;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 
@@ -15,7 +18,11 @@ import java.util.List;
 public final class EphemerisLoader extends RK4Solver implements EphemerisProvider {
 
 public final ArrayList<CelestialBodies> initialState;
-private RK4Probe simulation;
+
+private static final Probe probe1 = new Probe("probe", Earth.EARTH_INITIAL_POSITION.addX(Earth.RADIUS), new Vector(63.29024702239812, -33.49000052271595, -15.072908267640539), 1.0, 11.0);
+private static final Probe probe2 = new Probe("probe", new Vector(1.415144880720923E9, 1.0259423273646048E8, -5.7603837655609496E7), new Vector(-55.397539484098616, -1.6245451071670916, -1.301803152493976), 1.0, 11.0);
+private static final LocalDateTime startTime = LocalDateTime.of(2025, 4, 1, 0,0,0);
+
 
     public EphemerisLoader(ArrayList<CelestialBodies> planetarySystem, LocalDateTime startTime, LocalDateTime endTime, int stepSize, boolean isSeconds) {
         super(planetarySystem, startTime, endTime, stepSize, isSeconds);
@@ -36,33 +43,46 @@ private RK4Probe simulation;
         this.initialState = planetarySystem;
     }
 
-    public EphemerisLoader(int stepSizeMins, Probe probe, int duration) {
-        super(SolarSystem.createPlanets(), START_TIME, START_TIME.plusYears(duration), stepSizeMins, false);
+    public EphemerisLoader(int stepSizeMins, boolean isMission, int duration) {
+        super(SolarSystem.createPlanets(), T_0, T_0.plusYears(duration), stepSizeMins, false);
+        this.stepSize = Math.max(stepSizeMins, 2);
+        if(this.stepSize % 2 != 0) {
+            this.stepSize++;
+            System.out.println("Changed step size to " + this.stepSize);
+        }
         this.initialState = planetarySystem;
-        loadHistory(probe, duration);
+        loadHistory(duration);
     }
 
-    private void loadHistory(Probe probe, int duration) {
-        stepSize = stepSize /2;
+    private void loadHistory(int duration) {
+        stepSize = stepSize/2;
         solve();
-        stepSize = stepSize *2;
-        RK4Probe simulation = new RK4Probe(probe, history, stepSize);
+        stepSize = stepSize*2;
+        RK4Probe simulation = new RK4Probe(probe1, history, stepSize, T_0, T_0.plusYears(1), BodyID.TITAN, BodyID.EARTH);
         simulation.solve();
-        this.simulation = simulation;
-        endTime = simulation.getClosestDistTime();
-        System.out.println("EphemerisLoader: simulation = " + simulation);
-        for (LocalDateTime time = START_TIME; time.isBefore(endTime) || time.isEqual(endTime); time = time.plusMinutes(stepSize))
-        {
+        Hashtable<LocalDateTime, ArrayList<CelestialBodies>> hashtableToUse = new Hashtable<>();
+        for (LocalDateTime time = T_0; time.isBefore(simulation.getClosestDistTime()); time = time.plusMinutes(stepSize)) {
             ArrayList<CelestialBodies> currentState = history.get(time);
             currentState.add(simulation.historyProbe.get(time));
-            history.replace(time, currentState);
-            if(time.plusMinutes(stepSize /2).isBefore(endTime))
-                history.remove(time.plusMinutes(stepSize /2));
+            hashtableToUse.put(time, currentState);
         }
-
-        for(var time = endTime.plusMinutes(stepSize /2); time.isBefore(START_TIME.plusYears(duration))||time.isEqual(START_TIME.plusYears(duration)); time = time.plusMinutes(stepSize /2)){
-            history.remove(time);
+        if(duration == 1) {
+            history.clear();
+            history = hashtableToUse;
         }
+        else if(duration == 2) {
+            var startTime2 = simulation.getClosestDistTime().minusMinutes(simulation.getStepSize());
+            RK4Probe simulation2 = new RK4Probe(probe2, history, 2, startTime2, startTime.plusYears(2), BodyID.EARTH, BodyID.TITAN);
+            simulation2.solve();
+            for(var time = startTime2; time.isBefore(simulation2.getClosestDistTime()); time = time.plusMinutes(stepSize)) {
+                var currentState = history.get(time);
+                currentState.add(simulation2.historyProbe.get(time));
+                hashtableToUse.put(time, currentState);
+            }
+            history.clear();
+            history = hashtableToUse;
+        }
+        else System.out.println("Not a valid duration. Type in 1 or 2");
     }
 
     public LocalDateTime getEndTime() {
@@ -96,22 +116,9 @@ private RK4Probe simulation;
     public static void main(String[] args) {
         LocalDateTime startTime = LocalDateTime.of(2025, 4, 1, 0, 0);
         Vector earthPosition = new Vector(-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497);
-        Vector initialVelocity = new Vector(61.065619043674, -33.10614766691787, -15.82637073951113);
+        Vector initialVelocity = new Vector(63.29024702239812, -33.49000052271595, -15.072908267640539);
         Probe probe = new Probe("dominik", earthPosition, initialVelocity);
-        EphemerisLoader eph = new EphemerisLoader(2, probe, 1);
-        eph.solve();
-        var history = eph.history;
-        List<LocalDateTime> keys = history.keySet().stream().sorted().toList();
-
-            ArrayList<CelestialBodies> currentState = history.get(keys.getFirst());
-            CelestialBodies p = currentState.get(BodyID.SPACESHIP.index());
-            CelestialBodies t = currentState.get(BodyID.TITAN.index());
-            System.out.println("Dist at date: " + keys.getFirst() + " is equal to " + p.getPosition().getDistance(t.getPosition()));
-
-        ArrayList<CelestialBodies> currentState1 = history.get(keys.getLast());
-        CelestialBodies p1 = currentState1.get(BodyID.SPACESHIP.index());
-        CelestialBodies t1 = currentState1.get(BodyID.TITAN.index());
-        System.out.println("Dist at date: " + keys.getLast() + " is equal to " + p1.getPosition().getDistance(t1.getPosition()));
+        EphemerisLoader eph = new EphemerisLoader(2, true, 2);
 
 
 

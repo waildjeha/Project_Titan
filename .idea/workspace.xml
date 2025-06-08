@@ -4,22 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="wind">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/GoldenSectionOrbit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/HillClimbingOrbit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/Orbit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/ToTitan.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/VerifyOrbit.java" afterDir="false" />
+    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="madness ver2.0">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/FitnessFunctions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/GUI/SolarSystemGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/GUI/SolarSystemGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/EvolutionAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/EvolutionAlgorithm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/HillClimbing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/HillClimbing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/LaunchData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/LaunchData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/OptimalVelocityFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/OptimalVelocityFinder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/RK4Probe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/RK4Probe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/ProbeMission/Wind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/Wind.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/SolarSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/SolarSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Vector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/EphemerisLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/EphemerisLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/RK4Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/RK4Solver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/Solver.java" afterDir="false" />
@@ -39,9 +34,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -143,13 +138,13 @@
       <recent name="$PROJECT_DIR$/src/main/resources/source" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.GoldenSectionOrbit">
-    <configuration name="GoldenSectionOrbit" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.Missions.GoldenSectionOrbit" />
+  <component name="RunManager" selected="Application.OptimalVelocityFinder">
+    <configuration name="EphemerisLoader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.StatesCalculations.EphemerisLoader" />
       <module name="titan" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ken10.Phase2.Missions.*" />
+          <option name="PATTERN" value="com.ken10.Phase2.StatesCalculations.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -157,12 +152,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HillClimbingOrbit" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.Missions.HillClimbingOrbit" />
+    <configuration name="HillClimbing" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.OptimizationAlgorithms.HillClimbing" />
       <module name="titan" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ken10.Phase2.Missions.*" />
+          <option name="PATTERN" value="com.ken10.Phase2.OptimizationAlgorithms.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -170,12 +165,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Orbit" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.Missions.Orbit" />
+    <configuration name="OptimalVelocityFinder" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.OptimizationAlgorithms.OptimalVelocityFinder" />
       <module name="titan" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ken10.Phase2.Missions.*" />
+          <option name="PATTERN" value="com.ken10.Phase2.OptimizationAlgorithms.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -183,12 +178,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Vector" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.SolarSystemModel.Vector" />
+    <configuration name="RK4Probe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.OptimizationAlgorithms.RK4Probe" />
       <module name="titan" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ken10.Phase2.SolarSystemModel.*" />
+          <option name="PATTERN" value="com.ken10.Phase2.OptimizationAlgorithms.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -196,12 +191,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="VerifyOrbit" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.Missions.VerifyOrbit" />
+    <configuration name="RK4Solver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.StatesCalculations.RK4Solver" />
       <module name="titan" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ken10.Phase2.Missions.*" />
+          <option name="PATTERN" value="com.ken10.Phase2.StatesCalculations.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -211,11 +206,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.GoldenSectionOrbit" />
-        <item itemvalue="Application.HillClimbingOrbit" />
-        <item itemvalue="Application.Orbit" />
-        <item itemvalue="Application.Vector" />
-        <item itemvalue="Application.VerifyOrbit" />
+        <item itemvalue="Application.OptimalVelocityFinder" />
+        <item itemvalue="Application.RK4Solver" />
+        <item itemvalue="Application.EphemerisLoader" />
+        <item itemvalue="Application.RK4Probe" />
+        <item itemvalue="Application.HillClimbing" />
       </list>
     </recent_temporary>
   </component>
@@ -388,7 +383,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749127829052</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="madness ver2.0">
+      <option name="closed" value="true" />
+      <created>1749295445717</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1749295445717</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -415,7 +418,8 @@
     <MESSAGE value="probe added" />
     <MESSAGE value="wind" />
     <MESSAGE value="madness" />
-    <option name="LAST_COMMIT_MESSAGE" value="madness" />
+    <MESSAGE value="madness ver2.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="madness ver2.0" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

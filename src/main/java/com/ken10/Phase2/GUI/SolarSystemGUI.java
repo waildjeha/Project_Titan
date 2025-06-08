@@ -132,7 +132,7 @@ public class SolarSystemGUI extends Application {
         Probe probe = new Probe("probe", new Vector(-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497), new Vector(63.29024702239812, -33.49000052271595, -15.072908267640539), 1.0, 11.0);
 
         // Initialize ephemeris loader with 2-minute steps
-        EphemerisLoader eph = new EphemerisLoader(2, probe, 1);
+        EphemerisLoader eph = new EphemerisLoader(2, probe, 2);
         eph.solve();
         timeStates = eph.history;
 

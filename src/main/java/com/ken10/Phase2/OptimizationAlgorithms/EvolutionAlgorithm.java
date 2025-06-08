@@ -1,11 +1,9 @@
 package com.ken10.Phase2.OptimizationAlgorithms;
 
 import com.ken10.Phase2.SolarSystemModel.*;
-import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
 
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
 
@@ -24,9 +22,7 @@ public class EvolutionAlgorithm {
     private static final int MAX_GENERATIONS = 100;
     private static final double CROSSOVER_RATE = 0.9;
     private static final double DIFFERENTIAL_WEIGHT = 0.5;
-    private static final double PROBE_MASS = 50000;
-    private static final int STEP_SIZE_MINUTES = 5;
-    private static final double MAX_VELOCITY = 60.0;
+    private static final double MAX_VELOCITY = 60;
 
     private final Random RANDOM = new Random();
     private final Vector LAUNCH_POSITION;
@@ -37,15 +33,13 @@ public class EvolutionAlgorithm {
 
     public EvolutionAlgorithm(LaunchData launchData) {
         this.launchData = launchData;
-
         this.LAUNCH_POSITION = launchData.getInitialPosition();
-        this.SURFACE_PLANET_VELOCITY = loadSurfaceVelocity(launchData.getIsSurface());
+        this.SURFACE_PLANET_VELOCITY = loadSurfaceVelocity(launchData.getIsSurface(), launchData.historyPlanets.get(launchData.getLaunchTime()));
     }
 
-    private Vector loadSurfaceVelocity(BodyID body) {
+    private Vector loadSurfaceVelocity(BodyID body, ArrayList<CelestialBodies> initialState) {
         if (body.equals(BodyID.SPACESHIP)) return new Vector(0,0,0);
-        ArrayList<CelestialBodies> solarSystem = SolarSystem.createPlanets();
-        return solarSystem.get(body.index()).getVelocity();
+        return initialState.get(body.index()).getVelocity();
     }
 
 //    private Hashtable<LocalDateTime, ArrayList<CelestialBodies>> loadHistory(int duration) {
@@ -96,7 +90,7 @@ public class EvolutionAlgorithm {
                 }
                 Vector trial = crossover(population.get(i), mutant);
                 RK4Probe trailSimulation = evaluateTrajectory(trial);
-                double trialDistance = trailSimulation.getClosestDistance();
+                double trialDistance = trailSimulation.getError();
 
                 if (trialDistance < distances.get(i)) {
                     population.set(i, trial);
@@ -108,7 +102,7 @@ public class EvolutionAlgorithm {
                         System.out.println("New best distance: " + bestDistance + ", date: " + bestSimulation.getClosestDistTime());
                         System.out.println("Generation : " + gen);
                     }
-                    if(bestDistance<=1E6) {
+                    if(bestDistance<=5E7) {
                         System.out.println("Hill climbing takes over");
 //                        HillClimbing hillClimbing = new HillClimbing(bestSimulation, EARTH_POSITION, planetHistory);
                         evolutionAlgorithmInitialGuess = bestSimulation;
@@ -153,7 +147,7 @@ public class EvolutionAlgorithm {
     private List<Double> evaluatePopulation(List<Vector> population) {
         List<Double> distances = new ArrayList<>();
         for (Vector v : population) {
-            distances.add(evaluateTrajectory(v).getClosestDistance());
+            distances.add(evaluateTrajectory(v).getError());
         }
         return distances;
     }
@@ -165,17 +159,13 @@ public class EvolutionAlgorithm {
      */
 
     private RK4Probe evaluateTrajectory(Vector velocity) {
-        RK4Probe simulation = new RK4Probe(new Probe("dominik", LAUNCH_POSITION, SURFACE_PLANET_VELOCITY.add(velocity)), launchData.getHistoryPlanets(), 2);
+        Probe probe = new Probe("probe", LAUNCH_POSITION, SURFACE_PLANET_VELOCITY.add(velocity));
+        RK4Probe simulation = new RK4Probe(probe, launchData);
         simulation.solve();
         return simulation;
     }
 
-    /**
-     *
-     * @param population
-     * @param excludeIndex
-     * @return
-     */
+
 
     private Vector getRandomVector(List<Vector> population, int excludeIndex) {
         int index;
@@ -216,7 +206,8 @@ public class EvolutionAlgorithm {
         return trial;
     }
 
-//    public static void main(String[] args) throws IOException {
+//    public static void main(String[] args) {
+//
 //        EvolutionAlgorithm optimizer = new EvolutionAlgorithm();
 //        RK4Probe bestSimulation = optimizer.optimizeTrajectory();
 //        System.out.printf("Final result" + bestSimulation.toString());

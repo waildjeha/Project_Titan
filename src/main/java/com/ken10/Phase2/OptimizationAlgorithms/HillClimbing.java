@@ -36,7 +36,7 @@ public class HillClimbing {
     public HillClimbing(RK4Probe simulation, LaunchData launchData) {
         this.bestSimulation = simulation;
         this.launchData = launchData;
-        this.initialStep =     1e-3;   // initial step (km/s)
+        this.initialStep =     0.5;   // initial step (km/s)
         this.minStep = 1e-7;   // minimum step
         this.enlargeFactor =   1.2;    // enlarge factor
         this.shrinkFactor =  0.5;   // shrink factor
@@ -57,6 +57,7 @@ public class HillClimbing {
         this.minStep = minStep;
         this.enlargeFactor = enlargeFactor;
         this.shrinkFactor = shrinkFactor;
+
     }
 
     public void solve() {
@@ -79,7 +80,7 @@ public class HillClimbing {
      */
     private RK4Probe findOptimalVelocity() {
         RK4Probe bestSim = bestSimulation;
-        double bestDistance = bestSim.getClosestDistance();
+        double bestDistance = bestSim.getError();
         double step = initialStep;
 
         while (step > minStep) {
@@ -87,10 +88,10 @@ public class HillClimbing {
 
             for (Vector neighbourVelocity : generateNeighbours(bestSim.getInitialProbe().getVelocity(), step)) {
 
-                Probe probe = new Probe("dominik", launchData.getInitialPosition(), neighbourVelocity);
-                RK4Probe sim = new RK4Probe(probe, launchData.getHistoryPlanets(), bestSim.getStepSizeMin());
+                Probe probe = new Probe("probe", this.launchData.getInitialPosition(), neighbourVelocity);
+                RK4Probe sim = new RK4Probe(probe, this.launchData.getHistoryPlanets(), bestSim.getStepSize(), this.launchData.getLaunchTime(), this.launchData.getEndTime(), this.launchData.getDestination(), this.launchData.getLaunchPlanet());
                 sim.solve();
-                double d = sim.getClosestDistance();
+                double d = sim.getError();
                 if (d < bestDistance) {
                     bestDistance = d;
                     bestSim = sim;
@@ -128,10 +129,11 @@ public class HillClimbing {
         var probe = new Probe("probe",new Vector(-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497),new Vector (63.289186302398114, -33.49000052271595, -15.073058267640539));
         EphemerisLoader eph = new EphemerisLoader(1);
         eph.solve();
-        RK4Probe bestSimulation = new RK4Probe(probe, eph.history, 2);
-        bestSimulation.solve();
         LocalDateTime launchTime = LocalDateTime.of(2025, 4, 1, 0, 0, 0);
-        LaunchData launchData = new LaunchData(BodyID.TITAN, Earth.EARTH_INITIAL_POSITION.addX(6370), launchTime);
+        RK4Probe bestSimulation = new RK4Probe(probe, eph.history, 2, launchTime, launchTime.plusYears(1), BodyID.TITAN, BodyID.EARTH);
+        bestSimulation.solve();
+        System.out.println(bestSimulation);
+        LaunchData launchData = new LaunchData(BodyID.TITAN, BodyID.EARTH, Earth.EARTH_INITIAL_POSITION.addX(6370), launchTime, launchTime.plusYears(1));
         HillClimbing hc = new HillClimbing(bestSimulation, launchData);
         hc.solve();
         System.out.println(hc.getBestSimulation());

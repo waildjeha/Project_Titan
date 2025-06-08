@@ -14,12 +14,13 @@ import java.util.Hashtable;
  */
 public abstract class Solver implements ODE_Function {
     protected ArrayList<CelestialBodies> planetarySystem;
+    protected final LocalDateTime startTime;
     protected LocalDateTime time;
     protected LocalDateTime endTime;
     protected int stepSize;
     protected boolean isSeconds = false;
-    protected static final LocalDateTime START_TIME = LocalDateTime.of(2025, 4, 1, 0,0);
     public Hashtable<LocalDateTime, ArrayList<CelestialBodies>> history;
+    protected static final LocalDateTime T_0 = LocalDateTime.of(2025, 4,1,0,0,0);
 
     /**
      * Initialize the ODE solver
@@ -34,6 +35,7 @@ public abstract class Solver implements ODE_Function {
      * @param stepSize Time step size
      */
     public Solver(ArrayList<CelestialBodies> planetarySystem, LocalDateTime startTime, LocalDateTime endTime, int stepSize, boolean isSeconds) {
+        this.startTime = startTime;
         this.time = startTime;
         this.planetarySystem = planetarySystem;
         this.endTime = endTime;
@@ -42,8 +44,9 @@ public abstract class Solver implements ODE_Function {
         this.history = new Hashtable<>();
         recordState();
     }
-    public Solver(int stepSize) {
-        this.time = START_TIME;
+    public Solver(LocalDateTime startTime, int stepSize) {
+        this.startTime = startTime;
+        this.time = startTime;
         this.endTime = LocalDateTime.of(2026, 3, 31, 23, 59, 59);
         this.stepSize = stepSize;
         this.planetarySystem = SolarSystem.createPlanets();

@@ -76,7 +76,9 @@ public class Probe extends CelestialBodies {
 
     @Override
     public String toString() {
-        return position.toString() + " " + velocity.toString();
+        String output =  "\nPosition: " + getPosition() + "\n";
+        output +=  "Velocity: " + getVelocity() + "\n";
+        return output;
     }
 
     public static void main(String[] args) {

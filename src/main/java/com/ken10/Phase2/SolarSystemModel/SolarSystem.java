@@ -13,6 +13,8 @@ import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
  */
 public class SolarSystem {
         public static double earthSize = 11.0;
+        public static final LocalDateTime T_0 = LocalDateTime.of(2025, 4,1,0,0,0);
+
     public static ArrayList<CelestialBodies> createPlanets() {
         ArrayList<CelestialBodies> bodies = new ArrayList<>();
         double sunX = -7.596727134361322E+05;

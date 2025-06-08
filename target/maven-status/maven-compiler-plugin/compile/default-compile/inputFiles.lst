@@ -1,10 +1,13 @@
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase1/EulerSolver.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/GUI/Line3D.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/FitnessFunctions.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/CelestialBodies.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/EvolutionAlgorithm.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase1/ODESolver.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/Missions/HillClimbingOrbit.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/PlanetModel.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/Missions/GoldenSectionOrbit.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/Missions/VerifyOrbit.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/Titan.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/SpaceshipPath.java

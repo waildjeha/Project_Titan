@@ -85,7 +85,6 @@ public class RK4Solver extends Solver {
         }
         ArrayList<CelestialBodies> k4 = GravityCalc.computeDerivatives(t4, y4);
 
-        var newState = new ArrayList<CelestialBodies>();
         // Update the planetary system's state using the RK4 formula
         for (int i = 0; i < n ; i++) {
            CelestialBodies body = y1.get(i);
@@ -150,9 +149,8 @@ public class RK4Solver extends Solver {
 
 
     public static void main(String[] args) {
-        double i = 9.99999999999;
-        int ii = 10;
-        if (safeDoubleToInt(i)==ii) System.out.println("works");
-        else System.out.println("doesnt work");
+        double i = 8-10e-10;
+       System.out.println((int)Math.round(i));
+
     }
 }
