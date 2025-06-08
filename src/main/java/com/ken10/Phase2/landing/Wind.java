@@ -16,19 +16,19 @@ import java.util.Random;
 
 public class Wind {
 
-   private static Random random =new Random();
+    private static Random random =new Random();
     private static final double DEFAULT_NOISE_FACTOR = 0.1;
 
 
 
-    public static Vector2 applyWindVector(Vector2 currentVector){
-        Vector2 windVector=getWindVector(currentVector.getY());
-        return new Vector2(currentVector.getX()+windVector.getX(),currentVector.getY()+windVector.getY());
+    public static Vector2 applyWindVector(Vector2 currentVector, double scalar) {
+        Vector2 windVector = getWindVector(currentVector.getY()).multiply(scalar);
+        return  currentVector.add(windVector);
     }
 
     public static Vector2 getWindVector(double distanceToTitan){
         Vector2 windVector=createWindVector(distanceToTitan);
-     return addRandomNoise(windVector);
+        return addRandomNoise(windVector);
     }
 
     /**
@@ -52,7 +52,10 @@ public class Wind {
      */
     public static double calculateZonalWind(double distanceToTitan) {
         double wind;
-        if (distanceToTitan < 10) {
+        if(distanceToTitan<0.005){
+            wind=0;
+        }
+        else if (distanceToTitan < 10) {
             double slope = calculateSlope(0, 0, 10, 1);
             wind = slope * distanceToTitan;
         } else if (distanceToTitan < 60) {
@@ -96,6 +99,9 @@ public class Wind {
      * @return The meridional wind speed in meters per second (m/s).
      */
     public static double calculateMeridionalWind(double distanceToTitan) {
+        if(distanceToTitan<0.005){
+            return 0;
+        }
         if (distanceToTitan < 1) {
             return -0.9 * Math.sin(Math.PI * distanceToTitan);
         } else if (distanceToTitan < 20) {
@@ -132,24 +138,26 @@ public class Wind {
     }
 
 
-        public static void main(String[] args) {
+
+
+    public static void main(String[] args) {
 //        test cases to see if it matches with the data
-            double[] distanceToTitan = {0, 0.5, 1, 10, 20, 50,75, 100,200, 300,450, 500, 600};
+        double[] distanceToTitan = {0, 0.5, 1, 10, 20, 50,75, 100,200, 300,450, 500, 600};
 
-            System.out.println("Altitude (km) | Zonal (m/s) | Meridional (m/s) | Vertical (m/s) | Wind Vector (with noise)");
-            System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("Altitude (km) | Zonal (m/s) | Meridional (m/s) | Vertical (m/s) | Wind Vector (with noise)");
+        System.out.println("-----------------------------------------------------------------------------------------");
 
-            for (double altitude : distanceToTitan) {
-                Vector2 windVector = Wind.getWindVector(altitude);
-                double zonal = Wind.calculateZonalWind(altitude);
-                double meridional = Wind.calculateMeridionalWind(altitude);
+        for (double altitude : distanceToTitan) {
+            Vector2 windVector = Wind.getWindVector(altitude);
+            double zonal = Wind.calculateZonalWind(altitude);
+            double meridional = Wind.calculateMeridionalWind(altitude);
 //                double vertical = Wind.calculateVerticalWind(altitude);
 
-                System.out.printf("%12.1f | %11.3f | %15.3f  | (%.3f, %.3f)%n",
-                        altitude, zonal,meridional,
-                        windVector.getX(), windVector.getY());
-            }
+            System.out.printf("%12.1f | %11.3f | %15.3f  | (%.3f, %.3f)%n",
+                    altitude, zonal,meridional,
+                    windVector.getX(), windVector.getY());
         }
     }
+}
 
 
