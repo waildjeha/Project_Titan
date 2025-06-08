@@ -1,10 +1,10 @@
 package com.ken10.Phase2.SolarSystemModel;
 
 /**
- * Uses the Vector class to hold blueprints for creating Planets and the rocket.
- * Mostly self-explanatory.
+ * Abstract base class representing celestial bodies in the solar system.
+ * Uses the Vector class to hold blueprints for creating planets and spacecraft.
+ * Contains common properties like position, velocity, mass, and scaling factors.
  */
-
 public abstract class CelestialBodies {
     protected String name;
     protected Vector position;
@@ -14,6 +14,14 @@ public abstract class CelestialBodies {
     protected double relativeScalingFactor;
     protected double size;
 
+    /**
+     * Creates a celestial body with basic properties.
+     * 
+     * @param name the name of the celestial body
+     * @param position the initial position vector in 3D space
+     * @param velocity the initial velocity vector
+     * @param mass the mass of the body in kilograms
+    */
     public CelestialBodies(String name, Vector position, Vector velocity, double mass) {
         this.name = name;
         this.position = position;
@@ -22,6 +30,17 @@ public abstract class CelestialBodies {
         this.distFromOrigin = position.magnitude();
         this.relativeScalingFactor = 1.0;
     }
+
+    /**
+     * Creates a celestial body with additional scaling and size properties.
+     * 
+     * @param name the name of the celestial body
+     * @param position the initial position vector in 3D space
+     * @param velocity the initial velocity vector
+     * @param mass the mass of the body in kilograms
+     * @param scaling the relative scaling factor for relative distance to the sun in the visualization
+     * @param size the size of the body for rendering purposes in the visualization
+    */
     public CelestialBodies(String name, Vector position, Vector velocity, double mass, double scaling, double size){
         this.name = name;
         this.position = position;
@@ -43,6 +62,10 @@ public abstract class CelestialBodies {
     public double getDistFromOrigin() {return distFromOrigin;}
     public double getRelativeScalingFactor(){return this.relativeScalingFactor;}
 
+    /**
+     * Prints detailed information about this celestial body to the console.
+     * Includes position, velocity, and distance from origin with formatted output.
+    */
     public void printBody(){
         Vector pos = getPosition();
         Vector vel = getVelocity();
@@ -52,11 +75,18 @@ public abstract class CelestialBodies {
         System.out.printf("  Distance from origin: %.2f\n", pos.magnitude());
         System.out.println("----------------------------------------");
     }
+
     @Override
     public String toString(){
         return getName() + ", \nposition" + getPosition() + ", \nvelocity" + getVelocity() + ", \nmagnitude" + getPosition().magnitude() ;
     }
 
+    /**
+     * Creates a deep copy of this celestial body.
+     * Returns the appropriate subclass instance with copied vectors and properties.
+     * 
+     * @return a new instance that is a deep copy of this celestial body
+    */
     public CelestialBodies deepCopy(){
         if(this instanceof PlanetModel) return new PlanetModel(getName(), getPosition().copy(),
                 getVelocity().copy(), getMass(), getRelativeScalingFactor(), getSize());
@@ -68,7 +98,12 @@ public abstract class CelestialBodies {
                     getVelocity().copy(), getRelativeScalingFactor(), getSize());
     }
 
-
+    /**
+     * Returns the radius of this celestial body.
+     * Default implementation returns 0; should be overridden by subclasses.
+     * 
+     * @return the radius in kilometers
+    */
     public double getRadius() {
         return 0; // Placeholder, should be overridden by subclasses
     }

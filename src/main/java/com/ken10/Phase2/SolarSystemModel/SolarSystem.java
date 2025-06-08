@@ -9,10 +9,21 @@ import java.util.List;
 import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
 
 /**
- * no pluto :(
- */
+ * Factory class for creating and initializing the solar system simulation.
+ * Contains methods to create collections of celestial bodies with realistic
+ * initial conditions based on ephemeris data.
+*/
 public class SolarSystem {
-        public static double earthSize = 11.0;
+        
+        public static double earthSize = 11.0; // Base size unit for Earth, used as reference for scaling other celestial bodies.
+
+        /**
+         * Creates and initializes all celestial bodies in the solar system.
+         * Uses ephemeris data to set realistic initial positions and velocities.
+         * All coordinates are adjusted relative to the Sun at the origin.
+         * 
+         * @return ArrayList containing all celestial bodies in the system
+        */
     public static ArrayList<CelestialBodies> createPlanets() {
         ArrayList<CelestialBodies> bodies = new ArrayList<>();
         double sunX = -7.596727134361322E+05;
@@ -39,7 +50,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 3.30E+23, 1.0, 0.33*earthSize
         );
-        //Mercury.setRelativeScalingFactor(1.0);
 
         CelestialBodies Venus = new PlanetModel(
                 "venus",
@@ -49,7 +59,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 4.87E+24, 1.0, earthSize
         );
-        //Venus.setRelativeScalingFactor(1.0);
 
         CelestialBodies Earth = new Earth(
                 "earth",
@@ -59,7 +68,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 5.97E+24, 1.0, earthSize
         );
-        // Earth.setRelativeScalingFactor(1.0);
 
         CelestialBodies Moon = new PlanetModel(
                 "moon",
@@ -69,7 +77,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 7.35E+22, 1.0, 0.25*earthSize
         );
-        // Moon.setRelativeScalingFactor(1.0);
 
         CelestialBodies Mars = new PlanetModel(
                 "mars",
@@ -79,7 +86,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 6.42E+23, 1.0, 0.5*earthSize
         );
-        // Mars.setRelativeScalingFactor(0.85);
 
         CelestialBodies Jupiter = new PlanetModel(
                 "jupiter",
@@ -89,7 +95,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 1.90E+27, 1.0, 5*earthSize
         );
-        // Jupiter.setRelativeScalingFactor(0.4);
 
         CelestialBodies Saturn = new PlanetModel(
                 "saturn",
@@ -99,7 +104,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 5.68E+26, 1.0, 4*earthSize
         );
-        // Saturn.setRelativeScalingFactor(0.3);;
 
         CelestialBodies Titan = new Titan(
                 "titan",
@@ -109,7 +113,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 1.35E+23, 1.0, 0.5*earthSize
         );
-        // Titan.setRelativeScalingFactor(0.3);
 
         CelestialBodies Uranus = new PlanetModel(
                 "uranus",
@@ -119,7 +122,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 8.68E+25, 1.0, 3.5*earthSize
         );
-        // Uranus.setRelativeScalingFactor(0.2);
 
         CelestialBodies Neptune = new PlanetModel(
                 "neptune",
@@ -129,7 +131,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 1.02E+26, 1.0, 3.4*earthSize
         );
-        // Neptune.setRelativeScalingFactor(0.15);
 
         Vector earthPosition=new Vector(-1.4664541759104577E8, -2.8949304626334388E7, 2241.9186033698497);
         Vector probeVelocity= new Vector(56.954145255280686, -31.47343183360373, -12.54370958156917);
@@ -162,6 +163,14 @@ public class SolarSystem {
 
         return bodies;
     }
+
+        /**
+         * Creates and initializes all celestial bodies with optional probe inclusion.
+         * Identical to createPlanets() but with the ability to include a spacecraft.
+         * 
+         * @param probePresent whether to include a probe in the system
+         * @return ArrayList containing all celestial bodies and optionally a probe
+        */
     public static ArrayList<CelestialBodies> createPlanets(boolean probePresent) {
         ArrayList<CelestialBodies> bodies = new ArrayList<>();
         double sunX = -7.596727134361322E+05;
@@ -188,7 +197,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 3.30E+23, 1.0, 0.33*earthSize
         );
-        //Mercury.setRelativeScalingFactor(1.0);
 
         CelestialBodies Venus = new PlanetModel(
                 "venus",
@@ -198,7 +206,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 4.87E+24, 1.0, earthSize
         );
-        //Venus.setRelativeScalingFactor(1.0);
 
         CelestialBodies Earth = new Earth(
                 "earth",
@@ -208,7 +215,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 5.97E+24, 1.0, earthSize
         );
-        // Earth.setRelativeScalingFactor(1.0);
 
         CelestialBodies Moon = new PlanetModel(
                 "moon",
@@ -218,7 +224,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 7.35E+22, 1.0, 0.25*earthSize
         );
-        // Moon.setRelativeScalingFactor(1.0);
 
         CelestialBodies Mars = new PlanetModel(
                 "mars",
@@ -228,7 +233,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 6.42E+23, 1.0, 0.5*earthSize
         );
-        // Mars.setRelativeScalingFactor(0.85);
 
         CelestialBodies Jupiter = new PlanetModel(
                 "jupiter",
@@ -238,7 +242,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 1.90E+27, 1.0, 5*earthSize
         );
-        // Jupiter.setRelativeScalingFactor(0.4);
 
         CelestialBodies Saturn = new PlanetModel(
                 "saturn",
@@ -248,7 +251,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 5.68E+26, 1.0, 4*earthSize
         );
-        // Saturn.setRelativeScalingFactor(0.3);;
 
         CelestialBodies Titan = new Titan(
                 "titan",
@@ -258,7 +260,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 1.35E+23, 1.0, 0.5*earthSize
         );
-        // Titan.setRelativeScalingFactor(0.3);
 
         CelestialBodies Uranus = new PlanetModel(
                 "uranus",
@@ -268,7 +269,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 8.68E+25, 1.0, 3.5*earthSize
         );
-        // Uranus.setRelativeScalingFactor(0.2);
 
         CelestialBodies Neptune = new PlanetModel(
                 "neptune",
@@ -278,7 +278,6 @@ public class SolarSystem {
                         .subtract(velocityAdjustment),
                 1.02E+26, 1.0, 3.4*earthSize
         );
-        // Neptune.setRelativeScalingFactor(0.15);
 
         Vector earthPosition=new Vector(-1.4664541759104577E8, -2.8949304626334388E7, 2241.9186033698497);
         Vector probeVelocity= new Vector(56.954145255280686, -31.47343183360373, -12.54370958156917);

@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Calculations for computing derivatives and acceleration.
- */
+ * Utility class for gravitational calculations and orbital mechanics.
+ * Contains methods for computing gravitational forces, accelerations, and derivatives
+*/
 public class GravityCalc {
     public static final double g = 6.6743e-20; // Gravitational constant in km^3/kg/s^2
 
@@ -86,7 +87,14 @@ public class GravityCalc {
         return derivatives;
     }
 
-
+    /**
+     * Calculates gravitational acceleration at a given altitude above a planet's surface.
+     * Uses the standard gravitational formula: g = GM/(R+h)²
+     * 
+     * @param planet the celestial body to calculate gravity for
+     * @param altitude altitude above the planet's surface in kilometers
+     * @return gravitational acceleration in km/s²
+    */
     public static double calculateGravity(CelestialBodies planet, double altitude) {
         double G = g; 
         double M = planet.getMass();     // kg

@@ -7,12 +7,20 @@ import java.util.ArrayList;
 
 import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
 
+/**
+ * Represents a spacecraft or probe in the solar system
+ * simulation.
+ * Includes propulsion capabilities, fuel management, and
+ * mission planning features.
+ * Can perform thrust maneuvers, course corrections, and
+ * orbital insertions.
+ */
 public class Probe extends CelestialBodies {
     private double distanceToTarget;
-    public static final double MASS = 50000;
+    public static final double MASS = 50000; // Standard mass of the probe in kilograms.
     private static final double EARTH_RADIUS = 6370; // km
-    private static final double MAX_THRUST = 3e7;
-    private static final double FUEL_CONSUMPTION_RATE = 1.0;
+    private static final double MAX_THRUST = 3e7; // Maximum thrust force the probe can generate in Newtons.
+    private static final double FUEL_CONSUMPTION_RATE = 1.0; // Rate of fuel consumption per unit of thrust and time.
 
     private Vector initialPosition;
     private Vector initialVelocity;
@@ -94,7 +102,7 @@ public class Probe extends CelestialBodies {
     }
 
     /**
-     * updates velocity over a time step
+     * Updates velocity over a time step
      * @param currentTime
      * @param timeStep
      */
@@ -117,6 +125,10 @@ public class Probe extends CelestialBodies {
         totalFuelUsed += fuelUsed;
     }
 
+    /**
+     * Activates the probe and initiates its mission.
+     * Sets the probe to active status and begins initial thrust maneuver.
+    */
     public void launch() {
         isActive = true;
         burnStartTime = 0;
@@ -124,6 +136,10 @@ public class Probe extends CelestialBodies {
         planThrustManeuver(targetVelocity, 0);
     }
 
+    /**
+     * Stops all thrust activity and resets thrust-related parameters.
+     * Sets current thrust to zero and clears maneuver planning data.
+    */
     public void resetThrust() {
         currentThrust = new Vector(0, 0, 0);
         targetVelocity = getVelocity();
@@ -134,10 +150,21 @@ public class Probe extends CelestialBodies {
         distanceToTarget = getDistance(position, state.get(BodyID.TITAN.index()).getPosition());
     }
 
+    /**
+     * Creates a copy of this probe with the same position and velocity.
+     * 
+     * @return a new Probe instance with copied state
+    */
     public Probe copy() {
         return new Probe(getName(), getPosition().copy(), getVelocity().copy());
     }
 
+    /**
+     * Calculates the velocity of this probe relative to a target body.
+     * 
+     * @param target the celestial body to calculate relative velocity against
+     * @return the relative velocity vector
+    */
     public Vector getRelativeVelocity(CelestialBodies target) {
         return target.getVelocity().subtract(getVelocity());
     }

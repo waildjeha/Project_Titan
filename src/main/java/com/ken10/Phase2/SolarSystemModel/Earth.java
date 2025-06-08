@@ -1,10 +1,14 @@
 package com.ken10.Phase2.SolarSystemModel;
 
-
+/**
+ * Represents the planet Earth in the solar system simulation.
+ * Contains Earth-specific constants including radius and initial orbital parameters.
+ * Extends CelestialBodies with Earth's physical and orbital characteristics.
+*/
 public class Earth extends CelestialBodies {
-    public static final double RADIUS = 6370;
-    public static final Vector EARTH_VELOCITY_INITIAL;
-    public static final Vector EARTH_INITIAL_POSITION;
+    public static final double RADIUS = 6370; // Earth's radius in kilometers
+    public static final Vector EARTH_VELOCITY_INITIAL; // Earth's initial velocity vector relative to the solar system barycenter. 
+    public static final Vector EARTH_INITIAL_POSITION; // Earth's initial position vector relative to the solar system barycenter.
     static {
         double sunVX =  1.258146808934948E-02;
         double sunVY = -4.478489369359461E-03;
