@@ -76,4 +76,7 @@ public abstract class ODESolver {
     public double[] getState() {
         return state;
     }
+    public double getTime(){
+        return this.time;
+    }
 }
