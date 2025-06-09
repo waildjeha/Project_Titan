@@ -1,4 +1,5 @@
 package com.ken10.Phase2.GUI;
+import com.ken10.Phase2.Missions.BackToEarth;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
@@ -43,7 +44,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import static javax.swing.text.StyleConstants.Background;
+
 
 public class SolarSystemGUI extends Application {
 
@@ -126,11 +127,8 @@ public class SolarSystemGUI extends Application {
 
     private void loadEphemerisData() {
         System.out.println("Loading ephemeris data...");
-
-
         // Initialize ephemeris loader with 2-minute steps
-        EphemerisLoader eph = new EphemerisLoader(true);
-        eph.solve();
+        EphemerisLoader eph = BackToEarth.getEphemerisLoader(false);
         timeStates = eph.history;
 
 

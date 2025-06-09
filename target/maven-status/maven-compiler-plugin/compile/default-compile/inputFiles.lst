@@ -6,6 +6,7 @@
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase1/ODESolver.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/PlanetModel.java
+/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/Missions/BackToEarth.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/Titan.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/SpaceshipPath.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase1/App.java
@@ -28,7 +29,6 @@
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/GUI/SolarSystemGUI.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/LaunchData.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/Earth.java
-/Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Main.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/StatesCalculations/EphemerisLoader.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/StatesCalculations/ODE_Function.java
 /Users/dominik/Documents/GitHub/Project_Titan/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/RK4Probe.java

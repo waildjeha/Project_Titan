@@ -6,6 +6,7 @@ import com.ken10.Phase2.SolarSystemModel.Probe;
 import com.ken10.Phase2.SolarSystemModel.Vector;
 import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class HillClimbing {
     public HillClimbing(RK4Probe simulation, LaunchData launchData) {
         this.bestSimulation = simulation;
         this.launchData = launchData;
-        this.initialStep =     0.5;   // initial step (km/s)
+        this.initialStep =     1;   // initial step (km/s)
         this.minStep = 1e-7;   // minimum step
         this.enlargeFactor =   1.2;    // enlarge factor
         this.shrinkFactor =  0.5;   // shrink factor
@@ -57,13 +58,13 @@ public class HillClimbing {
         this.minStep = minStep;
         this.enlargeFactor = enlargeFactor;
         this.shrinkFactor = shrinkFactor;
-
     }
 
     public void solve() {
         bestSimulation = findOptimalVelocity();
         System.out.println(bestSimulation);
     }
+
     public RK4Probe getBestSimulation() {
         return bestSimulation;
     }
@@ -98,8 +99,10 @@ public class HillClimbing {
                     bestSim = sim;
                     improved = true;
                     if(bestDistance <= 2575) return bestSim;
-                    System.out.printf("NEW BEST %.3f km | step %.7f | %s%n",
-                            bestDistance, step, bestSim.getClosestDistTime());
+//                    System.out.printf("NEW BEST %.3f km | step %.7f | %s%n",
+//                            bestDistance, step, bestSim.getClosestDistTime());
+                    long seconds = Duration.between(EvolutionAlgorithm.experiment_start_time, LocalDateTime.now()).toSeconds();
+                    System.out.println("It took " + seconds + " to get this closest distance: " + bestDistance);
 
                     break;      // explore around the new best solution
                 }

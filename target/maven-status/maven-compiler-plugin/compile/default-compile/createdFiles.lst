@@ -22,7 +22,6 @@ com/ken10/Phase2/StatesCalculations/EphemerisProvider.class
 com/ken10/Phase2/SolarSystemModel/Titan.class
 com/ken10/Phase2/OptimizationAlgorithms/SpaceshipPath.class
 com/ken10/Phase2/OptimizationAlgorithms/ThrustPlan.class
-com/ken10/Main.class
 com/ken10/Phase2/SolarSystemModel/SolarSystem.class
 com/ken10/Phase2/StatesCalculations/Solver.class
 com/ken10/Phase2/OptimizationAlgorithms/Thrust.class

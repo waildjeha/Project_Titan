@@ -3,6 +3,8 @@ package com.ken10.Phase2.OptimizationAlgorithms;
 import com.ken10.Phase2.SolarSystemModel.*;
 
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,7 +20,7 @@ import java.util.Random;
  */
 
 public class EvolutionAlgorithm {
-    private static final int POPULATION_SIZE = 50;
+    private static final int POPULATION_SIZE = 100;
     private static final int MAX_GENERATIONS = 100;
     private static final double CROSSOVER_RATE = 0.9;
     private static final double DIFFERENTIAL_WEIGHT = 0.5;
@@ -30,6 +32,7 @@ public class EvolutionAlgorithm {
 
     private final LaunchData launchData;
     private RK4Probe evolutionAlgorithmInitialGuess;
+    public static LocalDateTime experiment_start_time;
 
     public EvolutionAlgorithm(LaunchData launchData) {
         this.launchData = launchData;
@@ -42,12 +45,6 @@ public class EvolutionAlgorithm {
         return initialState.get(body.index()).getVelocity();
     }
 
-//    private Hashtable<LocalDateTime, ArrayList<CelestialBodies>> loadHistory(int duration) {
-//        EphemerisLoader ephemerisLoader = new EphemerisLoader(1, duration);
-//        ephemerisLoader.solve();
-//        return ephemerisLoader.history;
-//    }
-
     /**
      * Initializes Vectors in population and distances to titan for each.
      * Only keeps the best Velocity and distance in that population.
@@ -59,6 +56,10 @@ public class EvolutionAlgorithm {
      */
 
     public void solve(){
+        ArrayList<CelestialBodies> initialState = launchData.historyPlanets.get(launchData.getLaunchTime());
+        Vector probePosition = LAUNCH_POSITION;
+        Vector destinationPosition = initialState.get(launchData.getDestination().index()).getPosition();
+        System.out.println("Initial distance between probe and destination is (km) : " + probePosition.getDistance(destinationPosition));
         optimizeTrajectory();
     }
 
@@ -70,13 +71,9 @@ public class EvolutionAlgorithm {
         List<Vector> population = initializePopulation();
         List<Double> distances = evaluatePopulation(population);
 
-//        FileWriter writer = new FileWriter("GA_results.csv");
-//        writer.write("Generation,Velocity_X,Velocity_Y,Velocity_Z,Distance_km\n");
-
-//        Vector bestVector = null;
         double bestDistance = Double.MAX_VALUE;
         RK4Probe bestSimulation = null;
-
+        experiment_start_time = LocalDateTime.now();
         for (int gen = 0; gen < MAX_GENERATIONS; gen++) {
             for (int i = 0; i < POPULATION_SIZE; i++) {
                 Vector a = getRandomVector(population, i);
@@ -99,8 +96,10 @@ public class EvolutionAlgorithm {
                     if (trialDistance < bestDistance) {
                         bestDistance = trialDistance;
                         bestSimulation = trailSimulation;
-                        System.out.println("New best distance: " + bestDistance + ", date: " + bestSimulation.getClosestDistTime());
-                        System.out.println("Generation : " + gen);
+//                        System.out.println("New best distance: " + bestDistance + ", date: " + bestSimulation.getClosestDistTime());
+//                        System.out.println("Generation : " + gen);
+                        long seconds = Duration.between(experiment_start_time, LocalDateTime.now()).toSeconds();
+                        System.out.println(seconds + ", " + bestDistance);
                     }
                     if(bestDistance<=5E7) {
                         System.out.println("Hill climbing takes over");

@@ -66,6 +66,7 @@ public class Orbit extends ToTitan{
         Vector orbitalNormal = radialDir.cross(probeVelRel).normalize();  // Orbital plane normal
         Vector tangentialDir = orbitalNormal.cross(radialDir).normalize(); // True tangential direction
         Vector v_orbit_rel = tangentialDir.multiply(v_orbit_mag);
+        System.out.println("Velocity relative to Titan " + v_orbit_rel.magnitude());
 
         // Compute velocity change needed (Titan-relative)
         Vector deltaV_rel = v_orbit_rel.subtract(probeVelRel);
