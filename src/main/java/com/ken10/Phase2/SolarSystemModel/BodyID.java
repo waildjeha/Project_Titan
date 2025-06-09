@@ -2,6 +2,9 @@ package com.ken10.Phase2.SolarSystemModel;
 
 import java.util.List;
 
+/**
+ * Contains index of planets in an arraylist for easier navigation.
+ */
 public enum BodyID {
     SUN     (0),
     MERCURY (1),

@@ -10,7 +10,7 @@ import java.util.List;
  * Calculations for computing derivatives and acceleration.
  */
 public class GravityCalc {
-    public static final double g = 6.6743e-20; // Gravitational constant in km^3/kg/s^2
+    public static final double g = 6.6743e-20;
 
     /**
      * Calculates acceleration Vectors of each celestial body in space.
@@ -52,7 +52,7 @@ public class GravityCalc {
      * Creates new bodies for instances of body objects to hold derivatives.
      * sun remains at the origin.
      *
-     * @param time time -_-
+     * @param time time
      * @param bodies planets and rocket.
      * @return derivatives at the time.
      */

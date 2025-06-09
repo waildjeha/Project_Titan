@@ -11,7 +11,12 @@ import static com.ken10.Phase2.SolarSystemModel.Earth.EARTH_VELOCITY_INITIAL;
 import static com.ken10.Phase2.SolarSystemModel.GravityCalc.computeAcceleration;
 import static com.ken10.Phase2.SolarSystemModel.Vector.getDistance;
 
-public class RK4Probe implements FitnessFunctions{
+/**
+ * class that models the motion of a probe using the RK4 method.
+ * It simulates the probe's trajectory through the solar system using celestial body data
+ * and calculates the probe’s closest approach to a given destination body.
+ */
+public class RK4Probe{
     private Probe probe;
     private final Probe launchProbe;
     private final Hashtable<LocalDateTime, ArrayList<CelestialBodies>> historyPlanets;
@@ -65,26 +70,27 @@ public class RK4Probe implements FitnessFunctions{
         return closestDistance;
     }
 
-    @Override
     public LocalDateTime getClosestDistTime() {
         return closestDistTime;
     }
 
-    @Override
     public Probe getInitialProbe() {
         return launchProbe;
     }
 
-    @Override
     public int getStepSize() {
         return stepSize;
     }
 
-    @Override
+    /**
+     * Runs the RK4 simulation, updating the probe's state over time.
+     * Results are stored in historyProbe.
+     * Also tracks the closest distance to the destination.
+     * If a collision occurs with the launch planet, the history is cleared and simulation stops
+     */
     public void solve() {
         closestDistance = getDistance(probe.getPosition(),
                 historyPlanets.get(time).get(destination.index()).getPosition());
-//        System.out.println("Initial distance between the Probe and destination is " + closestDistance);
         while (time.isBefore(endTime)) {
             historyProbe.put(time, probe);
             // Check collision at current time
@@ -99,6 +105,11 @@ public class RK4Probe implements FitnessFunctions{
         updateBestResult();
     }
 
+    /**
+     * Checks whether the probe has collided with the launch planet within the first 8 minutes
+     * or falls into the Sun
+     * @return true if collisions happens
+     */
     private boolean checkLaunchPlanetCollision() {
         if(time.isBefore(startTime.plusMinutes(8))) {
             double launchPlanetDistance = getDistance(probe.getPosition(),
@@ -112,6 +123,9 @@ public class RK4Probe implements FitnessFunctions{
         return probe.getPosition().getDistance(historyPlanets.get(time).get(BodyID.SUN.index()).getPosition()) < 696_340;
     }
 
+    /**
+     * Updates the record of the closest distance between the probe and the destination planet.
+     */
     private void updateBestResult() {
         // Get Titan position at CURRENT time
         Vector currentDestinationPosition = historyPlanets.get(time)
@@ -119,7 +133,6 @@ public class RK4Probe implements FitnessFunctions{
 
         // Calculate distance at CURRENT time
         double distToDestinantion = currentDestinationPosition.getDistance(probe.getPosition());
-//        System.out.println("Distance to destination is at " + time + " is " + distToDestinantion);
 
         // Update closest approach
         if(distToDestinantion < closestDistance) {
@@ -128,6 +141,11 @@ public class RK4Probe implements FitnessFunctions{
         }
     }
 
+    /**
+     * Helper method to perform a single RK4 step.
+     *
+     * @return A new Probe instance representing the probe's next state.
+     */
     private Probe rk4Helper() {
         int stepMinutes = stepSize;
         // we need to make the step size of the probe

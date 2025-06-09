@@ -12,6 +12,11 @@ import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * This class simulates the return journey of a space probe from Titan to Earth
+ * after it has been successfully inserted into orbit around Titan Orbit.
+ *
+ */
 public class BackToEarth extends Orbit{
     private static final Probe probe3 = new Probe("probe", new Vector(1.4152356646242814E9, 1.0276702269962315E8, -5.760974061398743E7),
     new Vector(-54.91999240303898, -8.25004904249947, 5.026601360046181), 1.0, 11.0);

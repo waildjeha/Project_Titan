@@ -96,22 +96,17 @@ public class EvolutionAlgorithm {
                     if (trialDistance < bestDistance) {
                         bestDistance = trialDistance;
                         bestSimulation = trailSimulation;
-//                        System.out.println("New best distance: " + bestDistance + ", date: " + bestSimulation.getClosestDistTime());
-//                        System.out.println("Generation : " + gen);
                         long seconds = Duration.between(experiment_start_time, LocalDateTime.now()).toSeconds();
                         System.out.println(seconds + ", " + bestDistance);
                     }
                     if(bestDistance<=5E7) {
                         System.out.println("Hill climbing takes over");
-//                        HillClimbing hillClimbing = new HillClimbing(bestSimulation, EARTH_POSITION, planetHistory);
                         evolutionAlgorithmInitialGuess = bestSimulation;
                         return;
-//                        return hillClimbing.findOptimalVelocity();
                     }
                 }
             }
         }
-//        return bestSimulation;
     }
 
     /**
@@ -150,7 +145,6 @@ public class EvolutionAlgorithm {
         }
         return distances;
     }
-
     /**
      *
      * @param velocity

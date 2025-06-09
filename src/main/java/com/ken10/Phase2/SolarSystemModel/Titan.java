@@ -1,5 +1,9 @@
 package com.ken10.Phase2.SolarSystemModel;
 
+/**
+ * Contains information on titan including:
+ * Radius and mass.
+ */
 public class Titan extends CelestialBodies {
     public static final double RADIUS = 2575;
     public static final double MASS = 1.35E+23;

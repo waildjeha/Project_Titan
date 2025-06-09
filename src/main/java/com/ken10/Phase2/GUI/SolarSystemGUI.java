@@ -224,7 +224,7 @@ public class SolarSystemGUI extends Application {
      * Loads data for both probe and engine missions from the EphemerisLoader.
      * Initializes probe object and solves differential equations for both mission types.
      * Sets up time-related data structures and extracts start/end times.
-     * This method is called during application initialization to pre-load all simulation data.
+     * This method is called during application initialization to preload all simulation data.
      */
     private void loadEphemerisData() {
         System.out.println("Loading ephemeris data...");

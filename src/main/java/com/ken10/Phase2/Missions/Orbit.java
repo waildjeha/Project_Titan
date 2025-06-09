@@ -8,6 +8,10 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * This class simulates the process of inserting a space probe into orbit around Titan.
+ * It extends ToTitan, which handles the initial interplanetary transfer and ephemeris setup.
+ */
 public class Orbit extends ToTitan{
 
     protected Orbit (){

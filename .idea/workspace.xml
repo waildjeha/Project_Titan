@@ -4,13 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="Back To Earth">
+    <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="added new gui">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/landing/LandingSimulation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/landing/Vector2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/GUI/SolarSystemGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/GUI/SolarSystemGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/BackToEarth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/BackToEarth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/Orbit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/Orbit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/ToTitan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/ToTitan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/Wind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/landing/Wind.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/EvolutionAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/EvolutionAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/HillClimbing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/HillClimbing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/FitnessFunctions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/LaunchData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/LaunchData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/OptimalVelocityFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/OptimalVelocityFinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/RK4Probe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/RK4Probe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/SpaceshipPath.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/Thrust.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/ThrustPlan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/BodyID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/BodyID.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/CelestialBodies.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/CelestialBodies.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Earth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Earth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/GravityCalc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/GravityCalc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/SolarSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/SolarSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Titan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Titan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/SolarSystemModel/Vector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/EphemerisLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/EphemerisLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/EphemerisProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/EphemerisProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/ODE_Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/ODE_Function.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/RK4Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/RK4Solver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/StatesCalculations/Solver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
@@ -48,12 +70,12 @@
     &quot;assignee&quot;: &quot;DillonPatterson1&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/waildjeha/Project_Titan.git&quot;,
-    &quot;accountId&quot;: &quot;e0303f60-4922-4c4c-9b32-09d2fd14f23b&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/waildjeha/Project_Titan.git",
+    "accountId": "f372f1d3-6f4b-4837-87db-2e66f4b7f4a8"
   }
-}</component>
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -66,64 +88,64 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.BackToEarth.executor": "Run",
-    "Application.BalisticMissionSimulator.executor": "Run",
-    "Application.DifferentialEvolutionAlgorithm.executor": "Run",
-    "Application.EphemerisLoader.executor": "Run",
-    "Application.ExamplePlanetMovement.executor": "Run",
-    "Application.GoldenSectionOrbit.executor": "Run",
-    "Application.HillClimbing.executor": "Run",
-    "Application.HillClimbingOrbit.executor": "Run",
-    "Application.LaunchStateBuilder.executor": "Run",
-    "Application.LotkaVolterraSimulation.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.MissionSim.executor": "Run",
-    "Application.OptimalVelocityFinder.executor": "Run",
-    "Application.Orbit.executor": "Run",
-    "Application.PlanetInfo.executor": "Run",
-    "Application.PlanetMotionTest.executor": "Run",
-    "Application.ProbeDifferentialEvolution.executor": "Run",
-    "Application.ProbeHillClimb.executor": "Run",
-    "Application.ProbeMission.executor": "Run",
-    "Application.ProbeMissionRunner.executor": "Run",
-    "Application.RK4Probe.executor": "Run",
-    "Application.RK4Solver.executor": "Run",
-    "Application.RocketMissionRunner.executor": "Run",
-    "Application.SolarSystem.executor": "Run",
-    "Application.SolarSystemGUI.executor": "Run",
-    "Application.SolarSystemVisualizer.executor": "Run",
-    "Application.TitanInterceptSearch.executor": "Run",
-    "Application.TitanInterceptSearchSimple.executor": "Run",
-    "Application.ToTitan.executor": "Run",
-    "Application.TransferTime.executor": "Run",
-    "Application.Vector.executor": "Run",
-    "Application.VerifyOrbit.executor": "Run",
-    "Application.Wind.executor": "Run",
-    "Application.com.ken10.Dillons_Phase2.entities.NumericalSolvers.RK4Solver.executor": "Run",
-    "Application.com.ken10.Main.executor": "Run",
-    "Application.com.ken10.Phase2.Main.executor": "Run",
-    "Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader.executor": "Run",
-    "Application.sim.executor": "Run",
-    "Maven.project-titan [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "RedoChanges",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/ivapapukchieva/IdeaProjects/DSA_2023_Public/Maastricht-University-Project-1-2/Project_Titan/src/main/resources/models",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.BackToEarth.executor&quot;: &quot;Run&quot;,
+    &quot;Application.BalisticMissionSimulator.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DifferentialEvolutionAlgorithm.executor&quot;: &quot;Run&quot;,
+    &quot;Application.EphemerisLoader.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ExamplePlanetMovement.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GoldenSectionOrbit.executor&quot;: &quot;Run&quot;,
+    &quot;Application.HillClimbing.executor&quot;: &quot;Run&quot;,
+    &quot;Application.HillClimbingOrbit.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LaunchStateBuilder.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LotkaVolterraSimulation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MissionSim.executor&quot;: &quot;Run&quot;,
+    &quot;Application.OptimalVelocityFinder.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Orbit.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PlanetInfo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PlanetMotionTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ProbeDifferentialEvolution.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ProbeHillClimb.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ProbeMission.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ProbeMissionRunner.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RK4Probe.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RK4Solver.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RocketMissionRunner.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SolarSystem.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SolarSystemGUI.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SolarSystemVisualizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TitanInterceptSearch.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TitanInterceptSearchSimple.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ToTitan.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TransferTime.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Vector.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VerifyOrbit.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Wind.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.ken10.Dillons_Phase2.entities.NumericalSolvers.RK4Solver.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.ken10.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.ken10.Phase2.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader.executor&quot;: &quot;Run&quot;,
+    &quot;Application.sim.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.project-titan [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;RedoChanges&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/ivapapukchieva/IdeaProjects/DSA_2023_Public/Maastricht-University-Project-1-2/Project_Titan/src/main/resources/models&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/models" />
@@ -133,26 +155,13 @@
       <recent name="$PROJECT_DIR$/src/main/resources/source" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.BackToEarth">
+  <component name="RunManager">
     <configuration name="BackToEarth" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.Missions.BackToEarth" />
       <module name="titan" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ken10.Phase2.Missions.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="EphemerisLoader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.StatesCalculations.EphemerisLoader" />
-      <module name="titan" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.ken10.Phase2.StatesCalculations.*" />
+          <option name="PATTERN" value="com.ken10.Phase2.landing.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -178,7 +187,7 @@
       <module name="titan" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ken10.Phase2.Missions.*" />
+          <option name="PATTERN" value="com.ken10.Phase2.landing.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -199,13 +208,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ToTitan" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.Missions.ToTitan" />
+      <module name="project-titan" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ken10.Phase2.landing.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ToTitan" />
         <item itemvalue="Application.BackToEarth" />
         <item itemvalue="Application.Orbit" />
         <item itemvalue="Application.OptimalVelocityFinder" />
         <item itemvalue="Application.RK4Solver" />
-        <item itemvalue="Application.EphemerisLoader" />
       </list>
     </recent_temporary>
   </component>
@@ -394,7 +416,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749466050514</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="added new gui">
+      <option name="closed" value="true" />
+      <created>1749476148225</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1749476148225</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -423,6 +453,7 @@
     <MESSAGE value="madness" />
     <MESSAGE value="madness ver2.0" />
     <MESSAGE value="Back To Earth" />
-    <option name="LAST_COMMIT_MESSAGE" value="Back To Earth" />
+    <MESSAGE value="added new gui" />
+    <option name="LAST_COMMIT_MESSAGE" value="added new gui" />
   </component>
 </project>

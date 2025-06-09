@@ -1,12 +1,18 @@
 package com.ken10.Phase2.SolarSystemModel;
 
-
+/**
+ * Stores Earth's information including:
+ * Radius
+ * Initial Velocity(without application)
+ * Initial Position on Earth
+ */
 public class Earth extends CelestialBodies {
     public static final double RADIUS = 6370;
     public static final Vector EARTH_VELOCITY_INITIAL;
     public static final Vector EARTH_INITIAL_POSITION;
+
     static {
-        double sunVX =  1.258146808934948E-02;
+        double sunVX = 1.258146808934948E-02;
         double sunVY = -4.478489369359461E-03;
         double sunVZ = -2.140398498365391E-04;
         double sunX = -7.596727134361322E+05;
@@ -21,14 +27,12 @@ public class Earth extends CelestialBodies {
         EARTH_VELOCITY_INITIAL = vEarth;
         EARTH_INITIAL_POSITION = pEarth;
     }
+
     public Earth(String name, Vector position, Vector velocity, double mass) {
         super(name, position, velocity, mass);
     }
+
     public Earth(String name, Vector position, Vector velocity, double mass, double scaling, double size) {
         super(name, position, velocity, mass, scaling, size);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(EARTH_VELOCITY_INITIAL);
     }
 }

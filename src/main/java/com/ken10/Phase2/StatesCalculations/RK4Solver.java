@@ -30,10 +30,7 @@ public class RK4Solver extends Solver {
     @Override
     public void step() {
         double h = isSeconds ? stepSize : stepSize*60;
-//        if(isSeconds) h = stepSize;
-//        else h = stepSize*60;
         long hNano = safeDoubleToInt(h) * 1000000000L;
-        // Calculate the derivatives at the current time step using GravityCalc
 
         LocalDateTime t = time;
         LocalDateTime t2 = t.plusNanos(hNano/2);
@@ -110,18 +107,14 @@ public class RK4Solver extends Solver {
 
 
         time = time.plusNanos(hNano);
-        //printState();
         recordState();
-
     }
-
-
     /**
      * Creates a temporary celestial body for cases of planet or rocket.
      *
-     * @param original
-     * @param position
-     * @param velocity
+     * @param original original body
+     * @param position original pos
+     * @param velocity original vel
      * @return a new planet or rocket instance.
      */
     private CelestialBodies createNewBody(CelestialBodies original, Vector position, Vector velocity) {
@@ -145,12 +138,5 @@ public class RK4Solver extends Solver {
             throw new IllegalArgumentException("Value " + value + " is not close to an integer.");
         }
         return (int) rounded;
-    }
-
-
-    public static void main(String[] args) {
-        double i = 8-10e-10;
-       System.out.println((int)Math.round(i));
-
     }
 }

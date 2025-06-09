@@ -6,7 +6,13 @@ import com.ken10.Phase2.StatesCalculations.EphemerisLoader;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Hashtable;
-
+/**
+ * This class contains all the essential parameters and state needed to simulate
+ * a spacecraft launch between two celestial bodies within the solar system model.
+ *
+ * <p>The class can be initialized either by autoloading planetary history or by supplying
+ * a predefined state at launch time.</p>
+ */
 public class LaunchData {
     private final BodyID destination;
     private final BodyID launchPlanet;

@@ -1,7 +1,7 @@
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\StatesCalculations\RK4Solver.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\SolarSystemModel\Titan.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\OptimizationAlgorithms\FitnessFunctions.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\OptimizationAlgorithms\Thrust.java
+C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\landing\LandingSimulation.java
+C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\landing\Vector2.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\SolarSystemModel\BodyID.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase1\ODESolver.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\SolarSystemModel\Vector.java
@@ -9,6 +9,7 @@ C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase1\LotkaVolterraSimulat
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\SolarSystemModel\Probe.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase1\EulerSolver.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\OptimizationAlgorithms\LaunchData.java
+C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\landing\Wind.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\OptimizationAlgorithms\HillClimbing.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase1\OdeFunction.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\Missions\BackToEarth.java
@@ -23,14 +24,11 @@ C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\Missions\Orbit.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\SolarSystemModel\PlanetModel.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\OptimizationAlgorithms\RK4Probe.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\StatesCalculations\EphemerisProvider.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\OptimizationAlgorithms\ThrustPlan.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\OptimizationAlgorithms\EvolutionAlgorithm.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\OptimizationAlgorithms\SpaceshipPath.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\StatesCalculations\Solver.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\SolarSystemModel\Earth.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\GUI\ZoomConfig.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\Missions\ToTitan.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\Missions\Wind.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\SolarSystemModel\SolarSystem.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase1\App.java
 C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\StatesCalculations\EphemerisLoader.java

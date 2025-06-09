@@ -1,20 +1,26 @@
 package com.ken10.Phase2.StatesCalculations;
 
-
-import com.ken10.Phase2.OptimizationAlgorithms.LaunchData;
 import com.ken10.Phase2.OptimizationAlgorithms.RK4Probe;
 import com.ken10.Phase2.SolarSystemModel.*;
-
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 
 
 //To run this code(load all the states in a specified time frame) you create an instance of
 //EphemerisLoader and then call EphemerisLoader.getPlanetStates()
 // and get all states in the timeframe you specify the start date, end date and then call
+
+/**
+ * <p>EphemerisLoader uses the RK4Solver method to calculate future positions and velocities of
+ * all Celestial bodies included in the simulation. It then stores a history of these values
+ * for future access, useful for simulation of both missions required in the project.
+ * </p>
+ * The main parameters used in the constructors include:
+ * List of bodies
+ * start time/end time
+ * step size
+ */
 public final class EphemerisLoader extends RK4Solver implements EphemerisProvider {
 
 public final ArrayList<CelestialBodies> initialState;
@@ -45,20 +51,19 @@ private static final LocalDateTime startTime = LocalDateTime.of(2025, 4, 1, 0,0,
 
     public EphemerisLoader(boolean isMission) {
         super(SolarSystem.createPlanets(), startTime, startTime.plusYears(isMission ? 2 : 1), 2, false);
-//        this.stepSize = 2;
         this.initialState = planetarySystem;
         loadHistory(isMission ? 2 : 1);
     }
 
+    /**
+     * simulates and updates a probe’s flight history over time,
+     * RK4 integration
+     * @param duration represents stages of mission 1 being earth to titan, 2 the journey back.
+     */
     private void loadHistory(int duration) {
         stepSize = stepSize/2;
-//        System.out.println("Step Size: " + stepSize);
         solve();
-//        var times = history.keySet().stream().sorted().toList();
-//        for (var time : times) {
-//            System.out.println("Time: " + time);
-//        }
-//        if(times.isEmpty()) return;
+
         stepSize = stepSize*2;
         RK4Probe simulation = new RK4Probe(probe1, history, stepSize, T_0, T_0.plusYears(1), BodyID.TITAN, BodyID.EARTH);
         simulation.solve();
@@ -99,25 +104,16 @@ private static final LocalDateTime startTime = LocalDateTime.of(2025, 4, 1, 0,0,
         ArrayList<CelestialBodies> currentState = history.get(currentTime);
         CelestialBodies cb = currentState.get(body.index());
         return cb.getPosition();
-        //We need to find the position of the planets in the current state
-        //Where do we store them? class to store the current solar system state
     }
-
     @Override
     public Vector velocity(BodyID body, LocalDateTime currentTime) {
         ArrayList<CelestialBodies> currentState = history.get(currentTime);
         CelestialBodies cb = currentState.get(body.index());
         return cb.getVelocity();
-        //We need to find the velocity of the planets in the current state
     }
-
     public int getStepSize() {
         return stepSize;
     }
-    public boolean isSeconds() {
-        return isSeconds;
-    }
-
     public void putHistory(LocalDateTime time, ArrayList<CelestialBodies> state) {
         history.put(time, state);
         if(time.isAfter(endTime)) {endTime = time;}
