@@ -43,7 +43,7 @@ public class LandingSolver {
             int currentStep = (int) Math.round(time / stepSize);
             controller.execute(module, currentStep, stepSize);
 
-            // 3) Compute accelerations (ax, ay, alphä) including gravity + thrust
+            // 3) Compute accelerations (ax, ay, alpha) including gravity + thrust
             Vector2 thrust = module.getThrust();
             Vector accelRot = dynamics.f(state, thrust, stepSize, time);
 
@@ -62,7 +62,7 @@ public class LandingSolver {
     public static void main(String[] args) {
         // -- 1) Define your initial conditions --
         double x0     =  0.0;    // start directly above pad
-        double y0     = 160.0;   // 160 km altitude
+        double y0     = 1600.0;   // 160 km altitude
         double theta0 =  0.0;    // upright
         double vx0    =  0.0;    // no horizontal speed
         double vy0    = -0.1;    // small downward speed
@@ -80,16 +80,16 @@ public class LandingSolver {
 
         // -- 3) Create the RK4 solver --
         double t0        = 0.0;
-        double tEnd      = 500.0;   // total sim time
-        double stepSize  = 0.01;     // time step
+        double tEnd      = 1500.0;   // total sim time
+        double stepSize  = 0.1;     // time step
         OdeFunction ode = new LandingOdeFunction(module, controller, stepSize);
 
         RungeKutta4Solver solver = new RungeKutta4Solver(
             ode, initArr, t0, tEnd, stepSize
-        ); // :contentReference[oaicite:0]{index=0}
+        ); 
 
         // -- 4) Run and print results --
-        List<TimeState> history = solver.solve();                // :contentReference[oaicite:1]{index=1}
+        List<TimeState> history = solver.solve();                
         for (TimeState ts : history) {
             StateVector sv = StateVector.fromArray(ts.state);
             System.out.printf("t=%.2f → %s%n", ts.time, sv);
