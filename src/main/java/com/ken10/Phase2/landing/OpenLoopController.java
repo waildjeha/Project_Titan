@@ -107,7 +107,7 @@ public class OpenLoopController {
 
             OdeFunction ode = new MultiPhaseOde(t1, t2, t_h1);
             double[] init = {0.0, y0, 0.0, vx0, vy0, 0.0};
-            double t0 = 0.0, tEnd = t2 + 200, h = 0.1;
+            double t0 = 0.0, tEnd = t2 + 200, h = 0.001;
 
             RungeKutta4Solver solver =
               new RungeKutta4Solver(ode, init, t0, tEnd, h);
