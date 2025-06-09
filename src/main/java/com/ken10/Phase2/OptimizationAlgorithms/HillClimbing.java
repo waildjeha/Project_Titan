@@ -62,6 +62,7 @@ public class HillClimbing {
 
     public void solve() {
         bestSimulation = findOptimalVelocity();
+        System.out.println(bestSimulation);
     }
     public RK4Probe getBestSimulation() {
         return bestSimulation;

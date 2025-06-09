@@ -41,7 +41,7 @@ RK4Probe foundData;
     private static EphemerisLoader findFirstMissionHistory(){
         Vector earthPos = new Vector (-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497);
         Probe probe = new Probe("probe", earthPos, new Vector (63.29024702239812, -33.49000052271595, -15.072908267640539));
-        EphemerisLoader eph = new EphemerisLoader(1, probe, 1);
+        EphemerisLoader eph = new EphemerisLoader(false);
         eph.solve();
         return eph;
     }

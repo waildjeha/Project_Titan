@@ -43,31 +43,36 @@ private static final LocalDateTime startTime = LocalDateTime.of(2025, 4, 1, 0,0,
         this.initialState = planetarySystem;
     }
 
-    public EphemerisLoader(int stepSizeMins, boolean isMission, int duration) {
-        super(SolarSystem.createPlanets(), T_0, T_0.plusYears(duration), stepSizeMins, false);
-        this.stepSize = Math.max(stepSizeMins, 2);
-        if(this.stepSize % 2 != 0) {
-            this.stepSize++;
-            System.out.println("Changed step size to " + this.stepSize);
-        }
+    public EphemerisLoader(boolean isMission) {
+        super(SolarSystem.createPlanets(), startTime, startTime.plusYears(isMission ? 2 : 1), 2, false);
+//        this.stepSize = 2;
         this.initialState = planetarySystem;
-        loadHistory(duration);
+        loadHistory(isMission ? 2 : 1);
     }
 
     private void loadHistory(int duration) {
         stepSize = stepSize/2;
+//        System.out.println("Step Size: " + stepSize);
         solve();
+//        var times = history.keySet().stream().sorted().toList();
+//        for (var time : times) {
+//            System.out.println("Time: " + time);
+//        }
+//        if(times.isEmpty()) return;
         stepSize = stepSize*2;
         RK4Probe simulation = new RK4Probe(probe1, history, stepSize, T_0, T_0.plusYears(1), BodyID.TITAN, BodyID.EARTH);
         simulation.solve();
         Hashtable<LocalDateTime, ArrayList<CelestialBodies>> hashtableToUse = new Hashtable<>();
+        LocalDateTime endTimeTmp = endTime;
         for (LocalDateTime time = T_0; time.isBefore(simulation.getClosestDistTime()); time = time.plusMinutes(stepSize)) {
             ArrayList<CelestialBodies> currentState = history.get(time);
             currentState.add(simulation.historyProbe.get(time));
             hashtableToUse.put(time, currentState);
+            endTimeTmp = time;
         }
         if(duration == 1) {
             history.clear();
+            endTime = endTimeTmp;
             history = hashtableToUse;
         }
         else if(duration == 2) {
@@ -113,17 +118,9 @@ private static final LocalDateTime startTime = LocalDateTime.of(2025, 4, 1, 0,0,
         return isSeconds;
     }
 
-    public static void main(String[] args) {
-        LocalDateTime startTime = LocalDateTime.of(2025, 4, 1, 0, 0);
-        Vector earthPosition = new Vector(-1.4664541859104577E8, -2.8949304626334388E7, 2241.9186033698497);
-        Vector initialVelocity = new Vector(63.29024702239812, -33.49000052271595, -15.072908267640539);
-        Probe probe = new Probe("dominik", earthPosition, initialVelocity);
-        EphemerisLoader eph = new EphemerisLoader(2, true, 2);
-
-
-
-
-
-    }
+    public void putHistory(LocalDateTime time, ArrayList<CelestialBodies> state) {
+        history.put(time, state);
+        if(time.isAfter(endTime)) {endTime = time;}
+        }
     }
 

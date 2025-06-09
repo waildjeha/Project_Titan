@@ -29,9 +29,9 @@ public class RK4Solver extends Solver {
      */
     @Override
     public void step() {
-        double h;
-        if(isSeconds) h = stepSize;
-        else h = stepSize*60;
+        double h = isSeconds ? stepSize : stepSize*60;
+//        if(isSeconds) h = stepSize;
+//        else h = stepSize*60;
         long hNano = safeDoubleToInt(h) * 1000000000L;
         // Calculate the derivatives at the current time step using GravityCalc
 

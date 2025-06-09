@@ -1,6 +1,7 @@
 package com.ken10.Phase2.StatesCalculations;
 
 
+import com.ken10.Phase2.SolarSystemModel.BodyID;
 import com.ken10.Phase2.SolarSystemModel.CelestialBodies;
 import com.ken10.Phase2.SolarSystemModel.SolarSystem;
 
@@ -65,6 +66,7 @@ public abstract class Solver implements ODE_Function {
      * Run the simulation until endTime
      */
     public void solve() {
+        if (history.keySet().stream().toList().size()>1) {return;}
         while (time.isBefore(endTime)) {
             step();
             recordState();
@@ -79,6 +81,8 @@ public abstract class Solver implements ODE_Function {
         for (CelestialBodies body : planetarySystem) {
             snapshot.add(body.deepCopy()); // Deep copy constructor
         }
+//        if (isSeconds) {System.out.println("Distance between Titan and Spaceship is: " + snapshot.get(BodyID.SPACESHIP.index()).getPosition().getDistance(snapshot.get(BodyID.TITAN.index()).getPosition()) + ", time " + time);}
+
         history.put(time, snapshot);
     }
 

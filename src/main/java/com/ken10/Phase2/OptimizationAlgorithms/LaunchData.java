@@ -22,8 +22,8 @@ public class LaunchData {
         this.initialPosition = initialPosition;
         this.launchTime = launchTime;
         this.endTime = endTime;
-        this.isSurface = isSurface();
         loadHistory(destination);
+        this.isSurface = isSurface();
     }
     public LaunchData(BodyID destination, BodyID launchPlanet, Vector initialPosition, LocalDateTime launchTime, LocalDateTime endTime, ArrayList<CelestialBodies> initialPlanets) {
         this.destination = destination;
@@ -31,28 +31,27 @@ public class LaunchData {
         this.initialPosition = initialPosition;
         this.launchTime = launchTime;
         this.endTime = endTime;
-        loadHistory(destination, initialPlanets);
+        loadHistory(initialPlanets);
         this.isSurface = isSurface();
     }
 
 
     private BodyID isSurface() {
         var initialState = historyPlanets.get(launchTime);
-        if(initialPosition.getDistance(initialState.get(BodyID.TITAN.index()).getPosition()) >= Titan.RADIUS)
+        if(initialPosition.getDistance(initialState.get(BodyID.TITAN.index()).getPosition()) <= Titan.RADIUS)
             return BodyID.TITAN;
-        if (initialPosition.getDistance(initialState.get(BodyID.EARTH.index()).getPosition()) >= Earth.RADIUS)
+        if (initialPosition.getDistance(initialState.get(BodyID.EARTH.index()).getPosition()) <= Earth.RADIUS)
             return BodyID.EARTH;
          return BodyID.SPACESHIP;
     }
 
     private void loadHistory(BodyID destination) {
-        int duration = 2;
-        if (destination.equals(BodyID.TITAN)) duration = 1;
+        int duration = destination.equals(BodyID.TITAN) ? 1 : 2;
         EphemerisLoader eph = new EphemerisLoader(1, duration);
         eph.solve();
         historyPlanets = eph.history;
     }
-    private void loadHistory(BodyID destination, ArrayList<CelestialBodies> planets) {
+    private void loadHistory(ArrayList<CelestialBodies> planets) {
         EphemerisLoader eph = new EphemerisLoader(planets, this.launchTime, this.endTime, 1, false);
         eph.solve();
         historyPlanets = eph.history;
