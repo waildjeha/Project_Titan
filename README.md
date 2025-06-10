@@ -50,12 +50,7 @@ Follow these steps to run the simulation:
 
 * **Run the Simulation:**
 
-    * **Using an IDE:**
-        * If you are using an IDE, navigate to the `src/main/java` directory.
-        * Locate the `App.java` file.
-        * Run the `App.java` file as a Java application within your IDE.
-    * **Using the Command Line:**
-        * If you prefer to run the simulation from the command line, use the following Maven command:
+    * To run the GUI from the command line, use the following Maven command:
 
             ```bash
             mvn javafx:run
