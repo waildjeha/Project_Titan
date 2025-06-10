@@ -59,7 +59,7 @@ public class Vector2 {
         return String.format("(%.3fm, %.3fm)", x, y);
     }
 
-    public static final Vector2 ZERO = new Vector2(0,0);
+    public static final Vector2 VELOCITY = new Vector2(0,0);
 
     public double getLength() {
         return Math.sqrt(x * x + y * y);

@@ -1,7 +1,11 @@
 package com.ken10.Phase2.landing;
 
-
-public class LandingSimulation
+/**
+ * A feedback (closed-loop) controller that simulates the landing of a probe
+ * based on its current state, adjusting acceleration and torque dynamically
+ * to achieve a stable landing on a 2D surface.
+ */
+public class FeedbackController
 {
     private final static double g = 1.352 * 1e-3;
     private final static double maxAcceleration = 10 * g;
@@ -29,8 +33,18 @@ public class LandingSimulation
     private double currentTorque;
 
     private double targetRotation;
+    private double windFactor=0.5;
 
-    public LandingSimulation(Vector2 startPosition, Vector2 startVelocity, double startRotation)
+
+    /**
+     * Constructs a FeedbackController with the given initial conditions.
+     *
+     * @param startPosition initial position of the probe
+     * @param startVelocity initial velocity of the probe
+     * @param startRotation initial rotation of the probe in degrees
+     */
+
+    public FeedbackController(Vector2 startPosition, Vector2 startVelocity, double startRotation)
     {
         this.startPosition = startPosition;
         this.startVelocity = startVelocity;
@@ -50,7 +64,7 @@ public class LandingSimulation
 
         while (!isLanded())
         {
-            currentVelocity = Vector2.ZERO;
+            currentVelocity = Vector2.VELOCITY;
             currentTorque = 0;
 
             if (!isXReached())
@@ -93,10 +107,8 @@ public class LandingSimulation
             move();
             rotate();
 
-            System.out.printf("Landing Iteration: Position: %s Velocity: %s Acceleration: %s Rotation: %s Target Rotation: %s Torque: %s%n",
+            System.out.printf("Landing Iteration: Position:  %s Rotation: %s Target Rotation: %s Torque: %s%n",
                     currentPosition.toString(),
-                    currentVelocity.toString(),
-                    acceleration,
                     currentRotation,
                     targetRotation,
                     currentTorque);
@@ -108,20 +120,40 @@ public class LandingSimulation
                 currentRotation);
     }
 
+    /**
+     * Updates the position and velocity of the probe based on current rotation and acceleration.
+     */
+
     private void move()
     {
         double radians = Math.toRadians(currentRotation);
         double x = acceleration * Math.sin(radians);
         double y = acceleration * Math.cos(radians) - g;
         currentVelocity = new Vector2(x, y);
-//        currentVelocity=Wind.applyWindVector(currentVelocity);
+
+        currentVelocity=Wind.applyWindVector(currentVelocity,windFactor);
         currentPosition = currentPosition.add(currentVelocity);
+
+        if (Math.abs(currentPosition.getY()) < 1e-3 + 0.001) {
+            currentPosition = new Vector2(currentPosition.getX(), 0);
+            currentVelocity = new Vector2(currentVelocity.getX(), 0);
+        }
+
     }
+
+    /**
+     * Updates the rotation of the probe based on applied torque.
+     */
 
     private void rotate()
     {
         currentRotation += currentTorque;
     }
+    /**
+     * Checks if the probe has met all landing conditions.
+     *
+     * @return true if landing is complete, false otherwise
+     */
 
     private boolean isLanded()
     {
@@ -133,12 +165,26 @@ public class LandingSimulation
                 && Math.abs(currentTorque) <= torqueTolerance;
     }
 
-    private boolean isRotationAligned() { return currentRotation == targetRotation; }
+    /**
+     * Checks if the probe has met all landing conditions.
+     *
+     * @return true if landing is complete, false otherwise
+     */
+
 
     private boolean isXReached() { return Math.abs(currentPosition.getX()) <= positionXTolerance; }
-    private boolean isYReached() { return Math.abs(currentPosition.getY()) <= positionYTolerance; }
+    private boolean isYReached() {return Math.abs(currentPosition.getY()) <= positionYTolerance; }
     private boolean isRotationReached() { return Math.abs(currentRotation) <= rotationTolerance; }
 
+
+    /**
+     * Clamps a value between a minimum and a maximum.
+     *
+     * @param value the value to clamp
+     * @param min   minimum value
+     * @param max   maximum value
+     * @return clamped value
+     */
     private double clamp(double value, double min, double max)
     {
         return Math.max(min, Math.min(value, max));
@@ -146,10 +192,10 @@ public class LandingSimulation
 
     public static void main(String[] args)
     {
-        Vector2 startPosition = new Vector2(100, 100);
-        Vector2 startVelocity = Vector2.ZERO;
+        Vector2 startPosition = new Vector2(100, 1000);
+        Vector2 startVelocity = Vector2.VELOCITY;
         double startRotation = 0;
-        LandingSimulation landingSimulation = new LandingSimulation(startPosition, startVelocity, startRotation);
+        FeedbackController landingSimulation = new FeedbackController(startPosition, startVelocity, startRotation);
         landingSimulation.run();
     }
 }
