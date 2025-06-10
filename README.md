@@ -67,3 +67,9 @@ Follow these steps to run the simulation:
   optimalVelocityFinder.solve();
   simulation = optimalVelocityFinder.getFoundData();
 * To visualize found data just print the "simulation"
+
+* **Landing Simulation:**
+* To run the Open-loop Controller / Feedback Controller simulation, run the main method
+      in the respective class:
+      [OpenLoopController](src/main/java/com/ken10/Phase2/landing/OpenLoopController.java)
+      [FeedbackController](src/main/java/com/ken10/Phase2/landing/FeedbackController.java)
