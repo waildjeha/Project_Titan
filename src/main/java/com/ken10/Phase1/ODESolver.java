@@ -24,7 +24,7 @@ public abstract class ODESolver {
      * @param stepSize           Time step size
      */
     public ODESolver(OdeFunction derivativeFunction, double[] initialState,
-            double startTime, double endTime, double stepSize) {
+                     double startTime, double endTime, double stepSize) {
         this.derivativeFunction = derivativeFunction;
         this.state = Arrays.copyOf(initialState, initialState.length);
         this.time = startTime;
@@ -43,7 +43,7 @@ public abstract class ODESolver {
 
     /**
      * Run the simulation until endTime
-     * 
+     *
      * @return History of states over time
      */
     public List<TimeState> solve() {
@@ -72,5 +72,11 @@ public abstract class ODESolver {
             this.time = time;
             this.state = state;
         }
+    }
+    public double[] getState() {
+        return state;
+    }
+    public double getTime(){
+        return this.time;
     }
 }
