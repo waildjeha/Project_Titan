@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Orbit extends ToTitan{
 
     protected Orbit (){
-    solve();
+        solve();
     }
 
     private void solve(){

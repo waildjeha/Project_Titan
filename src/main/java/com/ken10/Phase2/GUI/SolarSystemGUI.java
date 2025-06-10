@@ -5,6 +5,7 @@ package com.ken10.Phase2.GUI;
 // =====================================
 // Solar system model classes containing celestial body data and physics
 import com.ken10.Phase2.Missions.BackToEarth;
+import com.ken10.Phase2.Missions.ToTitan;
 import com.ken10.Phase2.SolarSystemModel.*;
 // State calculation classes for orbital mechanics and ephemeris data
         import com.ken10.Phase2.StatesCalculations.*;
@@ -13,7 +14,7 @@ import com.ken10.Phase2.SolarSystemModel.*;
 // JAVAFX CORE APPLICATION IMPORTS
 // =====================================
 // Main application framework
-        import javafx.application.Application;
+import javafx.application.Application;
 import javafx.stage.Stage;
 
 // =====================================
@@ -27,7 +28,7 @@ import javafx.scene.Node;
 
 // Layout containers and positioning
 import javafx.scene.layout.*;
-        import javafx.geometry.Pos;
+import javafx.geometry.Pos;
 import javafx.geometry.Insets;
 import javafx.geometry.Point3D;
 
@@ -72,7 +73,7 @@ import javafx.animation.AnimationTimer;
 // =====================================
 // Network and resource handling
 import java.net.URL;
-
+import java.time.LocalDate;
 // Date and time manipulation for simulation timeline
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -116,7 +117,11 @@ public class SolarSystemGUI extends Application {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private LocalDateTime currentTime;
+    private LocalDateTime probeEndTime;
+    private LocalDateTime engineEndTime;
     private List<LocalDateTime> timeKeys;
+    private List<LocalDateTime> probeTimeKeys;
+    private List<LocalDateTime> engineTimeKeys;
     private int currentTimeIndex = 0;
 
     // =====================================
@@ -151,6 +156,8 @@ public class SolarSystemGUI extends Application {
     private final Scale scale = new Scale(1.0, 1.0, 1.0);
     private final Translate translate = new Translate(0, 0, 0);
     private String trackedBody = null; // The body to focus on with the camera.
+    private boolean trackProbe = false; // Set the probe to initially not be tracked.
+    private String mission; // Specify which mission is visualized.
     private final Translate cameraOffset = new Translate(0, 0, 0); // Set the camera offset.
 
     // =====================================
@@ -228,19 +235,36 @@ public class SolarSystemGUI extends Application {
      */
     private void loadEphemerisData() {
         System.out.println("Loading ephemeris data...");
-        // Initialize ephemeris loader with 2-minute steps
-        EphemerisLoader eph = BackToEarth.getEphemerisLoader(false);
-        timeStates = eph.history;
+        // Initialize ephemeris loader for the probe
+        EphemerisLoader probeEph = ToTitan.getEphemerisLoader();
+        probeTimeStates = probeEph.history;
 
-
-        System.out.println("Loaded " + timeStates.size() + " time states");
+        System.out.println("Loaded " + probeTimeStates.size() + " probe time states");
 
         // Extract start and end times from the data
-        timeKeys = new ArrayList<>(timeStates.keySet());
-        Collections.sort(timeKeys);
+        probeTimeKeys = new ArrayList<>(probeTimeStates.keySet());
+        Collections.sort(probeTimeKeys);
+        probeEndTime = probeTimeKeys.get(probeTimeKeys.size() - 1);
 
+        // Initialize ephemeris loader for the engine mission
+        EphemerisLoader engineEph = BackToEarth.getEphemerisLoader(false);
+        engineMissionTimeStates = engineEph.history;
+
+        System.out.println("Loaded " + engineMissionTimeStates.size() + " engine mission time states");
+
+        // Extract start and end times from the data
+        engineTimeKeys = new ArrayList<>(engineMissionTimeStates.keySet());
+        Collections.sort(engineTimeKeys);
+        engineEndTime = engineTimeKeys.get(engineTimeKeys.size() - 1);
+
+        // Visualize the engine mission by default.
+        timeStates = engineMissionTimeStates;
+        timeKeys = engineTimeKeys;
+        endTime = engineEndTime;
+        mission = "engine";
+
+        // Extract start time and current time.
         startTime = timeKeys.get(0);
-        endTime = timeKeys.get(timeKeys.size() - 1);
         currentTime = startTime;
 
         // Get the initial state of celestial bodies
@@ -287,11 +311,11 @@ public class SolarSystemGUI extends Application {
 
         // Titan system zoom configuration
         Map<String, Double> titanSizes = new HashMap<>();
-        titanSizes.put("saturn", 0.2);
-        titanSizes.put("titan", 0.5);
-        titanSizes.put("probe", 0.05);
+        titanSizes.put("saturn", 0.1);
+        titanSizes.put("titan", 0.001);
+        titanSizes.put("probe", 0.000025);
 
-        zoomConfigurations.put("titan", new ZoomConfig(300.0, titanSizes));
+        zoomConfigurations.put("titan", new ZoomConfig(35000.0, titanSizes));
     }
 
 // =====================================
@@ -339,22 +363,22 @@ public class SolarSystemGUI extends Application {
         // Button to zoom on the Earth
         Button zoomEarth = new Button("Zoom Earth");
         styleButton(zoomEarth);
-        zoomEarth.setOnAction(e -> zoomOnBody("earth"));
+        zoomEarth.setOnAction(e -> zoomOnBody("earth", false));
 
         // Button to zoom on Saturn
         Button zoomSaturn = new Button("Zoom Saturn");
         styleButton(zoomSaturn);
-        zoomSaturn.setOnAction(e -> zoomOnBody("saturn"));
+        zoomSaturn.setOnAction(e -> zoomOnBody("saturn", false));
 
         // Button to zoom on Titan
         Button zoomTitan = new Button("Zoom Titan");
         styleButton(zoomTitan);
-        zoomTitan.setOnAction(e -> zoomOnBody("titan"));
+        zoomTitan.setOnAction(e -> zoomOnBody("titan", false));
 
         // Button to zoom on the probe
         Button zoomProbe = new Button("Zoom Probe");
         styleButton(zoomProbe);
-        zoomProbe.setOnAction(e -> zoomOnBody("probe"));
+        zoomProbe.setOnAction(e -> zoomOnBody("probe", true));
 
         // Button to reset the view on the Solar System
         Button resetButton = new Button("Reset View");
@@ -891,7 +915,7 @@ public class SolarSystemGUI extends Application {
      * @param velocity The velocity vector determining the rocket's direction
      */
     private void updateRocketOrientation(Group rocket, Vector velocity) {
-        if (velocity.magnitude() > 1e-10) { // Check for non-zero velocity
+        if (velocity.magnitude() > 0) { // Check for non-zero velocity
             // Preserve existing scale transforms while clearing only rotate transforms
             List<Scale> existingScales = new ArrayList<>();
             for (Transform transform : rocket.getTransforms()) {
@@ -921,13 +945,14 @@ public class SolarSystemGUI extends Application {
 
             // Calculate the angle of rotation (dot product)
             double dotProduct = yAxis.dotProduct(velocityDirection);
-            double angle = Math.toDegrees(Math.acos(Math.max(-1.0, Math.min(1.0, dotProduct))));
+            // Clamp dot product to valid range for acos
+            dotProduct = Math.max(-1.0, Math.min(1.0, dotProduct));
+            double angle = Math.toDegrees(Math.acos(dotProduct));
 
-            // Only apply rotation if we have a valid rotation axis
-            if (rotationAxis.magnitude() > 1e-10) {
+            if (rotationAxis.magnitude() > 1e-15 && !Double.isNaN(angle)) {
                 Rotate rotation = new Rotate(angle, rotationAxis);
                 rocket.getTransforms().add(rotation); // Add after the scale transforms
-            } else if (dotProduct < 0) {
+            } else if (dotProduct < -0.99) {
                 // Special case: velocity is opposite to Y-axis, rotate 180 degrees around X-axis
                 Rotate rotation = new Rotate(180, Rotate.X_AXIS);
                 rocket.getTransforms().add(rotation); // Add after the scale transforms
@@ -935,6 +960,9 @@ public class SolarSystemGUI extends Application {
             // If dotProduct > 0.99, velocity is already aligned with Y-axis, no rotation needed
 
             System.out.println("Rocket orientation updated. Total transforms: " + rocket.getTransforms().size());
+        } else {
+            System.out.println("Rocket orientation not updated - velocity too small or null: " + 
+                            (velocity != null ? velocity.magnitude() : "null"));
         }
     }
 
@@ -947,7 +975,8 @@ public class SolarSystemGUI extends Application {
      *
      * @param name The name of the celestial body to focus on
      */
-    private void zoomOnBody(String name) {
+    private void zoomOnBody(String name, boolean probeTracked) {
+        trackProbe = probeTracked;
         String bodyName = name.toLowerCase();
         Node target = celestialNodes.get(bodyName);
         if (target == null) {
@@ -1086,6 +1115,7 @@ public class SolarSystemGUI extends Application {
      * Clears tracking, resets transformations, and restores original body sizes.
      */
     private void resetCameraView() {
+        trackProbe = false;
         trackedBody = null;
         currentZoomContext = null;
 
@@ -1246,8 +1276,14 @@ public class SolarSystemGUI extends Application {
     private void startSpecifiedMission(String mission){
         if(mission.equals("probe")){
             timeStates = probeTimeStates;
+            timeKeys = probeTimeKeys;
+            endTime = probeEndTime;
+            this.mission = "probe";
         } else{
             timeStates = engineMissionTimeStates;
+            timeKeys = engineTimeKeys;
+            endTime = engineEndTime;
+            this.mission = "engine";
         }
 
         restartSimulation();
@@ -1270,6 +1306,26 @@ public class SolarSystemGUI extends Application {
         if (currentState == null) {
             System.out.println("No data for time: " + currentTime);
             return;
+        }
+
+        // If the probe is tracked, check what we need to zoom on.
+        if(trackProbe && mission.equals("engine")){
+            // If the probe is close to Earth, zoom on Earth.
+            if(currentTime.isBefore(startTime.plusMinutes(300)) || currentTime.isAfter(engineEndTime.plusMinutes(-300))){
+                zoomOnBody("earth", true);
+                trackProbe = true;
+            }
+            // If the engine mission is close to Titan, zoom on Titan.
+            else if(currentTime.isAfter(probeEndTime.plusDays(-1)) && currentTime.isBefore(probeEndTime.plusMinutes(330))) {
+                zoomOnBody("titan", false);
+                trackProbe = true; // Stop tracking probe
+            }
+            // if the probe is not close to Titan or Earth, zoom on the Probe
+            else{
+                zoomOnBody("probe", true);
+                trackProbe = true;
+            }
+
         }
 
         // Update the visualization for each celestial body

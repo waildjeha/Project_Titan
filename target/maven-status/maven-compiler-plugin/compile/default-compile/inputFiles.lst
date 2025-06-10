@@ -1,43 +1,39 @@
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\StatesCalculations\RK4Solver.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\SolarSystemModel\Titan.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\landing\LandingSimulation.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\landing\LandingSolver.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\landing\Vector2.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\SolarSystemModel\BodyID.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\landing\OpenLoopController.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase1\ODESolver.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\SolarSystemModel\Vector.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase1\LotkaVolterraSimulation.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\SolarSystemModel\Probe.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\landing\LandingDifferentialEquation.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase1\EulerSolver.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\landing\LandingModule.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\OptimizationAlgorithms\LaunchData.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\landing\Wind.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\OptimizationAlgorithms\HillClimbing.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase1\OdeFunction.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\Missions\BackToEarth.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\SolarSystemModel\GravityCalc.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\GUI\Line3D.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\GUI\SolarSystemGUI.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase1\RungeKutta4Solver.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\landing\GravitationFunction.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\OptimizationAlgorithms\OptimalVelocityFinder.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\StatesCalculations\ODE_Function.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\SolarSystemModel\CelestialBodies.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\Missions\Orbit.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\SolarSystemModel\PlanetModel.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\OptimizationAlgorithms\RK4Probe.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\StatesCalculations\EphemerisProvider.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\OptimizationAlgorithms\EvolutionAlgorithm.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\StatesCalculations\Solver.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\SolarSystemModel\Earth.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\GUI\ZoomConfig.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\landing\LandingGravitationFunction.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\landing\Function.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\landing\LandingController.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\Missions\ToTitan.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\landing\StateVector.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\SolarSystemModel\SolarSystem.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase1\App.java
-C:\Users\dilpa\Project_Titan\src\main\java\com\ken10\Phase2\StatesCalculations\EphemerisLoader.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/HillClimbing.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/landing/Function.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/RK4Probe.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/SolarSystem.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/GravityCalc.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/landing/GravitationFunction.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase1/OdeFunction.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/landing/Vector2.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/Missions/Orbit.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/GUI/Line3D.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/CelestialBodies.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/Earth.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/LaunchData.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase1/App.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/PlanetModel.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/landing/StateVector.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase1/LotkaVolterraSimulation.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/Missions/BackToEarth.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/StatesCalculations/ODE_Function.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/StatesCalculations/Solver.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/BodyID.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/OptimalVelocityFinder.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/landing/Wind.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/StatesCalculations/EphemerisProvider.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase1/EulerSolver.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase1/RungeKutta4Solver.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/Titan.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/StatesCalculations/RK4Solver.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase1/ODESolver.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/StatesCalculations/EphemerisLoader.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/Probe.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/landing/FeedbackController.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/landing/LandingGravitationFunction.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/Missions/ToTitan.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/GUI/ZoomConfig.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/OptimizationAlgorithms/EvolutionAlgorithm.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/GUI/SolarSystemGUI.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/landing/OpenLoopController.java
+/Users/noortjevanmaldegem/Documents/Universiteit/Jaar 1/Project 1-2/Project_Titan/src/main/java/com/ken10/Phase2/SolarSystemModel/Vector.java
