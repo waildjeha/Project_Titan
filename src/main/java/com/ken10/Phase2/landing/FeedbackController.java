@@ -108,7 +108,7 @@ public class FeedbackController
             rotate();
 
             System.out.printf("Landing Iteration: Position:  %s Rotation: %s Target Rotation: %s Torque: %s%n",
-                    currentPosition.toString(),
+                    currentPosition.getY(),
                     currentRotation,
                     targetRotation,
                     currentTorque);

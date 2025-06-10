@@ -6,8 +6,7 @@ import com.ken10.Phase2.StatesCalculations.Solver;
 public interface Function {
     /**
      *
-     * @param v1 positions (used like this in the {@link Solver} instances of the program)
-     * @param v2 velocities (used like this in the {@link Solver} instances of the program)
+     * @param state position and velocities as a StateVector
      * @param v3 masses (used like this in the {@link Solver} instances of the program)
      * @return resulting Vector of the function
      */
