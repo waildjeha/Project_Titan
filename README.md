@@ -52,7 +52,5 @@ Follow these steps to run the simulation:
 
     * To run the GUI from the command line, use the following Maven command:
 
-            ```bash
             mvn javafx:run
-            ```
 
