@@ -40,7 +40,7 @@ public class ToTitan {
     private void evaluateFuel() {
         var time = historyEphemeris.history.keySet().stream().sorted().toList().getFirst();
         var spaceshipVel = historyEphemeris.history.get(time).get(BodyID.SPACESHIP.index()).getVelocity();
-        Vector earthVelocity = historyEphemeris.history.get(time).get(BodyID.EARTH.index()).getVelocity();
+        var earthVelocity = historyEphemeris.history.get(time).get(BodyID.EARTH.index()).getVelocity();
         double thrustMagnitude = spaceshipVel.subtract(earthVelocity).magnitude();
         totalFuelConsumption += thrustMagnitude * Probe.MASS;
     }

@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14fb5ccc-6dd6-4a9d-9157-0db3049f8021" name="Changes" comment="javadoc">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/landing/LandingController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/landing/LandingDifferentialEquation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/BackToEarth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/BackToEarth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/Orbit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ken10/Phase2/Missions/Orbit.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +62,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.BackToEarth.executor": "Run",
     "Application.BalisticMissionSimulator.executor": "Run",
     "Application.DifferentialEvolutionAlgorithm.executor": "Run",
     "Application.EphemerisLoader.executor": "Run",
@@ -121,7 +122,20 @@
       <recent name="com.ken10" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.BackToEarth">
+    <configuration name="BackToEarth" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.Missions.BackToEarth" />
+      <module name="titan" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ken10.Phase2.Missions.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="EphemerisLoader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ken10.Dillons_Phase2.entities.astro.Emhemeris.EphemerisLoader" />
       <module name="titan" />
@@ -161,19 +175,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="com.ken10.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.ken10.Main" />
-      <module name="titan" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.ken10.unused.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="com.ken10.Phase2.StatesCalculations.EphemerisLoader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ken10.Phase2.StatesCalculations.EphemerisLoader" />
       <module name="titan" />
@@ -189,11 +190,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.BackToEarth" />
         <item itemvalue="Application.TitanInterceptSearch" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.EphemerisLoader" />
         <item itemvalue="Application.com.ken10.Phase2.StatesCalculations.EphemerisLoader" />
-        <item itemvalue="Application.com.ken10.Main" />
       </list>
     </recent_temporary>
   </component>

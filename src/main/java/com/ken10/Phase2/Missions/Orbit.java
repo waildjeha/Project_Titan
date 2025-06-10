@@ -41,8 +41,9 @@ public class Orbit extends ToTitan{
         }
         System.out.println("Probe reached desired altitude of " + (distance-R_TITAN) + "km above Titan surface, time " + t_orbit_goal);
         Vector desiredVelocity = findCircularOrbit(state, altitude-R_TITAN, t_orbit_goal);
+        evaluateFuel(historyEphemeris.history.get(t_orbit_goal), desiredVelocity);
         runSimulation(state, desiredVelocity, t_orbit_goal); //populate history
-        evaluateFuel(state, desiredVelocity);
+
 //        System.out.println("Desired velocity: " + desiredVelocity);
     }
 
@@ -102,7 +103,7 @@ public class Orbit extends ToTitan{
 //    return error;
     }
 
-    private void evaluateFuel(ArrayList<CelestialBodies> state, Vector desiredVelocity) {
+    protected void evaluateFuel(ArrayList<CelestialBodies> state, Vector desiredVelocity) {
         Vector initialVel = state.get(BodyID.SPACESHIP.index()).getVelocity();
         Vector finalVel = initialVel.subtract(desiredVelocity);
         double thrustMagnitude = initialVel.subtract(finalVel).magnitude();

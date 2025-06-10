@@ -54,3 +54,16 @@ Follow these steps to run the simulation:
 
             mvn javafx:run
 
+* **Find optimal Velocity to reach any planet from a position:**
+* Example usage pseudocode:
+* LaunchData launchData = new LaunchData(BodyID destination, 
+* BodyID launchPlanet, 
+* Vector initialPosition, 
+* LocalDateTime launchTime, 
+* LocalDateTime endTime, 
+* ArrayList<CelestialBodies> initialState);
+  RK4Probe simulation;
+  OptimalVelocityFinder optimalVelocityFinder = new OptimalVelocityFinder(launchData);
+  optimalVelocityFinder.solve();
+  simulation = optimalVelocityFinder.getFoundData();
+* To visualize found data just print the "simulation"

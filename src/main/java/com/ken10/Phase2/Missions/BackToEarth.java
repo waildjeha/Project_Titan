@@ -36,6 +36,8 @@ public class BackToEarth extends Orbit{
         double altitude = probePos.getDistance(titanPos);
         System.out.println("Probe is at altitude of: " + (altitude-R_TITAN) + "km above Titan surface, time " + t0); // Should be 2026-03-20T05:06:54
         ArrayList<CelestialBodies> bodies = new ArrayList<>(historyEphemeris.history.get(t0));
+        evaluateFuel(bodies, historyEphemeris.velocity(BodyID.SPACESHIP, t0));
+        System.out.println("Total fuel consumption with hardcoded data is " + totalFuelConsumption);
         if(bodies.size() == 12){bodies.removeLast();}
         LaunchData launchData = new LaunchData(BodyID.EARTH, BodyID.TITAN, probePos, t0, endTimeMission, bodies);
         RK4Probe simulation;
@@ -66,6 +68,6 @@ public class BackToEarth extends Orbit{
     }
 
     public static void main(String[] args) {
-        EphemerisLoader loader = BackToEarth.getEphemerisLoader(true);
+        EphemerisLoader loader = BackToEarth.getEphemerisLoader(false);
     }
 }
